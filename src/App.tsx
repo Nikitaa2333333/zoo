@@ -161,9 +161,31 @@ const faqData = [
 ];
 
 const promoData = [
-  { title: "Постоянным клиентам", text: "Скидка 5% на все услуги отеля начиная со второго бронирования. Мы ценим верных друзей!", bg: "bg-[#99ed36]" },
-  { title: "Длительный отдых", text: "При заезде от 20 дней — скидка 10%, от 30 дней — скидка 15%. Чем дольше, тем выгоднее!", bg: "bg-[#ff7e27]" },
-  { title: "Два хвостика", text: "Скидка 30% на проживание второго питомца в одном номере при заселении вместе.", bg: "bg-[#141414]", textWhite: true }
+  { 
+    title: "Постоянным клиентам", 
+    text: "Скидка 5% на все услуги отеля начиная со второго бронирования.", 
+    bg: "bg-[#99ed36]", 
+    discount: "5%",
+    icon: Star,
+    note: "Верным друзьям"
+  },
+  { 
+    title: "Длительный отдых", 
+    text: "При заезде от 20 дней — скидка 10%, от 30 дней — 15%.", 
+    bg: "bg-[#ff7e27]", 
+    discount: "до 15%",
+    icon: Clock,
+    note: "Чем дольше, тем выгоднее"
+  },
+  { 
+    title: "Два хвостика", 
+    text: "Скидка 30% на проживание второго питомца в одном номере.", 
+    bg: "bg-[#141414]", 
+    textWhite: true,
+    discount: "30%",
+    icon: Heart,
+    note: "Заселение вместе"
+  }
 ];
 
 const rulesData = [
@@ -174,12 +196,18 @@ const rulesData = [
 ];
 
 const galleryImages = [
-  { url: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?q=80&w=800&auto=format&fit=crop", title: "Кот" },
-  { url: "https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?q=80&w=800&auto=format&fit=crop", title: "Собака" },
-  { url: "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?q=80&w=800&auto=format&fit=crop", title: "Игра" },
-  { url: "https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?q=80&w=800&auto=format&fit=crop", title: "Отдых" },
-  { url: "https://images.unsplash.com/photo-1450778869180-41d0601e046e?q=80&w=800&auto=format&fit=crop", title: "Забота" },
-  { url: "https://images.unsplash.com/photo-1548191265-cc70d3d45ba1?q=80&w=800&auto=format&fit=crop", title: "Друзья" }
+  { url: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?q=80&w=800&auto=format&fit=crop", title: "Уютный котик", span: "md:col-span-1", rotate: -2 },
+  { url: "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?q=80&w=800&auto=format&fit=crop", title: "Активные игры", span: "md:col-span-2", rotate: 1 },
+  { url: "https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?q=80&w=800&auto=format&fit=crop", title: "Тихий час", span: "md:col-span-1", rotate: 2 },
+  { url: "https://images.unsplash.com/photo-1533738363-b7f9aef128ce?q=80&w=800&auto=format&fit=crop", title: "Стильный гость", span: "md:col-span-1", rotate: -1 },
+  { url: "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?q=80&w=800&auto=format&fit=crop", title: "Комфортный сон", span: "md:col-span-1", rotate: 1 },
+  { url: "https://images.unsplash.com/photo-1592754862816-1a6e7e7ad29d?q=80&w=800&auto=format&fit=crop", title: "Прогулка", span: "md:col-span-2", rotate: 2 },
+  { url: "https://images.unsplash.com/photo-1543852786-1cf6624b9987?q=80&w=800&auto=format&fit=crop", title: "Любопытство", span: "md:col-span-1", rotate: -2 },
+  { url: "https://images.unsplash.com/photo-1554692990-280459345688?q=80&w=800&auto=format&fit=crop", title: "Верный друг", span: "md:col-span-1", rotate: 1 },
+  { url: "https://images.unsplash.com/photo-1574158622682-e40e69881006?q=80&w=800&auto=format&fit=crop", title: "Минимализм", span: "md:col-span-1", rotate: -1 },
+  { url: "https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?q=80&w=800&auto=format&fit=crop", title: "Отдых", span: "md:col-span-2", rotate: 2 },
+  { url: "https://images.unsplash.com/photo-1450778869180-41d0601e046e?q=80&w=800&auto=format&fit=crop", title: "Забота", span: "md:col-span-1", rotate: -1 },
+  { url: "https://images.unsplash.com/photo-1548191265-cc70d3d45ba1?q=80&w=800&auto=format&fit=crop", title: "Друзья", span: "md:col-span-1", rotate: 1 },
 ];
 
 export default function App() {
@@ -339,18 +367,18 @@ export default function App() {
                       <div className="grid grid-cols-2 gap-3 mb-10">
                         <div className="bg-white/40 backdrop-blur-md p-5 rounded-[2rem] flex flex-col gap-1 border border-white/20">
                           <Layers size={20} className="mb-1 opacity-40" />
-                          <span className="text-[9px] uppercase font-black tracking-widest opacity-40">Площадь</span>
+                          <span className="text-[10px] font-bold opacity-40">Площадь</span>
                           <span className="text-xl font-black leading-none tracking-tight">{selectedRoom.area}</span>
                         </div>
                         <div className="bg-white/40 backdrop-blur-md p-5 rounded-[2rem] flex flex-col gap-1 border border-white/20">
                           <Maximize2 size={20} className="mb-1 opacity-40" />
-                          <span className="text-[9px] uppercase font-black tracking-widest opacity-40">Высота</span>
+                          <span className="text-[10px] font-bold opacity-40">Высота</span>
                           <span className="text-xl font-black leading-none tracking-tight">{selectedRoom.height}</span>
                         </div>
                       </div>
 
                       <div className="space-y-4 mb-12 flex-1">
-                        <p className="text-[10px] font-black uppercase opacity-30 mb-4">В тариф включено:</p>
+                        <p className="text-[11px] font-bold opacity-30 mb-4">В тариф включено:</p>
                         {(selectedRoom.note || selectedRoom.includes).split(',').map((item: string, i: number) => (
                           <div key={i} className="flex items-start gap-4">
                             <div className="w-6 h-6 rounded-xl bg-black/10 flex items-center justify-center mt-0.5 shrink-0">
@@ -481,27 +509,24 @@ export default function App() {
                       <div className="p-8 flex flex-col flex-1">
                         <div className="flex justify-between items-start mb-2">
                            <h4 className="text-3xl font-black tracking-tight">{room.title}</h4>
-                           <div className={`px-3 py-1 rounded-full text-[10px] font-black uppercase ${selectedCategory === 'dogs' ? 'bg-[#ff7e27]/10 text-[#ff7e27]' : 'bg-[#99ed36]/10 text-[#99ed36]'}`}>
-                             Тариф
-                           </div>
                         </div>
                         <p className="text-2xl font-black text-stone-900 mb-8 tracking-tight">{room.price}</p>
                         
                         <div className="grid grid-cols-2 gap-3 mb-8">
                            <div className="bg-stone-50 p-5 rounded-[1.5rem] flex flex-col gap-1 border border-stone-100/50">
                               <Layers size={18} className="text-stone-300 mb-1" />
-                              <span className="text-[9px] uppercase font-black text-stone-400 tracking-widest">Площадь</span>
+                              <span className="text-[10px] font-bold text-stone-400">Площадь</span>
                               <span className="text-lg font-black leading-none">{room.area}</span>
                            </div>
                            <div className="bg-stone-50 p-5 rounded-[1.5rem] flex flex-col gap-1 border border-stone-100/50">
                               <Maximize2 size={18} className="text-stone-300 mb-1" />
-                              <span className="text-[9px] uppercase font-black text-stone-400 tracking-widest">Высота</span>
+                              <span className="text-[10px] font-bold text-stone-400">Высота</span>
                               <span className="text-lg font-black leading-none">{room.height}</span>
                            </div>
                         </div>
 
                         <div className="space-y-4 mb-10 flex-1">
-                           <p className="text-[10px] uppercase font-black text-stone-300 mb-2">Что включено:</p>
+                           <p className="text-[11px] font-bold text-stone-300 mb-2">Что включено:</p>
                            {(room.note || room.includes).split(',').slice(0, 4).map((item: string, i: number) => (
                              <div key={i} className="flex items-start gap-3">
                                 <div className={`w-5 h-5 rounded-lg flex items-center justify-center mt-0.5 shrink-0 ${selectedCategory === 'dogs' ? 'bg-[#ff7e27]/10 text-[#ff7e27]' : 'bg-[#99ed36]/10 text-[#99ed36]'}`}>
@@ -566,41 +591,100 @@ export default function App() {
                     </div>
                   ))}
                 </div>
+
+                <div className="mt-10 max-w-3xl">
+                  <p className="text-xl text-stone-500 font-medium mb-4 leading-relaxed">
+                    Вы можете заполнить анкету заранее. Это позволит нам сразу принять вашего друга и заселить его в номер, не теряя времени на формальности при заезде.
+                  </p>
+                  <a 
+                    href="#" 
+                    className="text-[#ff7e27] hover:text-[#141414] font-black text-xl transition-all inline-flex items-center gap-1 group"
+                  >
+                    Заполнить анкету
+                    <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                  </a>
+                </div>
               </div>
             </section>
 
             {/* PROMOTIONS */}
             <section id="promos" className="py-24 bg-stone-50">
               <div className="max-w-7xl mx-auto px-4 md:px-6">
-                <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-16">Наши акции</h2>
-                <div className="grid md:grid-cols-3 gap-6">
+                <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">
+                  <div>
+                    <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-4">Наши акции</h2>
+                    <p className="text-lg md:text-xl text-stone-500 font-medium">Специальные предложения для вашего комфорта и экономии</p>
+                  </div>
+                </div>
+
+                <div className="grid md:grid-cols-3 gap-8">
                   {promoData.map((promo, idx) => (
-                    <div key={idx} className={`${promo.bg} p-10 rounded-[2.5rem] shadow-xl relative overflow-hidden group min-h-[280px] flex flex-col justify-end`}>
-                      <div className="relative z-10">
-                        <h4 className={`text-4xl font-black mb-4 ${promo.textWhite ? 'text-white' : 'text-[#141414]'}`}>{promo.title}</h4>
-                        <p className={`font-bold text-xl leading-relaxed ${promo.textWhite ? 'text-white/60' : 'text-[#141414]/60'}`}>{promo.text}</p>
+                    <motion.div 
+                      key={idx} 
+                      whileHover={{ y: -10 }}
+                      className={`${promo.bg} p-10 rounded-[3rem] shadow-xl relative overflow-hidden group min-h-[360px] flex flex-col justify-start border border-black/5`}
+                    >
+                      {/* Decorative elements */}
+                      <div className={`absolute -top-10 -right-10 w-40 h-40 rounded-full blur-3xl opacity-20 ${promo.textWhite ? 'bg-white' : 'bg-black'}`}></div>
+                      
+                      <div className="relative z-10 h-full flex flex-col">
+                        <div className="flex justify-between items-start mb-8">
+                          <div className={`w-14 h-14 rounded-2xl flex items-center justify-center ${promo.textWhite ? 'bg-white/10 text-white' : 'bg-black/10 text-black'}`}>
+                            <promo.icon size={28} />
+                          </div>
+                          <div className={`px-4 py-2 rounded-full font-bold text-sm ${promo.textWhite ? 'bg-white/20 text-white' : 'bg-black/10 text-black'}`}>
+                            {promo.note}
+                          </div>
+                        </div>
+
+                        <div className="mb-auto">
+                          <h4 className={`text-3xl md:text-4xl font-black mb-3 leading-tight tracking-tighter ${promo.textWhite ? 'text-white' : 'text-[#141414]'}`}>
+                            {promo.title}
+                          </h4>
+                          <p className={`font-bold text-lg leading-snug ${promo.textWhite ? 'text-white/60' : 'text-[#141414]/60'}`}>
+                            {promo.text}
+                          </p>
+                        </div>
+
+                        <div className="mt-8 pt-8 border-t border-black/5 flex items-end justify-between font-black">
+                          <div className="flex flex-col">
+                            <span className={`text-xs font-bold opacity-40 ${promo.textWhite ? 'text-white' : 'text-black'}`}>Ваша выгода</span>
+                            <span className={`text-6xl md:text-7xl tracking-tighter ${promo.textWhite ? 'text-white' : 'text-black'}`}>
+                              {promo.discount}
+                            </span>
+                          </div>
+                        </div>
                       </div>
-                    </div>
+                    </motion.div>
                   ))}
                 </div>
               </div>
             </section>
 
-            {/* GALLERY - PINTEREST STYLE */}
             <section id="gallery" className="py-24 bg-white overflow-hidden">
               <div className="max-w-7xl mx-auto px-4 md:px-6">
-                <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-24 text-center">Жизнь в отеле</h2>
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-8">
+                <div className="text-center mb-16">
+                  <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-4">Жизнь в отеле</h2>
+                  <p className="text-stone-400 font-bold">Спокойствие и радость в каждом кадре</p>
+                </div>
+                
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-6 md:gap-10 md:grid-flow-row-dense">
                   {galleryImages.map((img, idx) => (
                     <motion.div
                       key={idx}
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
+                      initial={{ opacity: 0 }}
+                      whileInView={{ opacity: 1 }}
                       viewport={{ once: true }}
-                      transition={{ delay: idx * 0.1 }}
-                      className={`rounded-[2rem] overflow-hidden shadow-lg group ${idx % 3 === 1 ? 'md:translate-y-12' : ''}`}
+                      style={{ rotate: img.rotate }}
+                      className={`rounded-[2.5rem] overflow-hidden shadow-2xl relative ${img.span || 'md:col-span-1'}`}
                     >
-                      <img src={img.url} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" alt={img.title} />
+                      <motion.img 
+                        src={img.url} 
+                        whileHover={{ scale: 1.05 }}
+                        transition={{ duration: 0.4 }}
+                        className="w-full h-80 md:h-[450px] object-cover" 
+                        alt={img.title} 
+                      />
                     </motion.div>
                   ))}
                 </div>
@@ -648,7 +732,7 @@ export default function App() {
                         <div className="flex gap-1 text-[#ff7e27]">
                           {[...Array(t.stars)].map((_, i) => <Star key={i} size={14} fill="#ff7e27" />)}
                         </div>
-                        <span className="text-[10px] font-black uppercase tracking-widest text-stone-300">{t.stayDate}</span>
+                        <span className="text-[11px] font-bold text-stone-300">{t.stayDate}</span>
                       </div>
                       <p className="text-base font-bold leading-relaxed mb-8 text-stone-700">"{t.text}"</p>
                       <div className="flex items-center gap-3">
@@ -674,11 +758,11 @@ export default function App() {
                     <h2 className="text-5xl md:text-7xl font-black mb-12">Контакты</h2>
                     <div className="space-y-12">
                       <div>
-                        <p className="text-stone-500 text-xs font-black tracking-widest mb-3 uppercase">Адрес</p>
+                        <p className="text-stone-500 text-[11px] font-bold mb-3">Адрес</p>
                         <p className="text-3xl font-bold">Москва, Красного Маяка, 16</p>
                       </div>
                       <div>
-                        <p className="text-stone-500 text-xs font-black tracking-widest mb-3 uppercase">Телефон</p>
+                        <p className="text-stone-500 text-[11px] font-bold mb-3">Телефон</p>
                         <p className="text-5xl font-black whitespace-nowrap text-[#ff7e27]">8 927 615 97 90</p>
                       </div>
 
@@ -711,8 +795,8 @@ export default function App() {
 
       <footer className="py-20 bg-[#141414] text-stone-500 border-t border-white/5 text-center">
         <img src={logoImg} className="w-16 h-16 mx-auto opacity-20 filter grayscale mb-8" alt="Logo" />
-        <p className="font-bold text-sm tracking-widest uppercase mb-4">© 2026 Бест Френд — Зоотель</p>
-        <div className="flex justify-center gap-8 text-xs font-medium uppercase tracking-tighter opacity-40">
+        <p className="font-bold text-sm mb-4">© 2026 Бест Френд — Зоотель</p>
+        <div className="flex justify-center gap-8 text-xs font-medium opacity-40">
           <a href="#">Политика конфиденциальности</a>
           <a href="#">Публичная оферта</a>
         </div>
