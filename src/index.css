@@ -1,0 +1,71 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --color-brand-green: #99ed36;
+  --color-brand-orange: #ff7e27;
+  --color-brand-dark: #141414;
+}
+
+:root {
+  --ion-safe-area-top: 0px;
+  --ion-safe-area-bottom: 0px;
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+  background-color: #fafaf8;
+}
+
+body {
+  font-family: var(--font-sans);
+  color: var(--color-brand-dark);
+  overflow-x: hidden;
+  text-rendering: optimizeLegibility;
+}
+
+/* Glassmorphism Refinement */
+[class*="backdrop-blur-"] {
+  will-change: backdrop-filter;
+  transform: translateZ(0); /* HW acceleration */
+}
+
+/* Custom Selection */
+::selection {
+  background: var(--color-brand-green);
+  color: var(--color-brand-dark);
+}
+
+/* Animation Utilities */
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+  100% { transform: translateY(0px); }
+}
+
+/* Mobile Interaction Optimization */
+button, a {
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+/* Hide scrollbars but keep functionality */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
