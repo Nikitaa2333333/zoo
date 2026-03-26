@@ -113,6 +113,7 @@ const testimonialData = [
   {
     name: "Елена",
     pet: "Кот Марс",
+    type: "cat",
     stayDate: "Март 2024",
     text: "Оставляла кота в номере 'Комфорт' на 2 недели. Очень переживала, как он перенесет разлуку, но благодаря видеонаблюдению видела, что Марс чувствует себя как дома. Вечерние фотоотчеты в Telegram — это просто находка! Вернулся спокойным, чистым и даже не сразу захотел выходить из переноски дома.",
     stars: 5,
@@ -120,6 +121,7 @@ const testimonialData = [
   {
     name: "Игорь",
     pet: "Бигль Рокки",
+    type: "dog",
     stayDate: "Февраль 2024",
     text: "Пользовались услугой зоотакси — это мега-удобно! Забрали Рокки прямо от подъезда. В отеле отличные площадки для выгула, пес приехал уставший и счастливый. Понравилось, что за соблюдением правил вакцинации следят строго — это залог безопасности всех животных. Теперь только к вам!",
     stars: 5,
@@ -127,13 +129,15 @@ const testimonialData = [
   {
     name: "Мария",
     pet: "Шпиц Буся",
+    type: "dog",
     stayDate: "Январь 2024",
     text: "В 'Бест Френд' работают настоящие профессионалы. У Буси специфический рацион, и я очень просила соблюдать график кормления. Все выполнили идеально. В номере 'Люкс' очень просторно, тепло и чисто. Спасибо няням за терпение и любовь к таким характерным собачкам, как наша!",
-    stars: 5,
+    stars: 4,
   },
   {
     name: "Александр",
     pet: "Мейн-кун Цезарь",
+    type: "cat",
     stayDate: "Декабрь 2023",
     text: "Наш кот — настоящий гигант, и обычные гостиницы ему тесноваты. Здесь в номере 'Улучшенный' ему было где развернуться (высота 1.3м!). Полочки — это супер, коты это обожают. Вернулся довольный, шерсть в отличном состоянии. Рекомендую для крупных пород!",
     stars: 5,
@@ -141,16 +145,34 @@ const testimonialData = [
   {
     name: "Татьяна",
     pet: "Лабрадор Бадди",
+    type: "dog",
     stayDate: "Ноябрь 2023",
     text: "Искали место с хорошим выгулом, так как Бадди очень активный. Выгул 3 раза в день — это то, что нужно. Персонал знает подход к крупным собакам. Фотоотчеты радовали всю семью во время отпуска. Спасибо за спокойствие за нашего друга!",
-    stars: 5,
+    stars: 4,
   },
   {
     name: "Ольга",
     pet: "Британка Луна",
+    type: "cat",
     stayDate: "Октябрь 2023",
     text: "Очень понравился интерьер — современно, без лишних запахов. Луна обычно стрессует в новых местах, но здесь быстро адаптировалась. Няни очень ласковые, видно, что любят животных. Приедем еще!",
     stars: 5,
+  },
+  {
+    name: "Дмитрий",
+    pet: "Хаски Гром",
+    type: "dog",
+    stayDate: "Сентябрь 2023",
+    text: "Огромное спасибо за профессионализм! Гром — парень с характером, но няни нашли к нему подход. Номер 'Люкс' оправдал все ожидания. Рекомендую всем, кто ищет качественное зоопроживание.",
+    stars: 5,
+  },
+  {
+    name: "Анна",
+    pet: "Бенгалка Симба",
+    type: "cat",
+    stayDate: "Август 2023",
+    text: "В 'Бест Френд' лучшие условия для кошек. Чисто, тихо и очень уютно.",
+    stars: 4,
   }
 ];
 
@@ -210,6 +232,57 @@ const galleryImages = [
   { url: "https://images.unsplash.com/photo-1548191265-cc70d3d45ba1?q=80&w=800&auto=format&fit=crop", title: "Друзья", span: "md:col-span-1", rotate: 1 },
 ];
 
+const FAQItem = ({ item, isOpen, onClick }: { item: any, isOpen: boolean, onClick: () => void }) => {
+  return (
+    <div 
+      className={`bg-white rounded-[2rem] md:rounded-[3rem] border ${
+        isOpen ? 'border-stone-200' : 'border-stone-100'
+      } overflow-hidden`}
+    >
+      <button
+        onClick={onClick}
+        className="w-full p-8 md:p-10 text-left"
+      >
+        <span className={`text-xl md:text-2xl font-black tracking-tight transition-colors duration-200 ${isOpen ? 'text-[#ff7e27]' : 'text-[#141414]'}`}>
+          {item.q}
+        </span>
+      </button>
+      <AnimatePresence initial={false}>
+        {isOpen && (
+          <motion.div
+            initial={{ height: 0 }}
+            animate={{ height: 'auto' }}
+            exit={{ height: 0 }}
+            transition={{ duration: 0.15, ease: "easeOut" }}
+          >
+            <div className="px-8 md:px-10 pb-8 md:pb-10 pt-2 text-stone-500 font-bold text-lg leading-relaxed">
+              <div className="pt-6 border-t border-stone-100/50">
+                {item.a}
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+};
+
+const FAQList = () => {
+  const [activeFaq, setActiveFaq] = useState<number | null>(null);
+  return (
+    <div className="space-y-6">
+      {faqData.map((item, idx) => (
+        <FAQItem 
+          key={idx} 
+          item={item} 
+          isOpen={activeFaq === idx} 
+          onClick={() => setActiveFaq(activeFaq === idx ? null : idx)} 
+        />
+      ))}
+    </div>
+  );
+};
+
 export default function App() {
   const [currentPage, setCurrentPage] = useState<'main' | 'booking'>('main');
   const [selectedCategory, setSelectedCategory] = useState<'cats' | 'dogs' | null>(null);
@@ -217,7 +290,6 @@ export default function App() {
   const [checkInDate, setCheckInDate] = useState('');
   const [checkOutDate, setCheckOutDate] = useState('');
   const [livePrices, setLivePrices] = useState<Record<string, number>>({});
-  const [activeFaq, setActiveFaq] = useState<number | null>(null);
   const [visibleReviews, setVisibleReviews] = useState(6);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { scrollY } = useScroll();
@@ -261,6 +333,25 @@ export default function App() {
     window.scrollTo(0, 0);
   };
 
+  const scrollToId = (id: string) => {
+    if (currentPage !== 'main') {
+      setCurrentPage('main');
+      // Wait for the main page to render before scrolling
+      setTimeout(() => {
+        const element = document.getElementById(id);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    } else {
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+    setIsMenuOpen(false);
+  };
+
   return (
     <div className="min-h-screen bg-[#fafaf8] text-[#141414] font-sans selection:bg-[#99ed36] selection:text-[#141414]">
 
@@ -275,17 +366,30 @@ export default function App() {
             />
             <div className="flex flex-col">
               <span className="text-lg md:text-xl font-black tracking-tighter leading-none">Бест Френд</span>
-              <span className="text-[8px] md:text-[10px] tracking-[0.2em] font-bold text-stone-400">Pet Hotel</span>
+              <span className="text-[8px] md:text-[10px] font-bold text-stone-400">Pet Hotel</span>
             </div>
           </div>
 
-          <nav className="hidden lg:flex items-center gap-10 font-bold text-stone-600 text-[15px]">
-            <a href="#rooms" className="hover:text-[#99ed36] transition-all">Номера</a>
-            <a href="#about" className="hover:text-[#99ed36] transition-all">Команда</a>
-            <a href="#contacts" className="hover:text-[#99ed36] transition-all">Контакты</a>
+          <nav className="hidden lg:flex items-center gap-4 xl:gap-6 font-bold text-stone-600 text-[13px] xl:text-[14px]">
+            <button onClick={() => scrollToId('rooms')} className="hover:text-[#99ed36] transition-all">Номера</button>
+            <button onClick={() => scrollToId('about')} className="hover:text-[#ff7e27] transition-all">О нас</button>
+            <button onClick={() => scrollToId('rules')} className="hover:text-[#ff7e27] transition-all whitespace-nowrap">Правила</button>
+            <button onClick={() => scrollToId('promos')} className="hover:text-[#ff7e27] transition-all whitespace-nowrap">Акции</button>
+            <button onClick={() => scrollToId('gallery')} className="hover:text-[#ff7e27] transition-all whitespace-nowrap">Фото</button>
+            <button onClick={() => scrollToId('faq')} className="hover:text-[#ff7e27] transition-all">Вопросы</button>
+            <button onClick={() => scrollToId('reviews')} className="hover:text-[#ff7e27] transition-all">Отзывы</button>
+            <button onClick={() => scrollToId('contacts')} className="hover:text-[#99ed36] transition-all">Контакты</button>
           </nav>
 
           <div className="flex items-center gap-4">
+            <button 
+              className="lg:hidden w-10 h-10 flex flex-col items-center justify-center gap-1.5"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+            >
+              <motion.div animate={{ rotate: isMenuOpen ? 45 : 0, y: isMenuOpen ? 7 : 0 }} className="w-6 h-0.5 bg-black" />
+              <motion.div animate={{ opacity: isMenuOpen ? 0 : 1 }} className="w-6 h-0.5 bg-black" />
+              <motion.div animate={{ rotate: isMenuOpen ? -45 : 0, y: isMenuOpen ? -7 : 0 }} className="w-6 h-0.5 bg-black" />
+            </button>
             <button className="hidden sm:flex items-center gap-2 bg-[#141414] text-white px-8 py-3.5 rounded-full font-bold text-sm hover:scale-105 transition-all shadow-lg">
               <MessageCircle size={18} />
               Связаться с нами
@@ -305,24 +409,25 @@ export default function App() {
             >
               <div className="p-8 flex flex-col gap-6">
                 {[
-                  { name: 'Номера', href: '#rooms' },
-                  { name: 'О нас', href: '#about' },
-                  { name: 'Правила', href: '#rules' },
-                  { name: 'Акции', href: '#promos' },
-                  { name: 'Галерея', href: '#gallery' },
-                  { name: 'Контакты', href: '#contacts' }
+                  { name: 'Номера', id: 'rooms' },
+                  { name: 'О нас', id: 'about' },
+                  { name: 'Правила', id: 'rules' },
+                  { name: 'Акции', id: 'promos' },
+                  { name: 'Фото', id: 'gallery' },
+                  { name: 'Вопросы', id: 'faq' },
+                  { name: 'Отзывы', id: 'reviews' },
+                  { name: 'Контакты', id: 'contacts' }
                 ].map((item, i) => (
-                  <motion.a
+                  <motion.button
                     key={item.name}
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.1 + i * 0.05 }}
-                    href={item.href}
-                    onClick={() => setIsMenuOpen(false)}
-                    className="text-4xl font-black hover:text-[#ff7e27] transition-colors"
+                    onClick={() => scrollToId(item.id)}
+                    className="text-left text-3xl md:text-4xl font-black hover:text-[#ff7e27] transition-colors"
                   >
                     {item.name}
-                  </motion.a>
+                  </motion.button>
                 ))}
 
                 <motion.div
@@ -675,7 +780,6 @@ export default function App() {
                       initial={{ opacity: 0 }}
                       whileInView={{ opacity: 1 }}
                       viewport={{ once: true }}
-                      style={{ rotate: img.rotate }}
                       className={`rounded-[2.5rem] overflow-hidden shadow-2xl relative ${img.span || 'md:col-span-1'}`}
                     >
                       <motion.img 
@@ -692,99 +796,166 @@ export default function App() {
             </section>
 
             {/* FAQ */}
-            <section id="faq" className="py-24 bg-stone-50">
-              <div className="max-w-3xl mx-auto px-4 md:px-6">
-                <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-16 text-center">Остались вопросы?</h2>
-                <div className="space-y-4">
-                  {faqData.map((item, idx) => (
-                    <div key={idx} className="bg-white rounded-3xl border border-stone-100 overflow-hidden">
-                      <button
-                        onClick={() => setActiveFaq(activeFaq === idx ? null : idx)}
-                        className="w-full p-8 flex items-center justify-between text-left hover:bg-stone-50 transition-colors"
-                      >
-                        <span className="text-xl font-black">{item.q}</span>
-                        <ChevronRight className={`transition-transform duration-300 ${activeFaq === idx ? 'rotate-90' : ''}`} />
-                      </button>
-                      <AnimatePresence>
-                        {activeFaq === idx && (
-                          <motion.div
-                            initial={{ height: 0, opacity: 0 }}
-                            animate={{ height: 'auto', opacity: 1 }}
-                            exit={{ height: 0, opacity: 0 }}
-                            className="px-8 pb-8 text-stone-500 font-bold text-lg leading-relaxed"
-                          >
-                            {item.a}
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
-                    </div>
-                  ))}
+            <section id="faq" className="py-24 bg-white relative overflow-hidden">
+              <div className="max-w-4xl mx-auto px-4 md:px-6 relative z-10">
+                <div className="text-center mb-16">
+                  <h2 className="text-5xl md:text-7xl font-black tracking-tighter mb-4">Остались вопросы?</h2>
+                  <p className="text-stone-400 font-bold text-lg">Мы собрали ответы на самые частые обращения</p>
                 </div>
+                
+                <FAQList />
               </div>
             </section>
             <section id="reviews" className="py-24 bg-stone-50">
               <div className="max-w-7xl mx-auto px-4 md:px-6">
-                <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-16 text-center">Отзывы</h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className="text-center mb-16">
+                  <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-4">Отзывы гостей</h2>
+                  <p className="text-stone-400 font-bold">Реальные истории проживания в нашем отеле</p>
+                </div>
+                
+                <div className="columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6">
                   {testimonialData.slice(0, visibleReviews).map((t, idx) => (
-                    <div key={idx} className="bg-white p-8 rounded-[2rem] border border-stone-100 shadow-sm">
-                      <div className="flex justify-between mb-4">
-                        <div className="flex gap-1 text-[#ff7e27]">
-                          {[...Array(t.stars)].map((_, i) => <Star key={i} size={14} fill="#ff7e27" />)}
+                    <motion.div 
+                      key={idx} 
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: idx * 0.1 }}
+                      className="break-inside-avoid bg-white p-8 rounded-[2.5rem] border border-stone-100 shadow-sm hover:shadow-xl transition-all duration-500 group"
+                    >
+                      <div className="flex justify-between items-start mb-6">
+                        <div className="flex gap-0.5">
+                          {[...Array(5)].map((_, i) => (
+                            <Star 
+                              key={i} 
+                              size={16} 
+                              fill={i < t.stars ? "#ff7e27" : "none"} 
+                              className={i < t.stars ? "text-[#ff7e27]" : "text-stone-200"} 
+                            />
+                          ))}
                         </div>
                         <span className="text-[11px] font-bold text-stone-300">{t.stayDate}</span>
                       </div>
-                      <p className="text-base font-bold leading-relaxed mb-8 text-stone-700">"{t.text}"</p>
-                      <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-xl bg-[#99ed36]/10 flex items-center justify-center text-[#99ed36]">
-                          {t.pet.includes('Кот') ? <Cat size={20} /> : <Dog size={20} />}
+                      
+                      <p className="text-lg font-medium leading-relaxed mb-8 text-stone-700">
+                        "{t.text}"
+                      </p>
+                      
+                      <div className="flex items-center gap-4 pt-6 border-t border-stone-50">
+                        <div className={`w-12 h-12 rounded-2xl flex items-center justify-center transition-colors duration-500 ${
+                          t.type === 'cat' 
+                            ? 'bg-[#99ed36]/10 text-[#99ed36] group-hover:bg-[#99ed36] group-hover:text-white' 
+                            : 'bg-[#ff7e27]/10 text-[#ff7e27] group-hover:bg-[#ff7e27] group-hover:text-white'
+                        }`}>
+                          {t.type === 'cat' ? <Cat size={24} /> : <Dog size={24} />}
                         </div>
                         <div>
-                          <p className="font-black text-base leading-none mb-1">{t.name}</p>
-                          <p className="text-stone-400 font-bold text-[10px]">{t.pet}</p>
+                          <p className="font-black text-lg leading-none mb-1">{t.name}</p>
+                          <p className={`text-[10px] font-black ${
+                            t.type === 'cat' ? 'text-[#99ed36]' : 'text-[#ff7e27]'
+                          }`}>{t.pet}</p>
                         </div>
                       </div>
-                    </div>
+                    </motion.div>
                   ))}
                 </div>
+                
+                {visibleReviews < testimonialData.length && (
+                  <div className="mt-16 text-center">
+                    <button 
+                      onClick={() => setVisibleReviews(prev => prev + 3)}
+                      className="px-10 py-5 rounded-full bg-[#141414] text-white font-black hover:bg-[#ff7e27] active:bg-[#ff7e27] transition-all active:scale-95 shadow-xl"
+                    >
+                      Показать больше отзывов
+                    </button>
+                  </div>
+                )}
               </div>
             </section>
 
             {/* CONTACTS */}
-            <section id="contacts" className="py-24 bg-[#141414] text-white">
+            <section id="contacts" className="py-24 bg-stone-50/50">
               <div className="max-w-7xl mx-auto px-4 md:px-6">
-                <div className="grid lg:grid-cols-12 gap-12">
-                  <div className="lg:col-span-4 flex flex-col justify-center">
-                    <h2 className="text-5xl md:text-7xl font-black mb-12">Контакты</h2>
-                    <div className="space-y-12">
-                      <div>
-                        <p className="text-stone-500 text-[11px] font-bold mb-3">Адрес</p>
-                        <p className="text-3xl font-bold">Москва, Красного Маяка, 16</p>
-                      </div>
-                      <div>
-                        <p className="text-stone-500 text-[11px] font-bold mb-3">Телефон</p>
-                        <p className="text-5xl font-black whitespace-nowrap text-[#ff7e27]">8 927 615 97 90</p>
+                <div className="bg-white rounded-[3.5rem] overflow-hidden grid lg:grid-cols-2 shadow-2xl border border-stone-100">
+                  <div className="p-8 md:p-16 lg:p-20 flex flex-col justify-center">
+                    <div className="mb-12">
+                      <h2 className="text-4xl md:text-5xl font-black mb-4 tracking-tighter text-[#141414]">
+                        Заходите <span className="text-[#ff7e27]">в гости</span>
+                      </h2>
+                      <p className="text-stone-400 font-bold">Мы всегда рады вам и вашим питомцам</p>
+                    </div>
+
+                    <div className="space-y-8 mb-16">
+                      <div className="flex items-center gap-6 group">
+                        <div className="w-12 h-12 bg-stone-50 rounded-2xl flex items-center justify-center shrink-0 border border-stone-100 transition-all group-hover:bg-[#ff7e27]/10 group-hover:border-[#ff7e27]/30">
+                          <MapPin size={22} className="text-[#ff7e27]" />
+                        </div>
+                        <p className="text-lg md:text-xl font-bold tracking-tight text-[#141414]">
+                          Москва, ул. Красного Маяка, 16
+                        </p>
                       </div>
 
-                      <div className="pt-12 border-t border-white/5">
-                        <h2 className="text-3xl font-black mb-4">Написать нам</h2>
-                        <p className="text-stone-500 font-bold mb-8">Мы ответим в течение 15 минут</p>
-                        <div className="space-y-4">
-                          <a href="https://t.me/MAX_CONTACT" className="flex items-center gap-4 bg-white/5 p-6 rounded-2xl hover:bg-[#99ed36] hover:text-black transition-all group">
-                            <div className="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center font-black">M</div>
-                            <span className="text-xl font-bold">MAX</span>
-                          </a>
-                          <a href="https://t.me/best_friend_hotel" className="flex items-center gap-4 bg-white/5 p-6 rounded-2xl hover:bg-[#24A1DE] transition-all group">
-                            <Send size={24} />
-                            <span className="text-xl font-bold">Telegram</span>
-                          </a>
+                      <div className="flex items-center gap-6 group">
+                        <div className="w-12 h-12 bg-stone-50 rounded-2xl flex items-center justify-center shrink-0 border border-stone-100 transition-all group-hover:bg-[#99ed36]/10 group-hover:border-[#99ed36]/30">
+                          <Phone size={22} className="text-[#99ed36]" />
                         </div>
+                        <a href="tel:89276159790" className="text-lg md:text-2xl font-black hover:text-[#ff7e27] transition-all tracking-tight text-[#141414]">
+                          8 927 615 97 90
+                        </a>
+                      </div>
+
+                      <div className="flex items-center gap-6 group">
+                        <div className="w-12 h-12 bg-stone-50 rounded-2xl flex items-center justify-center shrink-0 border border-stone-100 transition-all group-hover:bg-[#ff7e27]/10 group-hover:border-[#ff7e27]/30">
+                          <Clock size={22} className="text-[#ff7e27]" />
+                        </div>
+                        <p className="text-lg md:text-xl font-bold tracking-tight text-[#141414]">
+                          Ежедневно, 24 / 7
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="pt-10 border-t border-stone-100">
+                      <p className="text-stone-400 font-bold mb-6 text-sm">Написать нам:</p>
+                      <div className="flex flex-wrap gap-3">
+                        <a 
+                          href="https://t.me/MAX_CONTACT" 
+                          target="_blank"
+                          rel="noreferrer"
+                          className="flex items-center gap-3 bg-stone-50 py-4 px-6 rounded-2xl hover:bg-[#99ed36] hover:text-[#141414] transition-all duration-300 border border-stone-100 group"
+                        >
+                          <div className="w-8 h-8 bg-[#141414]/5 rounded-lg flex items-center justify-center text-sm font-black group-hover:bg-black/10">М</div>
+                          <span className="text-sm font-bold">Макс</span>
+                        </a>
+
+                        <a 
+                          href="https://t.me/best_friend_hotel" 
+                          target="_blank"
+                          rel="noreferrer"
+                          className="flex items-center gap-3 bg-stone-50 py-4 px-6 rounded-2xl hover:bg-[#24A1DE] hover:text-white transition-all duration-300 border border-stone-100 group"
+                        >
+                          <Send size={18} />
+                          <span className="text-sm font-bold">Telegram</span>
+                        </a>
+
+                        <a 
+                          href="mailto:hello@best-friend.ru" 
+                          className="flex items-center gap-3 bg-stone-50 py-4 px-6 rounded-2xl hover:bg-[#ff7e27] hover:text-white transition-all duration-300 border border-stone-100 group"
+                        >
+                          <Mail size={18} />
+                          <span className="text-sm font-bold">Email</span>
+                        </a>
                       </div>
                     </div>
                   </div>
 
-                  <div className="lg:col-span-8 h-[600px] md:h-[800px] rounded-[4rem] overflow-hidden grayscale-0 hover:grayscale-0 transition-all duration-700 shadow-2xl">
-                    <iframe src="https://yandex.ru/map-widget/v1/?ll=37.595460%2C55.611181&z=15" width="100%" height="100%" frameBorder="0"></iframe>
+                  <div className="h-[400px] lg:h-auto min-h-[500px] relative">
+                    <iframe 
+                      src="https://yandex.ru/map-widget/v1/?ll=37.595460%2C55.611181&z=15" 
+                      width="100%" 
+                      height="100%" 
+                      frameBorder="0"
+                      title="Yandex Map"
+                    ></iframe>
                   </div>
                 </div>
               </div>
