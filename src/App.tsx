@@ -177,9 +177,13 @@ const testimonialData = [
 ];
 
 const faqData = [
-  { q: "Что нужно взять с собой?", a: "Мы рекомендуем взять привычный корм, лежанку с запахом дома и 1-2 любимые игрушки питомца." },
-  { q: "Как я буду узнавать о состоянии питомца?", a: "Мы присылаем ежедневные фото и видеоотчеты в Telegram/WhatsApp, а в номерах Комфорт доступно круглосуточное видеонаблюдение." },
-  { q: "Можно ли заказать зоотакси?", a: "Да! Мы заберем вашего друга из любой точки Москвы и привезем обратно в комфортном авто." }
+  { q: "Можно привезти питомца ночью или рано утром?", a: "Мы работаем с 10:00 до 21:00 без обеда и выходных. Заезд и выезд возможен в любое удобное для вас время в рамках рабочего графика. Услуги раннего или позднего заезда/выезда вне рабочего времени могут быть предоставлены по согласованию с администратором за дополнительную плату" },
+  { q: "Где выгуливаете собак?", a: "Гостинница расположена в непосредственной близости от парка \"Кузьминки\". Выгул осуществляется на территории лесопарковой зоны  При заселении учитываем все ваши пожелания по выгулу и прописываем их в договоре, по вашему усмотрению находим компанию питомцу в одной весовой категории или гуляем индивидуально, если Ваш питомец не дружит с другими собаками." },
+  { q: "Можно заселиться без прививок?", a: "Нет.  Мы принимаем питомцев только старше 4-х месячного возраста и с полным комплексом ежегодных действующих прививок." },
+  { q: "Можно оставить питомца на несколько часов?", a: "Да. При наличии свободных номеров есть возможность кратковременного пребывания (до 5-ти часов). Стоимость - 50% от базовой цены номера за 1 сутки. При пребывании свыше 5-ти часов без ночевки, оплачивается стоимость номера за полные сутки" },
+  { q: "Как проводится уборка номера?", a: "В каждом из номеров производится уборка дважды в день. После освобождения номера осуществляется антибактериальная обработка и кварцевание." },
+  { q: "Могу приехать и посмотреть гостиницу перед тем, как бронировать?", a: "Да.  Необходимо заранее согласовать время визита по телефону или в мессенджерах, чтобы приехать и посмотреть помещение гостиницы." },
+  { q: "Есть ли камеры видеонаблюдения в гостинице?", a: "Да. В отеле  ведётся внутреннее видеонаблюдение для обеспечения максимальной безопасности всех животных. Мы бесплатно предоставляем вам доступ к онлайн-камерам в режиме 24/7. Вы можете в любой момент убедиться, что с вашим любимцем всё в порядке." }
 ];
 
 const promoData = [
@@ -232,7 +236,7 @@ const galleryImages = [
   { url: "https://images.unsplash.com/photo-1548191265-cc70d3d45ba1?q=80&w=800&auto=format&fit=crop", title: "Друзья", span: "md:col-span-1", rotate: 1 },
 ];
 
-const FAQItem = ({ item, isOpen, onClick }: { item: any, isOpen: boolean, onClick: () => void }) => {
+const FAQItem = ({ item, isOpen, onClick }: { item: any, isOpen: boolean, onClick: () => void, key?: any }) => {
   return (
     <div 
       className={`bg-white rounded-[2rem] md:rounded-[3rem] border ${
@@ -436,10 +440,11 @@ export default function App() {
                   transition={{ delay: 0.5 }}
                   className="pt-8 border-t border-stone-100 mt-4 flex flex-col gap-4"
                 >
-                  <a href="tel:89276159790" className="text-2xl font-black text-[#ff7e27] flex items-center gap-3">
-                    <Phone size={24} /> 8 927 615 97 90
+                  <a href="tel:79670578130" className="text-2xl font-black text-[#ff7e27] flex items-center gap-3">
+                    <Phone size={24} /> 7 (967) 057-81-30
                   </a>
-                  <p className="text-stone-400 font-bold text-sm">Круглосуточно — Мы на связи</p>
+                  <p className="text-stone-400 font-bold text-sm">с 10:00 до 21:00 ежедневно — Мы на связи</p>
+
                 </motion.div>
               </div>
             </motion.div>
@@ -525,12 +530,7 @@ export default function App() {
             className="pt-20"
           >
             {/* HERO */}
-            <section className="relative pt-32 md:pt-40 overflow-hidden bg-white">
-              {/* Background Blurs - strictly behind */}
-              <div className="absolute top-20 left-1/2 -translate-x-1/2 w-full max-w-5xl h-[50%] opacity-40 blur-[130px] pointer-events-none z-0 flex items-center justify-center">
-                <div className="w-[40%] h-[70%] bg-[#99ed36] rounded-full mx-[-10%]"></div>
-                <div className="w-[45%] h-[75%] bg-[#ff7e27] rounded-full mx-[-10%]"></div>
-              </div>
+            <section className="relative pt-32 md:pt-40 overflow-hidden bg-[#ff7e27]">
 
               <div className="max-w-7xl mx-auto px-4 md:px-6 relative z-10 w-full text-center flex flex-col items-center mb-0">
                 <motion.div
@@ -539,15 +539,15 @@ export default function App() {
                   transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
                   className="max-w-6xl"
                 >
-                  <h1 className="text-6xl md:text-9xl font-black mb-8 leading-[0.9] tracking-tighter text-[#141414]">
-                    <span className="text-[#ff7e27]">Бест Френд —</span> <br /> зоотель в&nbsp;Москве
+                  <h1 className="text-6xl md:text-9xl font-[800] mb-8 leading-[0.85] tracking-[-0.05em] text-[#141414]">
+                    <span>Бест Френд —</span> <br /> зоотель в&nbsp;Москве
                   </h1>
-                  <p className="text-xl md:text-2xl text-stone-500 font-bold mb-12 leading-relaxed">
+                  <p className="text-xl md:text-2xl text-[#141414]/70 font-bold mb-12 leading-relaxed">
                     Пятизвездочный курорт для тех, кто ждет вас дома. <br />
                     Профессиональный уход, технологичный уют и забота 24/7.
                   </p>
                   <div className="flex justify-center mb-2">
-                    <a href="#rooms" className="bg-[#141414] text-white px-14 py-7 rounded-full font-black text-xl hover:scale-105 hover:bg-[#ff7e27] transition-all shadow-[0_20px_60px_-15px_rgba(255,126,39,0.3)]">
+                    <a href="#rooms" className="bg-[#141414] text-white px-14 py-7 rounded-full font-black text-xl hover:scale-105 transition-all shadow-2xl">
                       Выбрать номер
                     </a>
                   </div>
@@ -876,22 +876,25 @@ export default function App() {
             {/* CONTACTS */}
             <section id="contacts" className="py-24 bg-stone-50/50">
               <div className="max-w-7xl mx-auto px-4 md:px-6">
+                <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-12">Контакты</h2>
                 <div className="bg-white rounded-[3.5rem] overflow-hidden grid lg:grid-cols-2 shadow-2xl border border-stone-100">
                   <div className="p-8 md:p-16 lg:p-20 flex flex-col justify-center">
                     <div className="mb-12">
-                      <h2 className="text-4xl md:text-5xl font-black mb-4 tracking-tighter text-[#141414]">
-                        Заходите <span className="text-[#ff7e27]">в гости</span>
-                      </h2>
-                      <p className="text-stone-400 font-bold">Мы всегда рады вам и вашим питомцам</p>
+                      <h3 className="text-3xl md:text-4xl font-black mb-4 tracking-tighter text-[#141414]">
+                        БИЗНЕС-ПАРК <span className="text-[#ff7e27]">ВОЛЖСКИЙ</span>
+                      </h3>
+                      <p className="text-stone-400 font-bold text-lg">Мы всегда рады вам и вашим питомцам</p>
                     </div>
 
                     <div className="space-y-8 mb-16">
+                      <p className="text-stone-400 font-bold text-sm uppercase mb-4 tracking-tight">Контактная информация</p>
+                      
                       <div className="flex items-center gap-6 group">
                         <div className="w-12 h-12 bg-stone-50 rounded-2xl flex items-center justify-center shrink-0 border border-stone-100 transition-all group-hover:bg-[#ff7e27]/10 group-hover:border-[#ff7e27]/30">
                           <MapPin size={22} className="text-[#ff7e27]" />
                         </div>
                         <p className="text-lg md:text-xl font-bold tracking-tight text-[#141414]">
-                          Москва, ул. Красного Маяка, 16
+                          г. Москва, Волжский бульвар, д.51 с.7, пом. 123-124
                         </p>
                       </div>
 
@@ -899,8 +902,8 @@ export default function App() {
                         <div className="w-12 h-12 bg-stone-50 rounded-2xl flex items-center justify-center shrink-0 border border-stone-100 transition-all group-hover:bg-[#99ed36]/10 group-hover:border-[#99ed36]/30">
                           <Phone size={22} className="text-[#99ed36]" />
                         </div>
-                        <a href="tel:89276159790" className="text-lg md:text-2xl font-black hover:text-[#ff7e27] transition-all tracking-tight text-[#141414]">
-                          8 927 615 97 90
+                        <a href="tel:79670578130" className="text-lg md:text-xl font-black hover:text-[#ff7e27] transition-all tracking-tight text-[#141414]">
+                          7 (967) 057-81-30
                         </a>
                       </div>
 
@@ -909,7 +912,7 @@ export default function App() {
                           <Clock size={22} className="text-[#ff7e27]" />
                         </div>
                         <p className="text-lg md:text-xl font-bold tracking-tight text-[#141414]">
-                          Ежедневно, 24 / 7
+                          с 10:00 до 21:00 ежедневно
                         </p>
                       </div>
                     </div>
@@ -950,7 +953,7 @@ export default function App() {
 
                   <div className="h-[400px] lg:h-auto min-h-[500px] relative">
                     <iframe 
-                      src="https://yandex.ru/map-widget/v1/?ll=37.595460%2C55.611181&z=15" 
+                      src="https://yandex.ru/map-widget/v1/?ll=37.759210%2C55.694540&z=15" 
                       width="100%" 
                       height="100%" 
                       frameBorder="0"
@@ -966,10 +969,10 @@ export default function App() {
 
       <footer className="py-20 bg-[#141414] text-stone-500 border-t border-white/5 text-center">
         <img src={logoImg} className="w-16 h-16 mx-auto opacity-20 filter grayscale mb-8" alt="Logo" />
-        <p className="font-bold text-sm mb-4">© 2026 Бест Френд — Зоотель</p>
-        <div className="flex justify-center gap-8 text-xs font-medium opacity-40">
-          <a href="#">Политика конфиденциальности</a>
-          <a href="#">Публичная оферта</a>
+        <p className="font-black text-xl mb-4 text-white">2026 Бест Френд — Зоотель</p>
+        <div className="flex flex-col mb-8 text-sm font-bold text-white opacity-80 gap-1 uppercase tracking-tight">
+          <span>ОГРНИП 325774600614104</span>
+          <span>ИНН 482413133456</span>
         </div>
       </footer>
     </div>
