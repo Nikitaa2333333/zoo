@@ -5,7 +5,7 @@ import {
   MessageCircle, ShieldCheck, ArrowLeft, Cat, Dog,
   Camera, Coffee, Thermometer, UserCheck, CheckCircle2,
   Instagram, Send, FileText, Tag, Image as LucideImage, Info, Mail,
-  Maximize2, Layers, Check, Sparkles
+  Maximize2, Layers, Check, Sparkles, Car
 } from 'lucide-react';
 import BookingWidget from './components/BookingWidget';
 import { litePmsApi } from './services/litePmsApi';
@@ -19,6 +19,8 @@ import dogComfortImg from './assets/rooms/dog_comfort.png';
 import dogLuxuryImg from './assets/rooms/dog_luxury.png';
 import heroSpaImg from './assets/hero_spa.png';
 import heroMainImg from './assets/hero_main.png';
+import logoMaxImg from './assets/logo_max.svg';
+import telegramLogoImg from './assets/telegram_logo.png';
 
 const catRooms = [
   {
@@ -222,18 +224,18 @@ const rulesData = [
 ];
 
 const galleryImages = [
-  { url: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?q=80&w=800&auto=format&fit=crop", title: "Уютный котик", span: "md:col-span-1", rotate: -2 },
-  { url: "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?q=80&w=800&auto=format&fit=crop", title: "Активные игры", span: "md:col-span-2", rotate: 1 },
-  { url: "https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?q=80&w=800&auto=format&fit=crop", title: "Тихий час", span: "md:col-span-1", rotate: 2 },
-  { url: "https://images.unsplash.com/photo-1533738363-b7f9aef128ce?q=80&w=800&auto=format&fit=crop", title: "Стильный гость", span: "md:col-span-1", rotate: -1 },
-  { url: "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?q=80&w=800&auto=format&fit=crop", title: "Комфортный сон", span: "md:col-span-1", rotate: 1 },
-  { url: "https://images.unsplash.com/photo-1592754862816-1a6e7e7ad29d?q=80&w=800&auto=format&fit=crop", title: "Прогулка", span: "md:col-span-2", rotate: 2 },
-  { url: "https://images.unsplash.com/photo-1543852786-1cf6624b9987?q=80&w=800&auto=format&fit=crop", title: "Любопытство", span: "md:col-span-1", rotate: -2 },
-  { url: "https://images.unsplash.com/photo-1554692990-280459345688?q=80&w=800&auto=format&fit=crop", title: "Верный друг", span: "md:col-span-1", rotate: 1 },
-  { url: "https://images.unsplash.com/photo-1574158622682-e40e69881006?q=80&w=800&auto=format&fit=crop", title: "Минимализм", span: "md:col-span-1", rotate: -1 },
-  { url: "https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?q=80&w=800&auto=format&fit=crop", title: "Отдых", span: "md:col-span-2", rotate: 2 },
-  { url: "https://images.unsplash.com/photo-1450778869180-41d0601e046e?q=80&w=800&auto=format&fit=crop", title: "Забота", span: "md:col-span-1", rotate: -1 },
-  { url: "https://images.unsplash.com/photo-1548191265-cc70d3d45ba1?q=80&w=800&auto=format&fit=crop", title: "Друзья", span: "md:col-span-1", rotate: 1 },
+  { url: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?q=80&w=800&auto=format&fit=crop", title: "Уютный котик", span: "col-span-2", rotate: -1 },
+  { url: "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?q=80&w=800&auto=format&fit=crop", title: "Активные игры", span: "col-span-1", rotate: 1 },
+  { url: "https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?q=80&w=800&auto=format&fit=crop", title: "Тихий час", span: "col-span-1", rotate: -1 },
+  { url: "https://images.unsplash.com/photo-1533738363-b7f9aef128ce?q=80&w=800&auto=format&fit=crop", title: "Стильный гость", span: "col-span-2", rotate: 1 },
+  { url: "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?q=80&w=800&auto=format&fit=crop", title: "Комфортный сон", span: "col-span-2", rotate: -1 },
+  { url: "https://images.unsplash.com/photo-1592754862816-1a6e7e7ad29d?q=80&w=800&auto=format&fit=crop", title: "Прогулка", span: "col-span-1", rotate: 1 },
+  { url: "https://images.unsplash.com/photo-1543852786-1cf6624b9987?q=80&w=800&auto=format&fit=crop", title: "Любопытство", span: "col-span-1", rotate: -1 },
+  { url: "https://images.unsplash.com/photo-1554692990-280459345688?q=80&w=800&auto=format&fit=crop", title: "Верный друг", span: "col-span-2", rotate: 1 },
+  { url: "https://images.unsplash.com/photo-1574158622682-e40e69881006?q=80&w=800&auto=format&fit=crop", title: "Минимализм", span: "col-span-1", rotate: -1 },
+  { url: "https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?q=80&w=800&auto=format&fit=crop", title: "Отдых", span: "col-span-2", rotate: 1 },
+  { url: "https://images.unsplash.com/photo-1450778869180-41d0601e046e?q=80&w=800&auto=format&fit=crop", title: "Забота", span: "col-span-1", rotate: -1 },
+  { url: "https://images.unsplash.com/photo-1548191265-cc70d3d45ba1?q=80&w=800&auto=format&fit=crop", title: "Друзья", span: "col-span-3", rotate: 1 },
 ];
 
 const FAQItem = ({ item, isOpen, onClick }: { item: any, isOpen: boolean, onClick: () => void, key?: any }) => {
@@ -370,7 +372,7 @@ export default function App() {
             />
             <div className="flex flex-col">
               <span className="text-lg md:text-xl font-black tracking-tighter leading-none">Бест Френд</span>
-              <span className="text-[8px] md:text-[10px] font-bold text-stone-400">Pet Hotel</span>
+              <span className="text-[8px] md:text-[10px] font-bold text-stone-400">Зоотель</span>
             </div>
           </div>
 
@@ -546,7 +548,7 @@ export default function App() {
                     Пятизвездочный курорт для тех, кто ждет вас дома. <br />
                     Профессиональный уход, технологичный уют и забота 24/7.
                   </p>
-                  <div className="flex justify-center mb-2">
+                  <div className="flex justify-center mb-20 md:mb-12">
                     <a href="#rooms" className="bg-[#141414] text-white px-14 py-7 rounded-full font-black text-xl hover:scale-105 transition-all shadow-2xl">
                       Выбрать номер
                     </a>
@@ -560,12 +562,12 @@ export default function App() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3, duration: 1, ease: [0.22, 1, 0.36, 1] }}
                 style={{ scale }}
-                className="relative z-20 max-w-4xl mx-auto px-4 md:px-6"
+                className="relative z-20 max-w-4xl mx-auto px-4 md:px-6 will-change-transform"
               >
                 <img
                   src={heroMainImg}
                   alt="Hotel hero"
-                  className="w-full h-auto block"
+                  className="w-full h-auto block scale-[1.3] md:scale-100 origin-bottom"
                 />
               </motion.div>
             </section>
@@ -579,7 +581,7 @@ export default function App() {
                     <p className="text-lg md:text-xl text-stone-500 font-medium">Подберите идеальный вариант для вашего питомца</p>
                   </div>
 
-                  <div className="bg-stone-100 p-2 rounded-full flex items-center gap-1 self-start">
+                  <div className="bg-stone-100 p-2 rounded-full flex items-center gap-1 mx-auto md:mx-0">
                     <button
                       onClick={() => setSelectedCategory('cats')}
                       className={`flex items-center px-8 py-4 rounded-full font-black text-sm transition-all ${selectedCategory === 'cats' || !selectedCategory ? 'bg-[#99ed36] shadow-md text-[#141414]' : 'text-stone-400'}`}
@@ -773,20 +775,21 @@ export default function App() {
                   <p className="text-stone-400 font-bold">Спокойствие и радость в каждом кадре</p>
                 </div>
                 
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-6 md:gap-10 md:grid-flow-row-dense">
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-6 md:gap-10 grid-flow-row-dense">
                   {galleryImages.map((img, idx) => (
                     <motion.div
                       key={idx}
-                      initial={{ opacity: 0 }}
-                      whileInView={{ opacity: 1 }}
+                      initial={{ opacity: 0, rotate: 0 }}
+                      whileInView={{ opacity: 1, rotate: img.rotate || 0 }}
                       viewport={{ once: true }}
-                      className={`rounded-[2.5rem] overflow-hidden shadow-2xl relative ${img.span || 'md:col-span-1'}`}
+                      transition={{ duration: 0.8, ease: "easeOut" }}
+                      className={`rounded-[2.5rem] overflow-hidden shadow-2xl relative ${img.span || 'col-span-1'}`}
                     >
                       <motion.img 
                         src={img.url} 
                         whileHover={{ scale: 1.05 }}
                         transition={{ duration: 0.4 }}
-                        className="w-full h-80 md:h-[450px] object-cover" 
+                        className="w-full h-80 md:h-[450px] object-cover scale-[1.1]" 
                         alt={img.title} 
                       />
                     </motion.div>
@@ -878,22 +881,22 @@ export default function App() {
               <div className="max-w-7xl mx-auto px-4 md:px-6">
                 <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-12">Контакты</h2>
                 <div className="bg-white rounded-[3.5rem] overflow-hidden grid lg:grid-cols-2 shadow-2xl border border-stone-100">
-                  <div className="p-8 md:p-16 lg:p-20 flex flex-col justify-center">
-                    <div className="mb-12">
+                  <div className="p-6 md:p-16 lg:p-20 flex flex-col justify-center">
+                    <div className="mb-6 md:mb-8">
                       <h3 className="text-3xl md:text-4xl font-black mb-4 tracking-tighter text-[#141414]">
-                        БИЗНЕС-ПАРК <span className="text-[#ff7e27]">ВОЛЖСКИЙ</span>
+                        Заходите <span className="text-[#ff7e27]">в гости</span>
                       </h3>
                       <p className="text-stone-400 font-bold text-lg">Мы всегда рады вам и вашим питомцам</p>
                     </div>
 
-                    <div className="space-y-8 mb-16">
-                      <p className="text-stone-400 font-bold text-sm uppercase mb-4 tracking-tight">Контактная информация</p>
+                    <div className="space-y-6 md:space-y-8 mb-10 md:mb-16">
                       
                       <div className="flex items-center gap-6 group">
                         <div className="w-12 h-12 bg-stone-50 rounded-2xl flex items-center justify-center shrink-0 border border-stone-100 transition-all group-hover:bg-[#ff7e27]/10 group-hover:border-[#ff7e27]/30">
                           <MapPin size={22} className="text-[#ff7e27]" />
                         </div>
                         <p className="text-lg md:text-xl font-bold tracking-tight text-[#141414]">
+                          Бизнес-парк «Волжский» <br /> 
                           г. Москва, Волжский бульвар, д.51 с.7, пом. 123-124
                         </p>
                       </div>
@@ -915,29 +918,39 @@ export default function App() {
                           с 10:00 до 21:00 ежедневно
                         </p>
                       </div>
+
+                      <div className="flex items-center gap-6 group">
+                        <div className="w-12 h-12 bg-stone-50 rounded-2xl flex items-center justify-center shrink-0 border border-stone-100 transition-all group-hover:bg-[#99ed36]/10 group-hover:border-[#99ed36]/30">
+                          <Car size={22} className="text-[#99ed36]" />
+                        </div>
+                        <p className="text-lg md:text-xl font-bold tracking-tight text-[#141414] leading-relaxed">
+                          Удобная парковка у здания. Въезд под шлагбаум на территорию бизнес-парка
+                        </p>
+                      </div>
                     </div>
 
-                    <div className="pt-10 border-t border-stone-100">
-                      <p className="text-stone-400 font-bold mb-6 text-sm">Написать нам:</p>
+                    <div className="pt-8 md:pt-10 space-y-8">
+                      <div>
+                        <p className="text-stone-400 font-bold mb-6 text-sm">Написать нам:</p>
                       <div className="flex flex-wrap gap-3">
-                        <a 
-                          href="https://t.me/MAX_CONTACT" 
-                          target="_blank"
-                          rel="noreferrer"
-                          className="flex items-center gap-3 bg-stone-50 py-4 px-6 rounded-2xl hover:bg-[#99ed36] hover:text-[#141414] transition-all duration-300 border border-stone-100 group"
-                        >
-                          <div className="w-8 h-8 bg-[#141414]/5 rounded-lg flex items-center justify-center text-sm font-black group-hover:bg-black/10">М</div>
-                          <span className="text-sm font-bold">Макс</span>
-                        </a>
-
                         <a 
                           href="https://t.me/best_friend_hotel" 
                           target="_blank"
                           rel="noreferrer"
                           className="flex items-center gap-3 bg-stone-50 py-4 px-6 rounded-2xl hover:bg-[#24A1DE] hover:text-white transition-all duration-300 border border-stone-100 group"
                         >
-                          <Send size={18} />
+                          <img src={telegramLogoImg} className="w-5 h-5 object-contain" alt="Telegram" />
                           <span className="text-sm font-bold">Telegram</span>
+                        </a>
+
+                        <a 
+                          href="https://t.me/MAX_CONTACT" 
+                          target="_blank"
+                          rel="noreferrer"
+                          className="flex items-center gap-3 bg-stone-50 py-4 px-6 rounded-2xl hover:bg-[#99ed36] hover:text-[#141414] transition-all duration-300 border border-stone-100 group"
+                        >
+                          <img src={logoMaxImg} className="w-8 h-8 object-contain" alt="Max" />
+                          <span className="text-sm font-bold tracking-tight">MAX</span>
                         </a>
 
                         <a 
@@ -948,12 +961,13 @@ export default function App() {
                           <span className="text-sm font-bold">Email</span>
                         </a>
                       </div>
+                      </div>
                     </div>
                   </div>
 
                   <div className="h-[400px] lg:h-auto min-h-[500px] relative">
                     <iframe 
-                      src="https://yandex.ru/map-widget/v1/?ll=37.759210%2C55.694540&z=15" 
+                      src="https://yandex.ru/map-widget/v1/?ll=37.759210%2C55.694540&z=16&pt=37.759210,55.694540,pm2rdm" 
                       width="100%" 
                       height="100%" 
                       frameBorder="0"
@@ -967,14 +981,94 @@ export default function App() {
         )}
       </AnimatePresence>
 
-      <footer className="py-20 bg-[#141414] text-stone-500 border-t border-white/5 text-center">
-        <img src={logoImg} className="w-16 h-16 mx-auto opacity-20 filter grayscale mb-8" alt="Logo" />
-        <p className="font-black text-xl mb-4 text-white">2026 Бест Френд — Зоотель</p>
-        <div className="flex flex-col mb-8 text-sm font-bold text-white opacity-80 gap-1 uppercase tracking-tight">
-          <span>ОГРНИП 325774600614104</span>
-          <span>ИНН 482413133456</span>
+      <footer className="py-20 md:py-24 bg-[#141414] text-stone-500 border-t border-white/5">
+        <div className="max-w-7xl mx-auto px-6 md:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 md:gap-8 mb-20">
+            {/* LOGO */}
+            <div className="flex flex-col items-start text-left">
+              <div className="flex items-center gap-3 group cursor-pointer" onClick={() => { setCurrentPage('main'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>
+                <img src={logoImg} className="w-12 h-12 object-contain opacity-90" alt="Бест Френд" />
+                <div className="flex flex-col">
+                  <span className="text-xl font-black tracking-tighter leading-none text-white">Бест Френд</span>
+                  <span className="text-[10px] font-bold text-stone-500">Зоотель</span>
+                </div>
+              </div>
+            </div>
+
+            {/* NAVIGATION DUPLICATE */}
+            <div className="md:col-span-1">
+              <h4 className="text-white font-black text-lg mb-8">Навигация</h4>
+              <nav className="grid grid-cols-2 md:grid-cols-1 gap-x-4 gap-y-4 font-bold text-stone-500">
+                <button onClick={() => scrollToId('rooms')} className="hover:text-[#99ed36] transition-all text-left">Номера</button>
+                <button onClick={() => scrollToId('about')} className="hover:text-[#ff7e27] transition-all text-left">О нас</button>
+                <button onClick={() => scrollToId('rules')} className="hover:text-[#ff7e27] transition-all text-left">Правила</button>
+                <button onClick={() => scrollToId('promos')} className="hover:text-[#ff7e27] transition-all text-left">Акции</button>
+                <button onClick={() => scrollToId('gallery')} className="hover:text-[#ff7e27] transition-all text-left">Фото</button>
+                <button onClick={() => scrollToId('faq')} className="md:hidden hover:text-[#ff7e27] transition-all text-left">Вопросы</button>
+                <button onClick={() => scrollToId('reviews')} className="md:hidden hover:text-[#ff7e27] transition-all text-left">Отзывы</button>
+                <button onClick={() => scrollToId('contacts')} className="md:hidden hover:text-[#99ed36] transition-all text-left">Контакты</button>
+              </nav>
+            </div>
+
+            <div className="hidden md:block">
+              <h4 className="text-white font-black text-lg mb-8">Разделы</h4>
+              <nav className="flex flex-col gap-4 font-bold text-stone-500">
+                <button onClick={() => scrollToId('faq')} className="hover:text-[#ff7e27] transition-all text-left">Вопросы</button>
+                <button onClick={() => scrollToId('reviews')} className="hover:text-[#ff7e27] transition-all text-left">Отзывы</button>
+                <button onClick={() => scrollToId('contacts')} className="hover:text-[#99ed36] transition-all text-left">Контакты</button>
+              </nav>
+            </div>
+
+            {/* CONTACTS */}
+            <div className="flex flex-col items-start text-left">
+              <h4 className="text-white font-black text-lg mb-8">Контакты</h4>
+              <div className="space-y-6">
+                <div className="flex flex-col gap-1.5">
+                  <span className="text-[11px] font-black text-stone-700">Адрес</span>
+                  <p className="text-stone-300 font-bold leading-relaxed text-sm">
+                    г. Москва, Волжский бульвар, <br />д.51 с.7, пом. 123-124
+                  </p>
+                </div>
+                <div className="flex flex-col gap-1.5">
+                  <span className="text-[11px] font-black text-stone-700">Телефон</span>
+                  <a href="tel:79670578130" className="text-white text-lg font-black hover:text-[#ff7e27] transition-all">
+                    7 (967) 057-81-30
+                  </a>
+                </div>
+                <div className="flex flex-col gap-1.5">
+                  <span className="text-[11px] font-black text-stone-700">Режим работы</span>
+                  <p className="text-white text-lg font-black tracking-tight">
+                    с 10:00 до 21:00 ежедневно
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div className="pt-12 border-t border-white/5 flex flex-col lg:flex-row justify-between items-start lg:items-center gap-10">
+            <div className="flex flex-wrap gap-4">
+              <a href="https://t.me/best_friend_hotel" target="_blank" rel="noreferrer" className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center text-white hover:bg-[#24A1DE] transition-all border border-white/5">
+                <img src={telegramLogoImg} className="w-6 h-6 object-contain" alt="Telegram" />
+              </a>
+              <a href="https://t.me/MAX_CONTACT" target="_blank" rel="noreferrer" className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center hover:bg-[#99ed36] transition-all border border-white/5 group">
+                <img src={logoMaxImg} className="w-6 h-6 object-contain" alt="Max" />
+              </a>
+              <a href="mailto:hello@best-friend.ru" className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center text-white hover:bg-[#ff7e27] transition-all border border-white/5">
+                <Mail size={20} />
+              </a>
+            </div>
+
+            <div className="flex flex-col md:flex-row items-start md:items-center gap-6 md:gap-10 text-[11px] font-bold text-stone-600">
+              <div className="flex flex-col md:flex-row gap-2 md:gap-6 uppercase">
+                <span>ОГРНИП325774600614104</span>
+                <span>ИНН482413133456</span>
+              </div>
+              <p className="text-stone-700 font-medium whitespace-nowrap">© 2026 Бест Френд — Зоотель. Все права защищены.</p>
+            </div>
+          </div>
         </div>
       </footer>
     </div>
   );
 }
+
