@@ -5,7 +5,8 @@ import {
   MessageCircle, ShieldCheck, ArrowLeft, Cat, Dog,
   Camera, Coffee, Thermometer, UserCheck, CheckCircle2,
   Instagram, Send, FileText, Tag, Image as LucideImage, Info, Mail,
-  Maximize2, Layers, Check, Sparkles, Car
+  Maximize2, Layers, Check, Sparkles, Car, 
+  AlertTriangle, XCircle, Syringe, Verified
 } from 'lucide-react';
 import BookingWidget from './components/BookingWidget';
 import { litePmsApi } from './services/litePmsApi';
@@ -21,6 +22,7 @@ import heroSpaImg from './assets/hero_spa.png';
 import heroMainImg from './assets/hero_main.png';
 import logoMaxImg from './assets/logo_max.svg';
 import telegramLogoImg from './assets/telegram_logo.png';
+import dogRulesImg from './assets/dog_rules.png';
 
 const catRooms = [
   {
@@ -30,8 +32,9 @@ const catRooms = [
     pricePerNight: 850,
     area: '0.8 м²',
     height: '0.8 м',
-    includes: 'Индивидуальный уход',
-    note: 'Ежедневные фотоотчёты, фильтрованная вода, уборка 2 раза в день и много любви.',
+    inclusions: ["Миски", "Лежанка", "Когтеточка", "Лоток", "Наполнитель (древесный)", "Питьевая вода", "Кормление по графику", "Индивидуальная вентиляция", "Фото/видео-отчет", "Игровая зона"],
+    note: 'Для 1-ой кошки',
+    extras: ["Поилка-фонтанчик +100 ₽/сут", "Свежая травка +50 ₽/сут", "Наполнитель селикагель +60 ₽/сут", "Активный выгул 20 мин +250 ₽/сут"],
     litePmsId: '75241',
   },
   {
@@ -41,8 +44,9 @@ const catRooms = [
     pricePerNight: 1050,
     area: '0.8 м²',
     height: '1.3 м',
-    includes: 'Доп. полочки для игр',
-    note: 'Система ступенек и полочек для активных игр, расширенный уход и внимание няни 24/7.',
+    inclusions: ["Миски", "Лежанка", "Когтеточка", "Лоток", "Наполнитель (древесный)", "Питьевая вода", "Кормление по графику", "Индивидуальная вентиляция", "Фото/видео-отчет", "Игровая зона"],
+    note: 'Можно поселить 2-х кошек (+30% к стоимости)',
+    extras: ["Поилка-фонтанчик +100 ₽/сут", "Свежая травка +50 ₽/сут", "Наполнитель селикагель +60 ₽/сут", "Активный выгул 20 мин +250 ₽/сут"],
     litePmsId: '75240',
   },
   {
@@ -52,8 +56,9 @@ const catRooms = [
     pricePerNight: 1250,
     area: '1.12 м²',
     height: '1.3 м',
-    includes: 'Видеонаблюдение 24/7',
-    note: 'Круглосуточный видеоконтроль, дизайнерская мебель и персональные игры в течение дня.',
+    inclusions: ["Миски", "Лежанка", "Когтеточка", "Лоток", "Наполнитель (древесный)", "Питьевая вода", "Кормление по графику", "Индивидуальная вентиляция", "Фото/видео-отчет", "Игровая зона"],
+    note: 'Можно поселить 2-х кошек (+30% к стоимости)',
+    extras: ["Поилка-фонтанчик +100 ₽/сут", "Свежая травка +50 ₽/сут", "Наполнитель селикагель +60 ₽/сут", "Активный выгул 20 мин +250 ₽/сут"],
     litePmsId: '75242',
   }
 ];
@@ -66,8 +71,9 @@ const dogRooms = [
     pricePerNight: 1350,
     area: '0.8 м²',
     height: '0.9 м',
-    includes: '3-разовый выгул',
-    note: 'Прогулки на свежем воздухе, гигиенический уход и ежедневные видеоотчёты владельцу.',
+    inclusions: ["Миски", "Лежанка", "Питьевая вода", "Кормление по графику", "Индивидуальная вентиляция", "Фото/видео-отчет", "Одноразовые пеленки"],
+    note: 'Декоративные породы собак до 5 кг',
+    extras: ["Активный выгул 20 мин +250 ₽/выгул"],
   },
   {
     title: 'Улучшенный',
@@ -76,8 +82,9 @@ const dogRooms = [
     pricePerNight: 1690,
     area: '0.8 м²',
     height: '1.4 м',
-    includes: 'Лежанка, выгул 3 раза/день',
-    note: 'Мягкая премиум-лежанка, расширенные прогулки и забота о лапках после улицы.',
+    inclusions: ["Миски", "Лежанка", "Питьевая вода", "Кормление по графику", "Индивидуальная вентиляция", "Фото/видео-отчет", "Полотенце", "Гигиенический выгул 2 раза/день", "Мытье лап"],
+    note: 'Малые породы собак до 10 кг',
+    extras: ["Активный выгул 20 мин +250 ₽/выгул"],
   },
   {
     title: 'Комфорт (2 этаж)',
@@ -86,8 +93,9 @@ const dogRooms = [
     pricePerNight: 1890,
     area: '1.12 м²',
     height: '1.4 м',
-    includes: 'Персональный график',
-    note: 'Индивидуальный режим кормления и прогулок, игры с кинологом и полный уют.',
+    inclusions: ["Миски", "Лежанка", "Питьевая вода", "Кормление по графику", "Индивидуальная вентиляция", "Фото/видео-отчет", "Полотенце", "Гигиенический выгул 2 раза/день", "Мытье лап"],
+    note: 'До 10 кг. Можно поселить 2-х собак (+500 ₽ за 2-ого)',
+    extras: ["Активный выгул 20 мин +250 ₽/выгул"],
   },
   {
     title: 'Комфорт+ (1 этаж)',
@@ -96,18 +104,20 @@ const dogRooms = [
     pricePerNight: 2190,
     area: '1.12 м²',
     height: '1.4 м',
-    includes: 'Просторный номер',
-    note: 'Идеально для средних пород: много места для движения и 4-разовый активный выгул.',
+    inclusions: ["Миски", "Лежанка", "Питьевая вода", "Кормление по графику", "Индивидуальная вентиляция", "Фото/видео-отчет", "Полотенце", "Гигиенический выгул 2 раза/день", "Мытье лап"],
+    note: 'Средние породы до 20 кг. Можно поселить 2-х собак (+500 ₽ за 2-ого)',
+    extras: ["Активный выгул 20 мин +250 ₽/выгул"],
   },
   {
     title: 'Люкс',
     image: dogLuxuryImg,
     price: '2490 ₽/сут',
     pricePerNight: 2490,
-    area: '1.5 м²',
+    area: '1.7 м²',
     height: '3 м',
-    includes: 'VIP обслуживание',
-    note: 'Максимальный простор, видеонаблюдение, SPA-процедуры и безграничное внимание.',
+    inclusions: ["Миски", "Лежанка", "Питьевая вода", "Кормление по графику", "Индивидуальная вентиляция", "Фото/видео-отчет", "Полотенце", "Гигиенический выгул 2 раза/день", "Мытье лап"],
+    note: 'Средние породы до 20 кг. Можно поселить 2-х собак (+500 ₽ за 2-ого)',
+    extras: ["Активный выгул 20 мин +250 ₽/выгул"],
   }
 ];
 
@@ -191,37 +201,75 @@ const faqData = [
 const promoData = [
   { 
     title: "Постоянным клиентам", 
-    text: "Скидка 5% на все услуги отеля начиная со второго бронирования.", 
+    text: "Постоянная скидка 10% на все услуги отеля, действующая с 6-ого бронирования.", 
     bg: "bg-[#99ed36]", 
-    discount: "5%",
+    discount: "10%",
     icon: Star,
     note: "Верным друзьям"
   },
   { 
-    title: "Длительный отдых", 
-    text: "При заезде от 20 дней — скидка 10%, от 30 дней — 15%.", 
+    title: "От срока размещения", 
+    text: "При проживании свыше 14 дней — скидка 10%, свыше 30 дней — 20%.", 
     bg: "bg-[#ff7e27]", 
-    discount: "до 15%",
+    discount: "до 20%",
     icon: Clock,
     note: "Чем дольше, тем выгоднее"
   },
   { 
-    title: "Два хвостика", 
-    text: "Скидка 30% на проживание второго питомца в одном номере.", 
+    title: "Приведи друга", 
+    text: "Разовая скидка 10% на следующее бронирование за каждого приведенного нового клиента.", 
     bg: "bg-[#141414]", 
     textWhite: true,
-    discount: "30%",
-    icon: Heart,
-    note: "Заселение вместе"
+    discount: "10%",
+    icon: UserCheck,
+    note: "Растем вместе"
   }
 ];
 
-const rulesData = [
-  { title: "Ветпаспорт", text: "Обязательное наличие ветеринарного паспорта с актуальными отметками." },
-  { title: "Вакцинация", text: "Прививки должны быть сделаны не ранее 12 месяцев и не позднее 14 дней до заезда." },
-  { title: "Здоровье", text: "Мы принимаем только клинически здоровых животных без признаков инфекций." },
-  { title: "Обработка", text: "Обязательная обработка от внешних и внутренних паразитов (клещи, глисты)." }
-];
+
+const rulesSections = {
+  main: [
+    {
+      title: "Кого мы принимаем",
+      icon: "Dog",
+      content: "Мы принимаем кошек, собак (до 20 кг) старше 4-х месячного возраста, приученных к лотку/пеленке/выгулу."
+    },
+    {
+      title: "Ветеринарный контроль",
+      icon: "Syringe",
+      content: "Наличие ветеринарного паспорта с ежегодной вакцинацией. Вакцинация должна быть проведена не менее чем за 14 дней и не позднее 1 года до заселения."
+    },
+    {
+      title: "Обработка и здоровье",
+      icon: "CheckCircle2",
+      content: "Обработка от глистов и паразитов не более чем за 3 месяца до заселения. Администратор проверяет отметки при заезде."
+    },
+    {
+      title: "Безопасность",
+      icon: "Verified",
+      content: "К заселению принимаются только кастрированные животные. Для выгулов обязателен намордник. Собаки — на мягком ошейнике (безопасность 24/7)."
+    }
+  ],
+  stopList: [
+    "Без документов", 
+    "Агрессивных / Постоянно лающих", 
+    "Беременных / В период течки", 
+    "Щенков и котят младше 4-х месяцев", 
+    "Не кастрированных (по возрасту)", 
+    "С медицинским уходом или инфекциями"
+  ],
+  checklist: [
+    "Ветеринарный паспорт (на всё время)", 
+    "Паспорт хозяина (для договора)", 
+    "Любимые игрушки, лежанка или плед", 
+    "Корм на весь период проживания", 
+    "Витамины (при необходимости)", 
+    "Одежда и ботиночки (если нужно)",
+    "Шлейка / поводок / намордник",
+    "Кошки — только в переноске"
+  ]
+};
+
 
 const galleryImages = [
   { url: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?q=80&w=800&auto=format&fit=crop", title: "Уютный котик", span: "col-span-2", rotate: -1 },
@@ -241,7 +289,7 @@ const galleryImages = [
 const FAQItem = ({ item, isOpen, onClick }: { item: any, isOpen: boolean, onClick: () => void, key?: any }) => {
   return (
     <div 
-      className={`bg-white rounded-[2rem] md:rounded-[3rem] border ${
+      className={`bg-stone-50 rounded-[2rem] md:rounded-[3rem] border ${
         isOpen ? 'border-stone-200' : 'border-stone-100'
       } overflow-hidden`}
     >
@@ -359,10 +407,10 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#fafaf8] text-[#141414] font-sans selection:bg-[#99ed36] selection:text-[#141414]">
+    <div className="min-h-screen bg-white text-[#141414] font-sans selection:bg-[#99ed36] selection:text-[#141414]">
 
       {/* HEADER */}
-      <header className="fixed top-0 left-0 right-0 z-50 bg-[#fafaf8]/90 backdrop-blur-md border-b border-white/20">
+      <header className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-white/20">
         <div className="max-w-7xl mx-auto px-4 md:px-6 h-16 md:h-20 flex items-center justify-between">
           <div className="flex items-center gap-2 md:gap-3 group cursor-pointer" onClick={() => { setCurrentPage('main'); window.scrollTo(0, 0); }}>
             <img
@@ -489,20 +537,38 @@ export default function App() {
                         </div>
                       </div>
 
-                      <div className="space-y-4 mb-12 flex-1">
-                        <p className="text-[11px] font-bold opacity-30 mb-4">В тариф включено:</p>
-                        {(selectedRoom.note || selectedRoom.includes).split(',').map((item: string, i: number) => (
-                          <div key={i} className="flex items-start gap-4">
-                            <div className="w-6 h-6 rounded-xl bg-black/10 flex items-center justify-center mt-0.5 shrink-0">
-                              <Check size={14} strokeWidth={4} />
-                            </div>
-                            <span className="font-bold text-sm leading-tight text-[#141414]/80">{item.trim()}</span>
+                      <div className="space-y-6 mb-12 flex-1">
+                        <div>
+                          <p className="text-[11px] font-black text-[#141414] mb-4 tracking-tight">В стоимость входит:</p>
+                          <div className="columns-1 sm:columns-2 gap-x-6 space-y-2 mb-6">
+                            {selectedRoom.inclusions.map((item: string, i: number) => (
+                              <div key={i} className="flex items-start gap-3 break-inside-avoid">
+                                <div className="w-1.5 h-1.5 rounded-full bg-black/20 mt-1.5 shrink-0" />
+                                <span className="font-bold text-sm leading-tight text-[#141414]">{item}</span>
+                              </div>
+                            ))}
                           </div>
-                        ))}
+                        </div>
+
+                        {selectedRoom.extras && selectedRoom.extras.length > 0 && (
+                          <div className="pt-6 border-t border-black/10">
+                            <p className="text-[11px] font-black text-[#141414] mb-1 tracking-tight">Дополнительные услуги:</p>
+                            <p className="text-[10px] font-bold text-black/50 mb-4 leading-relaxed">
+                              Зоотакси и заселение вне рабочего времени — возможно по индивидуальному согласованию с администратором за дополнительную плату
+                            </p>
+                            <div className="flex flex-wrap gap-2">
+                              {selectedRoom.extras.map((item: string, i: number) => (
+                                <span key={i} className="px-3 py-1.5 bg-black/5 rounded-lg text-[11px] font-bold text-[#141414]">
+                                  {item}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                        )}
                       </div>
 
                        <div className="mt-auto pt-8 border-t border-black/10">
-                          <div className="text-[10px] font-black mb-2 opacity-40 uppercase">Итого к оплате</div>
+                          <div className="text-[10px] font-black mb-2 opacity-40 tracking-widest leading-none">Итого к оплате:</div>
                           <div className="flex items-baseline gap-2">
                             <span className="text-5xl md:text-7xl font-black tracking-tighter">{totalDays * (selectedRoom.pricePerNight || 0)}</span>
                             <span className="text-2xl font-black opacity-40">₽</span>
@@ -542,7 +608,7 @@ export default function App() {
                   className="max-w-6xl"
                 >
                   <h1 className="text-6xl md:text-9xl font-[800] mb-8 leading-[0.85] tracking-[-0.05em] text-[#141414]">
-                    <span>Бест Френд —</span> <br /> зоотель в&nbsp;Москве
+                    <span>Бест&nbsp;Френд</span><br />—&nbsp;зоотель в&nbsp;Москве
                   </h1>
                   <p className="text-xl md:text-2xl text-[#141414]/70 font-bold mb-12 leading-relaxed">
                     Пятизвездочный курорт для тех, кто ждет вас дома. <br />
@@ -573,9 +639,9 @@ export default function App() {
             </section>
 
             {/* ROOMS */}
-            <section id="rooms" className="py-24 bg-white">
+            <section id="rooms" className="py-12 md:py-20 bg-white">
               <div className="max-w-7xl mx-auto px-4 md:px-6">
-                <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">
+                <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-10 md:mb-12">
                   <div>
                     <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-4">Наши номера</h2>
                     <p className="text-lg md:text-xl text-stone-500 font-medium">Подберите идеальный вариант для вашего питомца</p>
@@ -597,7 +663,7 @@ export default function App() {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                   {(selectedCategory === 'dogs' ? dogRooms : catRooms).map((room, idx) => (
                     <motion.div
                       key={room.title}
@@ -632,16 +698,25 @@ export default function App() {
                            </div>
                         </div>
 
-                        <div className="space-y-4 mb-10 flex-1">
-                           <p className="text-[11px] font-bold text-stone-300 mb-2">Что включено:</p>
-                           {(room.note || room.includes).split(',').slice(0, 4).map((item: string, i: number) => (
-                             <div key={i} className="flex items-start gap-3">
-                                <div className={`w-5 h-5 rounded-lg flex items-center justify-center mt-0.5 shrink-0 ${selectedCategory === 'dogs' ? 'bg-[#ff7e27]/10 text-[#ff7e27]' : 'bg-[#99ed36]/10 text-[#99ed36]'}`}>
-                                   <Check size={12} strokeWidth={4} />
-                                </div>
-                                <span className="text-xs font-bold text-stone-500 leading-snug">{item.trim()}</span>
+                        <div className="space-y-6 mb-10 flex-1">
+                          <div className="bg-stone-50/50 p-6 rounded-[2rem] border border-stone-100">
+                             <p className="text-[11px] font-black text-[#141414] mb-4 tracking-tight">В стоимость входит:</p>
+                             <div className="columns-2 gap-x-4 space-y-1.5">
+                               {room.inclusions.map((item: string, i: number) => (
+                                 <div key={i} className="flex items-start gap-2.5 break-inside-avoid">
+                                    <div className="w-1 h-1 rounded-full bg-stone-300 mt-1.5 shrink-0" />
+                                    <span className="text-xs font-bold text-[#141414] leading-snug">{item}</span>
+                                 </div>
+                               ))}
                              </div>
-                           ))}
+                          </div>
+
+                          {room.note && (
+                            <div className="px-4 mt-2">
+                              <p className="text-[11px] font-black text-stone-400 mb-2 tracking-tight">Примечание:</p>
+                              <p className="text-sm font-bold text-stone-600 leading-relaxed">{room.note}</p>
+                            </div>
+                          )}
                         </div>
                         
                         <button 
@@ -659,9 +734,9 @@ export default function App() {
             </section>
 
             {/* ABOUT US */}
-            <section id="about" className="py-24 bg-stone-50">
+            <section id="about" className="py-12 md:py-20 bg-white">
               <div className="max-w-7xl mx-auto px-4 md:px-6">
-                <div className="max-w-3xl mb-16">
+                <div className="max-w-3xl mb-12">
                   <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-8 leading-tight">Курорт, который <br /><span className="text-[#ff7e27]">они заслужили</span></h2>
                   <p className="text-xl text-stone-500 font-medium leading-relaxed">Бест Френд — это не просто гостиница, а современное пространство для комфортного отдыха ваших питомцев в Москве. Мы объединили инновации и искреннюю любовь к животным.</p>
                 </div>
@@ -673,7 +748,7 @@ export default function App() {
                     { icon: Thermometer, title: "Климат", text: "Теплые полы, очистка воздуха и комфортная температура.", color: "bg-[#99ed36]" },
                     { icon: Heart, title: "Любовь", text: "Профессиональный уход и безграничное внимание 24/7.", color: "bg-[#ff7e27]" }
                   ].map((item, i) => (
-                    <div key={i} className="bg-white p-10 rounded-[2.5rem] border border-stone-50 transition-all">
+                    <div key={i} className="bg-stone-50 p-10 rounded-[2.5rem] border border-stone-50 transition-all">
                       <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-10 ${item.color} text-black`}>
                         <item.icon size={28} />
                       </div>
@@ -686,38 +761,107 @@ export default function App() {
             </section>
 
             {/* RULES */}
-            <section id="rules" className="py-24 bg-white">
-              <div className="max-w-7xl mx-auto px-4 md:px-6">
-                <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-16">Правила заезда</h2>
-                <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                  {rulesData.map((rule, idx) => (
-                    <div key={idx} className="p-8 bg-stone-50 rounded-[2.5rem] border border-stone-100 group hover:bg-[#141414] transition-all">
-                      <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center mb-6 text-[#ff7e27] shadow-sm"><FileText size={24} /></div>
-                      <h4 className="text-xl font-black mb-4 group-hover:text-white transition-colors">{rule.title}</h4>
-                      <p className="text-stone-500 font-medium leading-relaxed group-hover:text-stone-400 transition-colors">{rule.text}</p>
-                    </div>
-                  ))}
+            {/* RULES SECTION (PRO MAX EDITION) */}
+            <section id="rules" className="py-12 md:py-20 bg-white relative overflow-hidden">
+              <div className="max-w-7xl mx-auto px-4 md:px-6 relative z-10">
+                <div className="max-w-3xl mb-12">
+                  <h2 className="text-5xl md:text-7xl font-black tracking-tighter mb-8 leading-[0.9]">
+                    Правила <br /><span className="text-[#ff7e27]">размещения</span>
+                  </h2>
+                  <p className="text-xl text-stone-500 font-bold leading-relaxed">
+                    Мы создали максимально безопасную среду. Ознакомьтесь с требованиями, основанными на многолетнем опыте заботы о животных.
+                  </p>
                 </div>
 
-                <div className="mt-10 max-w-3xl">
-                  <p className="text-xl text-stone-500 font-medium mb-4 leading-relaxed">
-                    Вы можете заполнить анкету заранее. Это позволит нам сразу принять вашего друга и заселить его в номер, не теряя времени на формальности при заезде.
-                  </p>
-                  <a 
-                    href="#" 
-                    className="text-[#ff7e27] hover:text-[#141414] font-black text-xl transition-all inline-flex items-center gap-1 group"
-                  >
-                    Заполнить анкету
-                    <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                  </a>
+                <div className="columns-2 lg:columns-4 gap-4 md:gap-8 mb-12">
+                  {rulesSections.main.map((rule, i) => {
+                    const Icon = rule.icon === 'Dog' ? Dog : 
+                                 rule.icon === 'Syringe' ? Syringe : 
+                                 rule.icon === 'CheckCircle2' ? CheckCircle2 : 
+                                 Verified;
+                    return (
+                      <div key={i} className="break-inside-avoid mb-4 md:mb-8">
+                        <div className="px-5 pt-6 pb-10 md:px-10 md:pt-10 md:pb-16 bg-white rounded-[1.5rem] md:rounded-[3rem] border border-stone-100/60 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col items-start text-left">
+                          <Icon className="text-[#ff7e27] mb-5 md:mb-10 w-6 h-6 md:w-10 md:h-10" strokeWidth={2.5} />
+                          <h4 className="text-[14px] md:text-2xl font-black mb-2 md:mb-6 tracking-tight leading-none md:leading-tight text-[#141414]">
+                            {rule.title}
+                          </h4>
+                          <p className="text-stone-400 font-bold text-[11px] md:text-[15px] leading-snug md:leading-relaxed">
+                            {rule.content}
+                          </p>
+                        </div>
+                      </div>
+                    );
+                  })}
                 </div>
+
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 md:gap-20 items-start">
+                  {/* Static Large Dog Image - NOW ON TOP ON MOBILE, RIGHT ON DESKTOP */}
+                  <div className="lg:col-span-6 relative order-1 lg:order-2 pt-0 lg:pt-16">
+                    <div className="relative flex justify-center lg:justify-end">
+                      <img 
+                        src={dogRulesImg} 
+                        className="w-full max-w-[500px] lg:max-w-none h-auto object-contain transform scale-110 md:scale-125 lg:scale-150 origin-center lg:origin-top-right"
+                        alt="Собака"
+                      />
+                      {/* Abstract decorative shape behind dog */}
+                      <div className="absolute -z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[140%] h-[140%] bg-[#99ed36]/5 rounded-full blur-[100px] lg:blur-[150px]"></div>
+                    </div>
+                  </div>
+
+                  {/* Lists Content Area (NOW BELOW ON MOBILE, LEFT ON DESKTOP) */}
+                  <div className="lg:col-span-6 order-2 lg:order-1 space-y-12 md:space-y-16">
+                    
+                    {/* CHECKLIST Section */}
+                    <div>
+                      <div className="flex items-center gap-4 mb-6">
+                        <div className="w-12 h-12 bg-[#99ed36]/10 text-[#141414] rounded-2xl flex items-center justify-center">
+                          <Check size={28} strokeWidth={3} />
+                        </div>
+                        <h3 className="text-3xl md:text-5xl font-black tracking-tighter text-[#141414]">Что взять с собой</h3>
+                      </div>
+                      
+                      <div className="grid sm:grid-cols-2 gap-3">
+                        {rulesSections.checklist.map((item, i) => (
+                          <div key={i} className="flex items-start gap-4 p-5 rounded-2xl bg-white border border-stone-100/60 shadow-sm hover:shadow-md hover:border-[#99ed36]/30 hover:bg-[#99ed36]/5 transition-all group cursor-default">
+                            <div className="w-1.5 h-1.5 rounded-full bg-[#99ed36] mt-2 shrink-0 group-hover:scale-150 transition-transform" />
+                            <span className="font-bold text-stone-600 text-sm leading-tight">{item}</span>
+                          </div>
+                        ))}
+                      </div>
+                      
+                      <div className="mt-8 text-[12px] font-bold text-[#141414]/60">
+                        * Оригиналы документов находятся у нас весь срок пребывания
+                      </div>
+                    </div>
+
+                    {/* STOP LIST Section */}
+                    <div>
+                      <div className="flex items-center gap-4 mb-6">
+                        <div className="w-12 h-12 bg-red-50 text-red-500 rounded-2xl flex items-center justify-center">
+                          <XCircle size={28} />
+                        </div>
+                        <h3 className="text-3xl md:text-5xl font-black tracking-tighter text-[#141414]">Мы не принимаем</h3>
+                      </div>
+                      
+                      <div className="grid sm:grid-cols-2 gap-3">
+                        {rulesSections.stopList.map((item, i) => (
+                          <div key={i} className="flex items-start gap-4 p-5 rounded-2xl bg-white border border-stone-100/60 shadow-sm hover:shadow-md hover:border-red-100/60 hover:bg-red-50/30 transition-all group cursor-default">
+                            <AlertTriangle size={16} className="text-red-400 mt-1 shrink-0 group-hover:scale-110 transition-transform" />
+                            <span className="font-bold text-stone-600 text-sm leading-tight">{item}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
               </div>
             </section>
-
-            {/* PROMOTIONS */}
-            <section id="promos" className="py-24 bg-stone-50">
+{/* PROMOTIONS */}
+            <section id="promos" className="py-12 md:py-20 bg-white">
               <div className="max-w-7xl mx-auto px-4 md:px-6">
-                <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">
+                <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-10 md:mb-12">
                   <div>
                     <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-4">Наши акции</h2>
                     <p className="text-lg md:text-xl text-stone-500 font-medium">Специальные предложения для вашего комфорта и экономии</p>
@@ -768,14 +912,14 @@ export default function App() {
               </div>
             </section>
 
-            <section id="gallery" className="py-24 bg-white overflow-hidden">
+            <section id="gallery" className="py-12 md:py-20 bg-white overflow-hidden">
               <div className="max-w-7xl mx-auto px-4 md:px-6">
-                <div className="text-center mb-16">
+                <div className="text-center mb-12">
                   <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-4">Жизнь в отеле</h2>
                   <p className="text-stone-400 font-bold">Спокойствие и радость в каждом кадре</p>
                 </div>
                 
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-6 md:gap-10 grid-flow-row-dense">
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-10 grid-flow-row-dense">
                   {galleryImages.map((img, idx) => (
                     <motion.div
                       key={idx}
@@ -783,13 +927,17 @@ export default function App() {
                       whileInView={{ opacity: 1, rotate: img.rotate || 0 }}
                       viewport={{ once: true }}
                       transition={{ duration: 0.8, ease: "easeOut" }}
-                      className={`rounded-[2.5rem] overflow-hidden shadow-2xl relative ${img.span || 'col-span-1'}`}
+                      className={`rounded-[2rem] md:rounded-[2.5rem] overflow-hidden shadow-xl md:shadow-2xl relative ${
+                        img.span === 'col-span-3' ? 'col-span-2 md:col-span-3' : 
+                        img.span === 'col-span-2' ? 'col-span-1 md:col-span-2' : 
+                        'col-span-1'
+                      }`}
                     >
                       <motion.img 
                         src={img.url} 
                         whileHover={{ scale: 1.05 }}
                         transition={{ duration: 0.4 }}
-                        className="w-full h-80 md:h-[450px] object-cover scale-[1.1]" 
+                        className="w-full h-64 md:h-[450px] object-cover scale-[1.1]" 
                         alt={img.title} 
                       />
                     </motion.div>
@@ -799,9 +947,9 @@ export default function App() {
             </section>
 
             {/* FAQ */}
-            <section id="faq" className="py-24 bg-white relative overflow-hidden">
+            <section id="faq" className="py-12 md:py-20 bg-white relative overflow-hidden">
               <div className="max-w-4xl mx-auto px-4 md:px-6 relative z-10">
-                <div className="text-center mb-16">
+                <div className="text-center mb-12">
                   <h2 className="text-5xl md:text-7xl font-black tracking-tighter mb-4">Остались вопросы?</h2>
                   <p className="text-stone-400 font-bold text-lg">Мы собрали ответы на самые частые обращения</p>
                 </div>
@@ -809,9 +957,9 @@ export default function App() {
                 <FAQList />
               </div>
             </section>
-            <section id="reviews" className="py-24 bg-stone-50">
+            <section id="reviews" className="py-12 md:py-20 bg-white">
               <div className="max-w-7xl mx-auto px-4 md:px-6">
-                <div className="text-center mb-16">
+                <div className="text-center mb-12">
                   <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-4">Отзывы гостей</h2>
                   <p className="text-stone-400 font-bold">Реальные истории проживания в нашем отеле</p>
                 </div>
@@ -824,7 +972,7 @@ export default function App() {
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
                       transition={{ delay: idx * 0.1 }}
-                      className="break-inside-avoid bg-white p-8 rounded-[2.5rem] border border-stone-100 shadow-sm hover:shadow-xl transition-all duration-500 group"
+                      className="break-inside-avoid bg-stone-50 p-8 rounded-[2.5rem] border border-stone-100 shadow-sm hover:shadow-xl transition-all duration-500 group"
                     >
                       <div className="flex justify-between items-start mb-6">
                         <div className="flex gap-0.5">
@@ -877,11 +1025,11 @@ export default function App() {
             </section>
 
             {/* CONTACTS */}
-            <section id="contacts" className="py-24 bg-stone-50/50">
+            <section id="contacts" className="py-12 md:py-20 bg-white">
               <div className="max-w-7xl mx-auto px-4 md:px-6">
-                <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-12">Контакты</h2>
+                <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-10">Контакты</h2>
                 <div className="bg-white rounded-[3.5rem] overflow-hidden grid lg:grid-cols-2 shadow-2xl border border-stone-100">
-                  <div className="p-6 md:p-16 lg:p-20 flex flex-col justify-center">
+                  <div className="p-8 md:p-14 lg:p-16 flex flex-col justify-center">
                     <div className="mb-6 md:mb-8">
                       <h3 className="text-3xl md:text-4xl font-black mb-4 tracking-tighter text-[#141414]">
                         Заходите <span className="text-[#ff7e27]">в гости</span>
@@ -889,7 +1037,7 @@ export default function App() {
                       <p className="text-stone-400 font-bold text-lg">Мы всегда рады вам и вашим питомцам</p>
                     </div>
 
-                    <div className="space-y-6 md:space-y-8 mb-10 md:mb-16">
+                    <div className="space-y-6 md:space-y-8 mb-8 md:mb-12">
                       
                       <div className="flex items-center gap-6 group">
                         <div className="w-12 h-12 bg-stone-50 rounded-2xl flex items-center justify-center shrink-0 border border-stone-100 transition-all group-hover:bg-[#ff7e27]/10 group-hover:border-[#ff7e27]/30">

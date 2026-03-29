@@ -6,6 +6,12 @@
   --color-brand-green: #99ed36;
   --color-brand-orange: #ff7e27;
   --color-brand-dark: #141414;
+
+  /* Pro Max High-End Soft Shadows (Multi-layered Natural Blend) */
+  --shadow-sm: 0 2px 4px rgba(0,0,0,0.02), 0 1px 1px rgba(0,0,0,0.01);
+  --shadow-md: 0 4px 8px rgba(0,0,0,0.04), 0 2px 4px rgba(0,0,0,0.03);
+  --shadow-lg: 0 12px 24px rgba(0,0,0,0.05), 0 4px 6px rgba(0,0,0,0.02);
+  --shadow-xl: 0 25px 50px rgba(0,0,0,0.06), 0 10px 20px rgba(0,0,0,0.03);
 }
 
 :root {
@@ -22,7 +28,7 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 5rem;
-  background-color: #fafaf8;
+  background-color: #ffffff;
 }
 
 body {
