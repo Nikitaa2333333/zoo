@@ -1,0 +1,37 @@
+# Зоотель Бест Френд (Москва)
+
+Professional pet hotel/boarding service located in Moscow, near Kuzminki Park. Specialized in cats and dogs (under 20kg). Five-star pet care with 24/7 video monitoring and professional nannies.
+
+## Core Services & Pricing
+
+### Cat Boarding (Кошки)
+- **Standard (Стандарт):** 850 ₽/night. Area: 0.8m², Height: 0.8m. Includes bed, food bowls, scratching post, and 24/7 video.
+- **Improved (Улучшенный):** 1050 ₽/night. Height: 1.3m (increased vertical space). Suitable for 2 cats (+30% price).
+- **Comfort (Комфорт):** 1250 ₽/night. Area: 1.12m², Height: 1.3m. Maximum comfort with more space.
+
+### Dog Boarding (Собаки)
+- **Standard (Стандарт):** 1350 ₽/night. For dogs < 5kg.
+- **Improved (Улучшенный):** 1690 ₽/night. For dogs < 10kg. Includes 2 hygiene walks per day.
+- **Comfort (Комфорт):** 1890 ₽/night. Larger space (1.12m²), 2 floor.
+- **Comfort+ (Комфорт+):** 2190 ₽/night. For dogs up to 20kg.
+- **Luxury (Люкс):** 2490 ₽/night. Maximum space (1.7m², 3m height).
+
+## Key Features (GEO Signals)
+- **24/7 Video Monitoring:** Free online access for pet owners.
+- **Location Advantage:** Nearby Kuzminki Park for high-quality forest walks.
+- **E-E-A-T (Trust):** Strict vaccination requirements (14 days - 1 year). Medical records check. Professional animal care staff.
+- **Hygiene:** Double daily cleaning, antibacterial treatment, and quartz lamps after every stay.
+
+## Search Entities & Keywords
+Pet hotel Moscow, cat boarding, dog hotel, Kuzminki animal care, professional pet sitting, veterinary monitored stay, dog taxi Moscow, residential area boarding.
+- **Requirements:** 4+ months age, full vaccinations, castrated (age-dependent), non-aggressive.
+- **Checklist:** Vet passport, owner's ID, food, favorite toys/bed, leash/muzzle.
+
+## Contact Information
+- **Phone:** +7 (967) 057-81-30
+- **Hours:** 10:00 - 21:00 Daily.
+- **Address:** Moscow, Kuzminki Park area.
+- **Social Media:** Telegram (@bestfriend_hotel), Instagram (@bestfriend_hotel)
+
+## Booking
+Powered by LitePMS integration. Prepayment required: 1000 ₽.
