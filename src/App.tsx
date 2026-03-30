@@ -126,7 +126,7 @@ const testimonialData = [
     name: "Елена",
     pet: "Кот Марс",
     type: "cat",
-    stayDate: "Февраль — март 2026",
+    stayDate: "Январь 2026",
     text: "Оставляла кота в номере «Комфорт» на 2 недели. Очень переживала, как он перенесет разлуку, но благодаря видеонаблюдению видела, что Марс чувствует себя как дома. Вечерние фотоотчеты в Telegram — это просто находка! Вернулся спокойным, чистым и даже не сразу захотел выходить из переноски дома.",
     stars: 5,
   },
@@ -134,7 +134,7 @@ const testimonialData = [
     name: "Игорь",
     pet: "Бигль Рокки",
     type: "dog",
-    stayDate: "Февраль — март 2026",
+    stayDate: "Декабрь 2025",
     text: "Пользовались услугой зоотакси — это мега-удобно! Забрали Рокки прямо от подъезда. В отеле отличные площадки для выгула, пес приехал уставший и счастливый. Понравилось, что за соблюдением правил вакцинации следят строго — это залог безопасности всех животных. Теперь только к вам!",
     stars: 5,
   },
@@ -142,7 +142,7 @@ const testimonialData = [
     name: "Мария",
     pet: "Шпиц Буся",
     type: "dog",
-    stayDate: "Февраль — март 2026",
+    stayDate: "Ноябрь 2025",
     text: "В «Бест Френд» работают настоящие профессионалы. У Буси специфический рацион, и я очень просила соблюдать график кормления. Все выполнили идеально. В номере «Люкс» очень просторно, тепло и чисто. Спасибо няням за терпение и любовь к таким характерным собачкам, как наша!",
     stars: 4,
   },
@@ -150,7 +150,7 @@ const testimonialData = [
     name: "Александр",
     pet: "Мейн-кун Цезарь",
     type: "cat",
-    stayDate: "Февраль — март 2026",
+    stayDate: "Октябрь 2025",
     text: "Наш кот — настоящий гигант, и обычные гостиницы ему тесноваты. Здесь в номере «Улучшенный» ему было где развернуться (высота 1.3м!). Полочки — это супер, коты это обожают. Вернулся довольный, шерсть в отличном состоянии. Рекомендую для крупных пород!",
     stars: 5,
   },
@@ -158,7 +158,7 @@ const testimonialData = [
     name: "Татьяна",
     pet: "Лабрадор Бадди",
     type: "dog",
-    stayDate: "Февраль — март 2026",
+    stayDate: "Август — сентябрь 2025",
     text: "Искали место с хорошим выгулом, так как Бадди очень активный. Выгул 3 раза в день — это то, что нужно. Персонал знает подход к крупным собакам. Фотоотчеты радовали всю семью во время отпуска. Спасибо за спокойствие за нашего друга!",
     stars: 4,
   },
@@ -166,7 +166,7 @@ const testimonialData = [
     name: "Ольга",
     pet: "Британка Луна",
     type: "cat",
-    stayDate: "Февраль — март 2026",
+    stayDate: "Июль 2025",
     text: "Очень понравился интерьер — современно, без лишних запахов. Луна обычно стрессует в новых местах, но здесь быстро адаптировалась. Няни очень ласковые, видно, что любят животных. Приедем еще!",
     stars: 5,
   },
@@ -174,7 +174,7 @@ const testimonialData = [
     name: "Дмитрий",
     pet: "Хаски Гром",
     type: "dog",
-    stayDate: "Февраль — март 2026",
+    stayDate: "Май 2025",
     text: "Огромное спасибо за профессионализм! Гром — парень с характером, но няни нашли к нему подход. Номер «Люкс» оправдал все ожидания. Рекомендую всем, кто ищет качественное зоопроживание.",
     stars: 5,
   },
@@ -182,7 +182,7 @@ const testimonialData = [
     name: "Анна",
     pet: "Бенгалка Симба",
     type: "cat",
-    stayDate: "Февраль — март 2026",
+    stayDate: "Апрель 2025",
     text: "В «Бест Френд» лучшие условия для кошек. Чисто, тихо и очень уютно.",
     stars: 4,
   }
@@ -411,7 +411,7 @@ export default function App() {
 
       {/* HEADER */}
       <header className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-white/20">
-        <div className="max-w-7xl mx-auto px-4 md:px-6 h-16 md:h-20 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-6 h-16 md:h-20 flex items-center justify-between">
           <div className="flex items-center gap-2 md:gap-3 group cursor-pointer" onClick={() => { setCurrentPage('main'); window.scrollTo(0, 0); }}>
             <img
               src={logoImg}
@@ -419,8 +419,8 @@ export default function App() {
               alt="Логотип Бест френд — лучший зоотель в Москве"
             />
             <div className="flex flex-col">
-              <span className="text-lg md:text-xl font-black tracking-tighter leading-none">Бест френд</span>
-              <span className="text-[10px] md:text-[12px] font-bold text-stone-400">Зоотель в Москве</span>
+              <span className="text-xl md:text-2xl font-black tracking-tighter leading-none">Бест френд</span>
+              <span className="text-[12px] md:text-[13px] font-bold text-stone-400">Зоотель в Москве</span>
             </div>
           </div>
 
@@ -531,7 +531,7 @@ export default function App() {
 
                       <div className="space-y-6 mb-8 flex-1">
                         <div>
-                          <p className="text-[11px] font-black text-[#141414] mb-4 tracking-tight">В стоимость входит:</p>
+                          <p className="text-xs font-black text-[#141414] mb-4 tracking-wider uppercase">В стоимость входит:</p>
                           <div className="columns-1 sm:columns-2 gap-x-6 space-y-2 mb-6">
                             {selectedRoom.inclusions.map((item: string, i: number) => (
                               <div key={i} className="flex items-start gap-3 break-inside-avoid">
@@ -543,22 +543,22 @@ export default function App() {
                         </div>
 
                         <div className="pt-6 border-t border-black/10 mb-6">
-                          <p className="text-[11px] font-black text-[#141414] mb-1 tracking-tight">Дополнительные услуги:</p>
-                          <p className="text-[10px] font-bold text-black/50 leading-relaxed text-[#141414]/70">
+                          <p className="text-xs font-black text-[#141414] mb-3 tracking-wider uppercase">Дополнительные услуги:</p>
+                          <p className="text-[13px] md:text-sm font-bold text-black/60 leading-relaxed">
                             Зоотакси и заселение вне рабочего времени — по индивидуальному согласованию с администратором за дополнительную плату
                           </p>
                         </div>
 
                         <div className="pt-6 border-t border-black/10 space-y-3">
                           <div className="bg-white/30 backdrop-blur-sm p-4 rounded-2xl flex items-start gap-3 border border-white/20">
-                            <Info size={16} className="shrink-0 mt-0.5 opacity-60" />
-                            <p className="text-[10px] font-bold leading-relaxed text-[#141414]/70">
+                            <Info size={18} className="shrink-0 mt-0.5 opacity-60" />
+                            <p className="text-[13px] md:text-sm font-bold leading-relaxed text-[#141414]/80">
                               Минимальный срок — 1 сутки. При наличии мест возможно дневное пребывание (до 5 часов) за 50% стоимости.
                             </p>
                           </div>
                           <div className="bg-white/30 backdrop-blur-sm p-4 rounded-2xl flex items-start gap-3 border border-white/20">
-                            <AlertTriangle size={16} className="shrink-0 mt-0.5 opacity-60" />
-                            <p className="text-[10px] font-bold leading-relaxed text-[#141414]/70">
+                            <AlertTriangle size={18} className="shrink-0 mt-0.5 opacity-60" />
+                            <p className="text-[13px] md:text-sm font-bold leading-relaxed text-[#141414]/80">
                               Предоплата — 1000 ₽. При отмене бронирования менее чем за 2 суток предоплата не возвращается.
                             </p>
                           </div>
@@ -589,29 +589,37 @@ export default function App() {
             className="pt-16 md:pt-20"
           >
             {/* HERO */}
-            <section className="relative pt-8 md:pt-12 overflow-hidden bg-white">
+            <section className="relative pt-3 md:pt-5 overflow-hidden bg-white">
               {/* Massive Vibrant Background Glow Blobs */}
               <div className="absolute -top-20 -left-40 w-[600px] h-[600px] bg-[#99ed36]/40 rounded-full blur-[120px] pointer-events-none mix-blend-multiply opacity-70" />
               <div className="absolute -bottom-40 -right-40 w-[800px] h-[800px] bg-[#ff7e27]/30 rounded-full blur-[150px] pointer-events-none mix-blend-multiply opacity-70" />
               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#ff7e27]/10 rounded-full blur-[180px] pointer-events-none" />
 
-              <div className="max-w-7xl mx-auto px-4 md:px-6 relative z-10 w-full text-center flex flex-col items-center mb-0">
+              <div className="max-w-7xl mx-auto px-6 relative z-10 w-full text-center flex flex-col items-center mb-0">
                 <motion.div
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-                  className="max-w-6xl"
+                  className="max-w-7xl w-full"
                 >
-                  <h1 className="text-6xl md:text-9xl font-[800] mb-8 leading-[0.85] tracking-[-0.05em] text-[#ff7e27]">
-                    <span>Бест&nbsp;френд&nbsp;—</span><br />зоотель в&nbsp;Москве для&nbsp;кошек и&nbsp;собак
-                  </h1>
-                  <p className="text-xl md:text-2xl text-stone-500 font-bold mb-12 leading-relaxed">
-                    Бережный уход, видеонаблюдение 24/7 и ежедневные фотоотчёты. <br />
-                    Создаем идеальные условия, чтобы ваш любимец чувствовал себя как дома.
+                  <div className="flex flex-col items-center mb-6">
+                    <h1 className="text-center px-2">
+                      <span className="text-5xl md:text-[120px] font-black leading-[0.95] md:leading-[0.85] block text-brand-orange tracking-[-0.04em]">
+                        Бест френд — <br className="hidden md:block" /> зоотель в Москве <br className="hidden md:block" /> для кошек и собак
+                      </span>
+                    </h1>
+                  </div>
+
+                  <p className="text-lg md:text-xl text-stone-900 font-bold mb-12 leading-relaxed max-w-3xl mx-auto text-center px-4 text-balance tracking-tight opacity-70">
+                    Бережный уход, видеонаблюдение 24/7 и ежедневные фотоотчёты.
+                    Создаем идеальные условия, чтобы ваш любимец чувствовал себя как&nbsp;дома.
                   </p>
-                  <div className="flex justify-center mb-20 md:mb-12">
-                    <a href="#rooms" className="bg-[#ff7e27] text-white px-14 py-7 rounded-full font-black text-xl hover:scale-105 transition-all shadow-2xl">
-                      Выбрать номер
+                  <div className="flex justify-center mb-16 md:mb-12">
+                    <a href="#rooms" className="group relative bg-brand-orange text-white px-14 py-7 rounded-full font-black text-xl hover:scale-105 transition-all shadow-[0_20px_50px_rgba(255,126,39,0.3)] hover:shadow-[0_25px_60px_rgba(255,126,39,0.45)]">
+                      <span className="relative z-10 flex items-center gap-3">
+                        Выбрать номер
+                        <ArrowLeft className="w-6 h-6 rotate-180 group-hover:translate-x-2 transition-transform" />
+                      </span>
                     </a>
                   </div>
                 </motion.div>
@@ -640,7 +648,7 @@ export default function App() {
               <div className="max-w-7xl mx-auto px-4 md:px-6">
                 <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-10 md:mb-12">
                   <div>
-                    <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-4">Наши номера</h2>
+                    <h2 className="text-5xl md:text-7xl font-black tracking-tighter mb-4">Наши номера</h2>
                     <p className="text-lg md:text-xl text-stone-500 font-medium">Подберите идеальный вариант для вашего питомца</p>
                   </div>
 
@@ -686,12 +694,12 @@ export default function App() {
 
                         <div className="space-y-6 mb-10 flex-1">
                           <div className="bg-stone-50/50 p-6 rounded-[2rem] border border-stone-100">
-                             <p className="text-[11px] font-black text-[#141414] mb-4 tracking-tight">В стоимость входит:</p>
+                             <p className="text-xs font-black text-[#141414] mb-4 tracking-wider uppercase">В стоимость входит:</p>
                              <div className="columns-2 gap-x-4 space-y-1.5">
                                {room.inclusions.map((item: string, i: number) => (
                                  <div key={i} className="flex items-start gap-2.5 break-inside-avoid">
                                     <div className="w-1 h-1 rounded-full bg-stone-300 mt-1.5 shrink-0" />
-                                    <span className="text-xs font-bold text-[#141414] leading-snug">{item}</span>
+                                    <span className="text-sm font-bold text-[#141414] leading-snug">{item}</span>
                                  </div>
                                ))}
                              </div>
@@ -699,8 +707,8 @@ export default function App() {
 
                           {room.note && (
                             <div className="px-4 mt-2">
-                              <p className="text-[11px] font-black text-stone-400 mb-2 tracking-tight">Примечание:</p>
-                              <p className="text-sm font-bold text-stone-600 leading-relaxed">{room.note}</p>
+                              <p className="text-xs font-black text-stone-400 mb-2 tracking-wider uppercase">Примечание:</p>
+                              <p className="text-base font-bold text-stone-600 leading-relaxed">{room.note}</p>
                             </div>
                           )}
                         </div>
@@ -761,20 +769,20 @@ export default function App() {
                   </p>
                 </div>
 
-                <div className="columns-2 lg:columns-4 gap-4 md:gap-8 mb-12">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 mb-12">
                   {rulesSections.main.map((rule, i) => {
                     const Icon = rule.icon === 'Dog' ? Dog : 
                                  rule.icon === 'Syringe' ? Syringe : 
                                  rule.icon === 'CheckCircle2' ? CheckCircle2 : 
                                  Verified;
                     return (
-                      <div key={i} className="break-inside-avoid mb-4 md:mb-8">
-                        <div className="px-5 pt-6 pb-10 md:px-10 md:pt-10 md:pb-16 bg-white rounded-[1.5rem] md:rounded-[3rem] border border-stone-100/60 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col items-start text-left">
-                          <Icon className="text-[#ff7e27] mb-5 md:mb-10 w-6 h-6 md:w-10 md:h-10" strokeWidth={2.5} />
-                          <h4 className="text-[14px] md:text-2xl font-black mb-2 md:mb-6 tracking-tight leading-none md:leading-tight text-[#141414]">
+                      <div key={i} className="break-inside-avoid">
+                        <div className="p-8 md:p-10 bg-white rounded-[2rem] md:rounded-[3rem] border border-stone-100/60 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col items-start text-left h-full">
+                          <Icon className="text-[#ff7e27] mb-8 md:mb-10 w-8 h-8 md:w-10 md:h-10" strokeWidth={2.5} />
+                          <h4 className="text-xl md:text-2xl font-black mb-4 md:mb-6 tracking-tight leading-none md:leading-tight text-[#141414]">
                             {rule.title}
                           </h4>
-                          <p className="text-stone-400 font-bold text-[11px] md:text-[15px] leading-snug md:leading-relaxed">
+                          <p className="text-stone-500 font-bold text-sm md:text-base leading-relaxed text-balance">
                             {rule.content}
                           </p>
                         </div>
@@ -802,41 +810,33 @@ export default function App() {
                     
                     {/* CHECKLIST Section */}
                     <div>
-                      <div className="flex items-center gap-4 mb-6">
-                        <div className="w-12 h-12 bg-[#99ed36]/10 text-[#141414] rounded-2xl flex items-center justify-center">
-                          <Check size={28} strokeWidth={3} />
-                        </div>
+                      <div className="flex flex-col items-center text-center mb-8">
                         <h3 className="text-3xl md:text-5xl font-black tracking-tighter text-[#141414]">Что взять с собой</h3>
                       </div>
                       
-                      <div className="grid sm:grid-cols-2 gap-3">
+                      <div className="grid grid-cols-2 gap-2 md:gap-3">
                         {rulesSections.checklist.map((item, i) => (
-                          <div key={i} className="flex items-start gap-4 p-5 rounded-2xl bg-white border border-stone-100/60 shadow-sm hover:shadow-md hover:border-[#99ed36]/30 hover:bg-[#99ed36]/5 transition-all group cursor-default">
-                            <div className="w-1.5 h-1.5 rounded-full bg-[#99ed36] mt-2 shrink-0 group-hover:scale-150 transition-transform" />
-                            <span className="font-bold text-stone-600 text-sm leading-tight">{item}</span>
+                          <div key={i} className="flex flex-col items-center text-center p-4 rounded-2xl bg-[#99ed36]/10 border border-[#99ed36]/20 shadow-sm hover:shadow-md transition-all group cursor-default h-full">
+                            <span className="font-bold text-stone-700 text-[13px] md:text-sm leading-tight">{item}</span>
                           </div>
                         ))}
                       </div>
                       
-                      <div className="mt-8 text-[12px] font-bold text-[#141414]/60">
+                      <div className="mt-8 text-[12px] font-bold text-[#141414]/60 text-center">
                         * Оригиналы документов находятся у нас весь срок пребывания
                       </div>
                     </div>
 
                     {/* STOP LIST Section */}
                     <div>
-                      <div className="flex items-center gap-4 mb-6">
-                        <div className="w-12 h-12 bg-red-50 text-red-500 rounded-2xl flex items-center justify-center">
-                          <XCircle size={28} />
-                        </div>
+                      <div className="flex flex-col items-center text-center mb-8">
                         <h3 className="text-3xl md:text-5xl font-black tracking-tighter text-[#141414]">Мы не принимаем</h3>
                       </div>
                       
-                      <div className="grid sm:grid-cols-2 gap-3">
+                      <div className="grid grid-cols-2 gap-2 md:gap-3">
                         {rulesSections.stopList.map((item, i) => (
-                          <div key={i} className="flex items-start gap-4 p-5 rounded-2xl bg-white border border-stone-100/60 shadow-sm hover:shadow-md hover:border-red-100/60 hover:bg-red-50/30 transition-all group cursor-default">
-                            <AlertTriangle size={16} className="text-red-400 mt-1 shrink-0 group-hover:scale-110 transition-transform" />
-                            <span className="font-bold text-stone-600 text-sm leading-tight">{item}</span>
+                          <div key={i} className="flex flex-col items-center text-center p-4 rounded-2xl bg-red-50/50 border border-red-100/60 shadow-sm hover:shadow-md transition-all group cursor-default h-full">
+                            <span className="font-bold text-stone-700 text-[13px] md:text-sm leading-tight">{item}</span>
                           </div>
                         ))}
                       </div>
@@ -952,7 +952,7 @@ export default function App() {
                   <p className="text-stone-400 font-bold">Реальные истории проживания в нашем отеле</p>
                 </div>
                 
-                <div className="columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6">
+                 <div className="flex md:grid md:grid-cols-2 lg:grid-cols-3 overflow-x-auto md:overflow-x-visible no-scrollbar snap-x snap-mandatory gap-4 pb-12 px-5 md:px-0">
                   {testimonialData.slice(0, visibleReviews).map((t, idx) => (
                     <motion.div 
                       key={idx} 
@@ -960,7 +960,7 @@ export default function App() {
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
                       transition={{ delay: idx * 0.1 }}
-                      className="break-inside-avoid bg-stone-50 p-8 rounded-[2.5rem] border border-stone-100 shadow-sm hover:shadow-xl transition-all duration-500 group"
+                      className="min-w-[280px] w-[82vw] md:w-auto md:min-w-0 snap-start flex-shrink-0 break-inside-avoid bg-stone-50 p-7 md:p-8 rounded-[2.5rem] border border-stone-100 shadow-sm hover:shadow-xl transition-all duration-500 group flex flex-col h-full"
                     >
                       <div className="flex justify-between items-start mb-6">
                         <div className="flex gap-0.5">
@@ -973,7 +973,7 @@ export default function App() {
                             />
                           ))}
                         </div>
-                        <span className="text-[11px] font-bold text-stone-300">{t.stayDate}</span>
+                        <span className="text-xs font-bold text-stone-400 uppercase tracking-wider">{t.stayDate}</span>
                       </div>
                       
                       <p className="text-lg font-medium leading-relaxed mb-8 text-stone-700">
@@ -990,7 +990,7 @@ export default function App() {
                         </div>
                         <div>
                           <p className="font-black text-lg leading-none mb-1">{t.name}</p>
-                          <p className={`text-[10px] font-black ${
+                          <p className={`text-xs font-black uppercase tracking-tight ${
                             t.type === 'cat' ? 'text-[#99ed36]' : 'text-[#ff7e27]'
                           }`}>{t.pet}</p>
                         </div>
@@ -1126,7 +1126,7 @@ export default function App() {
                 <img src={logoImg} className="w-12 h-12 object-contain opacity-90" alt="Бест френд" />
                 <div className="flex flex-col">
                   <span className="text-xl font-black tracking-tighter leading-none text-white">Бест френд</span>
-                  <span className="text-[10px] font-bold text-stone-500">Зоотель в Москве</span>
+                  <span className="text-xs font-bold text-stone-500">Зоотель в Москве</span>
                 </div>
               </div>
             </div>
@@ -1160,19 +1160,19 @@ export default function App() {
               <h4 className="text-white font-black text-lg mb-8">Контакты</h4>
               <div className="space-y-6">
                 <div className="flex flex-col gap-1.5">
-                  <span className="text-[11px] font-black text-stone-700">Адрес</span>
+                  <span className="text-xs font-black text-stone-700 uppercase tracking-wider">Адрес</span>
                   <p className="text-stone-300 font-bold leading-relaxed text-sm">
                     г. Москва, Волжский бульвар, <br />д.51 с.7, пом. 123-124
                   </p>
                 </div>
                 <div className="flex flex-col gap-1.5">
-                  <span className="text-[11px] font-black text-stone-700">Телефон</span>
+                  <span className="text-xs font-black text-stone-700 uppercase tracking-wider">Телефон</span>
                   <a href="tel:79670578130" className="text-white text-lg font-black hover:text-[#ff7e27] transition-all">
                     7 (967) 057-81-30
                   </a>
                 </div>
                 <div className="flex flex-col gap-1.5">
-                  <span className="text-[11px] font-black text-stone-700">Режим работы</span>
+                  <span className="text-xs font-black text-stone-700 uppercase tracking-wider">Режим работы</span>
                   <p className="text-white text-lg font-black tracking-tight">
                     с 10:00 до 21:00 ежедневно
                   </p>
@@ -1194,7 +1194,7 @@ export default function App() {
               </a>
             </div>
 
-            <div className="flex flex-col md:flex-row items-start md:items-center gap-6 md:gap-10 text-[11px] font-bold text-stone-600">
+            <div className="flex flex-col md:flex-row items-start md:items-center gap-6 md:gap-10 text-xs font-bold text-stone-600 uppercase">
               <div className="flex flex-col md:flex-row gap-2 md:gap-6 uppercase">
                 <span>ОГРНИП325774600614104</span>
                 <span>ИНН482413133456</span>

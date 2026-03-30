@@ -29,6 +29,9 @@ html {
   scroll-behavior: smooth;
   scroll-padding-top: 5rem;
   background-color: #ffffff;
+  -webkit-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 body {
