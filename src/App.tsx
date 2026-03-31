@@ -639,6 +639,9 @@ export default function App() {
                 <p className="text-[11px] md:text-xl font-black text-brand-dark leading-[1.1] tracking-tight">
                   Берем собак <br /> всех пород <br /> и размеров
                 </p>
+                <p className="mt-2 text-[9px] md:text-sm font-bold text-stone-400">
+                  до 20 кг
+                </p>
               </motion.div>
 
               {/* Narrower Image with Scroll Scale Effect */}
