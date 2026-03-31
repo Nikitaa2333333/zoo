@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { 
   Save, Image, Layout, MessageSquare, Phone, Plus, Trash2, 
   ChevronRight, LogOut, Loader2, Star, CheckCircle2, X, Upload,
-  Settings, User, MapPin, Mail, Instagram, Send, Info, AlertCircle, Check, Play, Shield, List
+  Settings, User, MapPin, Mail, Instagram, Send, Info, AlertCircle, Check, Play, Shield, List, HelpCircle,
+  Camera, Thermometer, Heart, ShieldCheck, Sparkles, LucideImage, ExternalLink, Clock
 } from 'lucide-react';
+import * as Icons from 'lucide-react';
 import initialContent from './data/content.json';
 
 const GITHUB_REPO = "Nikitaa2333333/zoo";
@@ -12,7 +14,6 @@ const CONTENT_PATH = "src/data/content.json";
 export default function AdminPanel() {
   const [token, setToken] = useState(localStorage.getItem('gh_token') || '');
   const [isLogged, setIsLogged] = useState(!!token);
-  const [isSandbox, setIsSandbox] = useState(false);
   const [content, setContent] = useState(() => {
     const saved = localStorage.getItem('sandbox_content');
     return saved ? JSON.parse(saved) : initialContent;
@@ -22,34 +23,13 @@ export default function AdminPanel() {
   const [imgLoading, setImgLoading] = useState(false);
   const [status, setStatus] = useState({ type: '', msg: '' });
 
-  const handleLogin = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (token.length > 10) {
-      localStorage.setItem('gh_token', token);
-      setIsLogged(true);
-      setIsSandbox(false);
-    }
-  };
-
-  const startSandbox = () => {
-    setIsSandbox(true);
-    setIsLogged(true);
-    setStatus({ type: 'info', msg: 'Вы вошли в режим Песочницы. Все изменения локальные (в браузере).' });
-  };
-
   const saveToGitHub = async () => {
-    setLoading(true);
-    setStatus({ type: 'info', msg: isSandbox ? 'Сохранение локально...' : 'Связь с GitHub...' });
-
-    if (isSandbox) {
-      localStorage.setItem('sandbox_content', JSON.stringify(content));
-      setTimeout(() => {
-        setLoading(false);
-        setStatus({ type: 'success', msg: 'Локальная копия обновлена!' });
-        setTimeout(() => setStatus({ type: '', msg: '' }), 4000);
-      }, 500);
-      return;
+    if (!token) {
+        setStatus({ type: 'error', msg: 'Введите GitHub Token в настройках' });
+        return;
     }
+    setLoading(true);
+    setStatus({ type: 'info', msg: 'Синхронизация с GitHub...' });
 
     try {
       const res = await fetch(`https://api.github.com/repos/${GITHUB_REPO}/contents/${CONTENT_PATH}`, {
@@ -57,7 +37,7 @@ export default function AdminPanel() {
       });
       
       const fileData = await res.json();
-      if (!res.ok) throw new Error(`Ошибка получения SHA (код ${res.status}): ${fileData.message}`);
+      if (!res.ok) throw new Error(`Ошибка связи (код ${res.status}): ${fileData.message}`);
       
       const updateRes = await fetch(`https://api.github.com/repos/${GITHUB_REPO}/contents/${CONTENT_PATH}`, {
         method: 'PUT',
@@ -74,10 +54,10 @@ export default function AdminPanel() {
 
       if (updateRes.ok) {
         localStorage.setItem('sandbox_content', JSON.stringify(content));
-        setStatus({ type: 'success', msg: 'Данные успешно сохранены! Сайт обновится через 1-2 минуты.' });
+        setStatus({ type: 'success', msg: 'Данные успешно обновлены! Сайт обновится через 1 минуту.' });
       } else {
         const errorData = await updateRes.json();
-        throw new Error(`Гитхаб отклонил запрос (${updateRes.status}): ${errorData.message}`);
+        throw new Error(`Гитхаб отклонил запрос: ${errorData.message}`);
       }
     } catch (err: any) {
       console.error("GitHub Save Error:", err);
@@ -88,14 +68,7 @@ export default function AdminPanel() {
   };
 
   const compressAndUploadImage = async (file: File) => {
-    if (isSandbox) {
-       return new Promise((resolve) => {
-         const reader = new FileReader();
-         reader.readAsDataURL(file);
-         reader.onload = (e) => resolve(e.target?.result as string);
-       });
-    }
-
+    if (!token) throw new Error("Token missing");
     setImgLoading(true);
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
@@ -141,30 +114,30 @@ export default function AdminPanel() {
     });
   };
 
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (token) {
+      localStorage.setItem('gh_token', token);
+      setIsLogged(true);
+    }
+  };
+
   if (!isLogged) {
     return (
-      <div className="min-h-screen bg-[#141414] flex items-center justify-center p-6 font-sans">
-        <div className="w-full max-w-md backdrop-blur-3xl bg-white/5 border border-white/10 rounded-[2.5rem] p-10 shadow-2xl relative overflow-hidden text-center">
-          <div className="absolute -top-20 -right-20 w-40 h-40 bg-[#99ed36]/20 rounded-full blur-3xl"></div>
-          <div className="w-20 h-20 bg-[#141414] rounded-3xl flex items-center justify-center mx-auto mb-8 shadow-xl border border-white/5">
-             <Settings size={40} className="text-[#99ed36]" />
-          </div>
-          <h2 className="text-3xl font-black text-white mb-2">Admin Panel</h2>
-          <p className="text-stone-400 font-bold mb-8 text-sm">Управление контентом Best Friend</p>
-          <form onSubmit={handleLogin} className="space-y-4 text-left">
-            <input 
-              type="password" placeholder="GitHub Token"
-              className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 px-6 text-white outline-none focus:border-[#99ed36] transition-all font-mono text-sm"
-              value={token} onChange={(e) => setToken(e.target.value)}
-            />
-            <button className="w-full bg-[#141414] border border-white/10 text-white font-black py-5 rounded-2xl hover:bg-[#ff7e27] transition-all transform hover:scale-[1.02] shadow-xl text-lg">
-              ПОДКЛЮЧИТЬ (LIVE)
-            </button>
-          </form>
-          <button onClick={startSandbox} className="w-full mt-4 bg-[#99ed36] text-[#141414] font-black py-5 rounded-2xl hover:bg-white transition-all transform hover:scale-[1.02] shadow-xl flex items-center justify-center gap-2">
-            <Play size={20} /> ВОЙТИ ЛОКАЛЬНО
-          </button>
-        </div>
+      <div className="min-h-screen bg-[#141414] flex items-center justify-center p-6 bg-cover bg-center" style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1548191265-cc70d3d45ba1?q=80&w=2000&auto=format&fit=crop)' }}>
+        <div className="absolute inset-0 bg-black/80 backdrop-blur-md"></div>
+        <form onSubmit={handleLogin} className="relative bg-white/10 backdrop-blur-2xl p-12 rounded-[3.5rem] w-full max-w-md border border-white/20 shadow-2xl space-y-8">
+           <div className="text-center space-y-4">
+              <div className="w-20 h-20 bg-[#99ed36] rounded-3xl mx-auto flex items-center justify-center shadow-[0_0_50px_rgba(153,237,54,0.3)]">
+                 <Shield className="text-[#141414]" size={40} />
+              </div>
+              <h1 className="text-3xl font-black text-white tracking-tight">Best Friend Admin</h1>
+              <p className="text-white/40 font-bold text-sm">Введите GitHub Токен для управления сайтом</p>
+           </div>
+           <input type="password" value={token} onChange={(e) => setToken(e.target.value)} placeholder="ghp_xxxxxxxxxxxx" className="w-full bg-white/5 border border-white/10 text-white p-6 rounded-2xl font-mono text-center outline-none focus:border-[#99ed36] transition-all" />
+           <button type="submit" className="w-full bg-[#99ed36] text-[#141414] py-6 rounded-full font-black tracking-widest hover:scale-105 active:scale-95 transition-all shadow-xl">ВОЙТИ</button>
+           <button type="button" onClick={() => setIsLogged(true)} className="w-full text-white/40 font-black text-xs tracking-widest uppercase hover:text-white transition-all">Песочница (без сохранения)</button>
+        </form>
       </div>
     );
   }
@@ -177,13 +150,13 @@ export default function AdminPanel() {
           <div className="w-10 h-10 bg-[#141414] rounded-xl flex items-center justify-center shadow-2xl">
              <Layout size={20} className="text-[#99ed36]" />
           </div>
-          <span className="font-black text-xl tracking-tighter">Admin</span>
+          <span className="font-black text-xl tracking-tighter">Admin v2.0</span>
         </div>
         
         <nav className="flex flex-col gap-2">
           {[
             { id: 'rooms', icon: Layout, label: 'Номера' },
-            { id: 'about', icon: Info, label: 'О нас' },
+            { id: 'about', icon: Info, label: 'Преимущества' },
             { id: 'rules', icon: Shield, label: 'Правила' },
             { id: 'promo', icon: MessageSquare, label: 'Акции' },
             { id: 'faq', icon: HelpCircle, label: 'FAQ' },
@@ -197,18 +170,26 @@ export default function AdminPanel() {
             </button>
           ))}
         </nav>
-        <button onClick={() => setIsLogged(false)} className="mt-auto flex items-center gap-2 text-stone-300 hover:text-red-500 font-bold text-xs uppercase tracking-widest transition-all">
-          <LogOut size={14} /> Выйти
-        </button>
+        <div className="mt-auto pt-6 border-t border-stone-50 space-y-4">
+           <div className="flex items-center gap-2 text-[10px] font-black text-stone-300 uppercase tracking-widest">
+              <CheckCircle2 size={12} className="text-[#99ed36]" /> {token ? 'CONNECTED' : 'OFFLINE'}
+           </div>
+           <button onClick={() => { localStorage.removeItem('gh_token'); window.location.reload(); }} className="flex items-center gap-2 text-stone-300 hover:text-red-500 font-black text-[10px] uppercase tracking-widest transition-all">
+              <LogOut size={12} /> ВЫЙТИ
+           </button>
+        </div>
       </aside>
 
       {/* Main */}
       <main className="flex-1 p-12 overflow-y-auto">
         <header className="flex justify-between items-center mb-12">
-          <h1 className="text-5xl font-black tracking-tighter italic">Dashboard</h1>
-          <button onClick={saveToGitHub} disabled={loading} className={`py-5 px-10 rounded-full font-black flex items-center gap-3 transition-all shadow-xl active:scale-95 disabled:opacity-50 ${isSandbox ? 'bg-blue-500 text-white' : 'bg-[#141414] text-white'}`}>
+          <div>
+             <h1 className="text-5xl font-black tracking-tighter italic capitalize">{activeTab}</h1>
+             <p className="text-stone-400 font-bold text-xs mt-2">Редактирование контента бест-френд.рф</p>
+          </div>
+          <button onClick={saveToGitHub} disabled={loading} className="py-5 px-10 bg-[#141414] text-white rounded-full font-black flex items-center gap-3 transition-all shadow-[0_20px_50px_rgba(0,0,0,0.15)] active:scale-95 disabled:opacity-50 hover:bg-[#ff7e27] hover:scale-105 active:scale-95">
             {loading ? <Loader2 className="animate-spin" /> : <Save size={20} />}
-            {isSandbox ? 'СОХРАНИТЬ ЛОКАЛЬНО' : 'ОПУБЛИКОВАТЬ'}
+            ОПУБЛИКОВАТЬ НА САЙТ
           </button>
         </header>
 
@@ -224,12 +205,13 @@ export default function AdminPanel() {
           {activeTab === 'rooms' && (
             <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
               {[...content.catRooms, ...content.dogRooms].map((room, idx) => (
-                <div key={room.title + idx} className="bg-white p-8 rounded-[3rem] border border-stone-100 shadow-sm space-y-6">
+                <div key={room.title + idx} className="bg-white p-8 rounded-[3.5rem] border border-stone-100 shadow-sm space-y-6 hover:shadow-xl transition-all">
                   <div className="flex gap-8">
-                    <div className="w-32 h-32 rounded-2xl bg-stone-50 overflow-hidden relative group shrink-0">
+                    <div className="w-40 h-40 rounded-3xl bg-stone-50 overflow-hidden relative group shrink-0 shadow-inner">
                        <img src={room.image} className="w-full h-full object-cover" />
-                       <label className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-all flex items-center justify-center cursor-pointer text-white">
-                          <Upload size={20} />
+                       <label className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-all flex flex-col items-center justify-center cursor-pointer text-white text-center p-4">
+                          <Upload size={24} className="mb-2" />
+                          <span className="text-[10px] font-black uppercase">Изменить фото</span>
                           <input type="file" className="hidden" onChange={async (e) => {
                              const file = e.target.files?.[0];
                              if (file) {
@@ -247,28 +229,37 @@ export default function AdminPanel() {
                        </label>
                     </div>
                     <div className="flex-1 space-y-4">
-                       <input className="text-2xl font-black w-full bg-stone-50 p-4 rounded-xl" value={room.title} onChange={(e) => {
-                          const isCat = content.catRooms.some((r:any) => r.title === room.title);
-                          const list = isCat ? [...content.catRooms] : [...content.dogRooms];
-                          const rIdx = list.findIndex((r:any) => r.title === room.title);
-                          list[rIdx].title = e.target.value;
-                          setContent({...content, [isCat ? 'catRooms' : 'dogRooms']: list});
-                       }} />
+                       <div>
+                          <label className="text-[9px] font-black text-stone-300 uppercase tracking-widest block mb-1">Название номера</label>
+                          <input className="text-2xl font-black w-full bg-stone-50 p-4 rounded-xl outline-none focus:bg-white focus:ring-2 ring-[#99ed36]" value={room.title} onChange={(e) => {
+                              const isCat = content.catRooms.some((r:any) => r.title === room.title);
+                              const list = isCat ? [...content.catRooms] : [...content.dogRooms];
+                              const rIdx = list.findIndex((r:any) => r.title === room.title);
+                              list[rIdx].title = e.target.value;
+                              setContent({...content, [isCat ? 'catRooms' : 'dogRooms']: list});
+                          }} />
+                       </div>
                        <div className="grid grid-cols-2 gap-4">
-                          <input className="font-bold bg-stone-50 p-4 rounded-xl" value={room.price} onChange={(e) => {
-                             const isCat = content.catRooms.some((r:any) => r.title === room.title);
-                             const list = isCat ? [...content.catRooms] : [...content.dogRooms];
-                             const rIdx = list.findIndex((r:any) => r.title === room.title);
-                             list[rIdx].price = e.target.value;
-                             setContent({...content, [isCat ? 'catRooms' : 'dogRooms']: list});
-                          }} />
-                          <input className="font-bold bg-stone-50 p-4 rounded-xl" value={room.area} onChange={(e) => {
-                             const isCat = content.catRooms.some((r:any) => r.title === room.title);
-                             const list = isCat ? [...content.catRooms] : [...content.dogRooms];
-                             const rIdx = list.findIndex((r:any) => r.title === room.title);
-                             list[rIdx].area = e.target.value;
-                             setContent({...content, [isCat ? 'catRooms' : 'dogRooms']: list});
-                          }} />
+                          <div>
+                            <label className="text-[9px] font-black text-stone-300 uppercase tracking-widest block mb-1">Цена за сутки</label>
+                            <input className="font-bold bg-stone-50 p-4 rounded-xl w-full outline-none" value={room.price} onChange={(e) => {
+                               const isCat = content.catRooms.some((r:any) => r.title === room.title);
+                               const list = isCat ? [...content.catRooms] : [...content.dogRooms];
+                               const rIdx = list.findIndex((r:any) => r.title === room.title);
+                               list[rIdx].price = e.target.value;
+                               setContent({...content, [isCat ? 'catRooms' : 'dogRooms']: list});
+                            }} />
+                          </div>
+                          <div>
+                            <label className="text-[9px] font-black text-stone-300 uppercase tracking-widest block mb-1">Площадь</label>
+                            <input className="font-bold bg-stone-50 p-4 rounded-xl w-full outline-none" value={room.area} onChange={(e) => {
+                               const isCat = content.catRooms.some((r:any) => r.title === room.title);
+                               const list = isCat ? [...content.catRooms] : [...content.dogRooms];
+                               const rIdx = list.findIndex((r:any) => r.title === room.title);
+                               list[rIdx].area = e.target.value;
+                               setContent({...content, [isCat ? 'catRooms' : 'dogRooms']: list});
+                            }} />
+                          </div>
                        </div>
                     </div>
                   </div>
@@ -278,47 +269,98 @@ export default function AdminPanel() {
           )}
 
           {activeTab === 'about' && (
-            <div className="bg-white p-10 rounded-[3rem] border border-stone-100 space-y-8">
-               <div>
-                  <label className="text-xs font-black uppercase tracking-widest text-stone-400 block mb-4">Заголовок О Нас</label>
-                  <input className="w-full bg-stone-50 p-6 rounded-2xl font-black text-2xl" value={content.about.title} onChange={(e) => setContent({...content, about: {...content.about, title: e.target.value}})} />
+            <div className="space-y-12">
+               <div className="bg-white p-12 rounded-[4rem] border border-stone-100 space-y-10 shadow-sm">
+                  <div className="space-y-6">
+                    <label className="text-xs font-black uppercase tracking-widest text-[#99ed36] block">Основной текст</label>
+                    <input className="w-full bg-stone-50 p-8 rounded-3xl font-black text-4xl tracking-tighter outline-none focus:bg-stone-100" value={content.about.title} onChange={(e) => setContent({...content, about: {...content.about, title: e.target.value}})} />
+                    <textarea className="w-full bg-stone-50 p-8 rounded-3xl font-bold text-lg h-40 resize-none outline-none focus:bg-stone-100 opacity-70" value={content.about.subtitle} onChange={(e) => setContent({...content, about: {...content.about, subtitle: e.target.value}})} />
+                  </div>
                </div>
-               <div>
-                  <label className="text-xs font-black uppercase tracking-widest text-stone-400 block mb-4">Описание</label>
-                  <textarea className="w-full bg-stone-50 p-6 rounded-2xl font-bold h-40 resize-none" value={content.about.subtitle} onChange={(e) => setContent({...content, about: {...content.about, subtitle: e.target.value}})} />
+
+               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                  {content.about.features.map((feat: any, i: number) => {
+                    const IconComp = (Icons as any)[feat.icon] || Info;
+                    return (
+                      <div key={i} className="bg-white p-10 rounded-[3rem] border border-stone-100 shadow-sm space-y-6 group">
+                        <div className="flex items-center justify-between">
+                           <div className={`w-14 h-14 ${feat.color} rounded-2xl flex items-center justify-center text-[#141414] shadow-lg`}>
+                              <IconComp size={24} />
+                           </div>
+                           <div className="flex gap-2">
+                              {['bg-[#99ed36]', 'bg-[#ff7e27]', 'bg-stone-200'].map(c => (
+                                <button key={c} onClick={() => {
+                                  const newFeats = [...content.about.features];
+                                  newFeats[i].color = c;
+                                  setContent({...content, about: {...content.about, features: newFeats}});
+                                }} className={`w-6 h-6 rounded-full border-2 ${c} ${feat.color === c ? 'border-black' : 'border-transparent'}`} />
+                              ))}
+                           </div>
+                        </div>
+                        <div className="space-y-4">
+                           <div className="flex items-center gap-3 bg-stone-50 p-4 rounded-xl">
+                              <Settings size={14} className="text-stone-300" />
+                              <input className="bg-transparent font-black w-full text-xs uppercase tracking-widest outline-none" value={feat.icon} onChange={(e) => {
+                                 const newFeats = [...content.about.features];
+                                 newFeats[i].icon = e.target.value;
+                                 setContent({...content, about: {...content.about, features: newFeats}});
+                              }} />
+                           </div>
+                           <input className="text-2xl font-black w-full bg-stone-50 p-4 rounded-xl outline-none" value={feat.title} onChange={(e) => {
+                              const newFeats = [...content.about.features];
+                              newFeats[i].title = e.target.value;
+                              setContent({...content, about: {...content.about, features: newFeats}});
+                           }} />
+                           <textarea className="w-full bg-stone-50 p-4 rounded-xl font-bold text-sm h-24 resize-none outline-none opacity-60" value={feat.text} onChange={(e) => {
+                              const newFeats = [...content.about.features];
+                              newFeats[i].text = e.target.value;
+                              setContent({...content, about: {...content.about, features: newFeats}});
+                           }} />
+                        </div>
+                      </div>
+                    );
+                  })}
                </div>
             </div>
           )}
 
           {activeTab === 'rules' && (
             <div className="space-y-8">
-               <div className="bg-white p-10 rounded-[3rem] border border-stone-100">
-                  <h3 className="text-2xl font-black mb-8 underline decoration-[#99ed36] decoration-4">Кого принимаем / Здоровье</h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                     {content.rules.main.map((rule: any, i: number) => (
-                        <div key={i} className="p-6 bg-stone-50 rounded-2xl space-y-4">
-                           <input className="font-black w-full bg-white px-4 py-2 rounded-lg" value={rule.title} onChange={(e) => {
-                              const newRules = {...content.rules};
-                              newRules.main[i].title = e.target.value;
-                              setContent({...content, rules: newRules});
-                           }} />
-                           <textarea className="w-full font-bold text-sm h-24 p-4 rounded-lg resize-none" value={rule.content} onChange={(e) => {
-                              const newRules = {...content.rules};
-                              newRules.main[i].content = e.target.value;
-                              setContent({...content, rules: newRules});
-                           }} />
-                        </div>
-                     ))}
+               <div className="bg-white p-12 rounded-[4rem] border border-stone-100 shadow-sm">
+                  <h3 className="text-3xl font-black mb-10 italic">Наши правила</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                     {content.rules.main.map((rule: any, i: number) => {
+                        const Icon = (Icons as any)[rule.icon] || CheckCircle2;
+                        return (
+                          <div key={i} className="p-8 bg-stone-50 rounded-[2.5rem] space-y-6">
+                             <div className="flex items-center gap-4">
+                                <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center">
+                                   <Icon size={20} className="text-[#99ed36]" />
+                                </div>
+                                <input className="font-black flex-1 bg-white px-4 py-3 rounded-xl outline-none" value={rule.title} onChange={(e) => {
+                                   const newRules = {...content.rules};
+                                   newRules.main[i].title = e.target.value;
+                                   setContent({...content, rules: newRules});
+                                }} />
+                             </div>
+                             <textarea className="w-full font-bold text-sm h-28 p-6 bg-white rounded-2xl resize-none outline-none opacity-70" value={rule.content} onChange={(e) => {
+                                const newRules = {...content.rules};
+                                newRules.main[i].content = e.target.value;
+                                setContent({...content, rules: newRules});
+                             }} />
+                          </div>
+                        );
+                     })}
                   </div>
                </div>
                
                <div className="grid md:grid-cols-2 gap-8">
-                  <div className="bg-white p-8 rounded-[3rem] border border-stone-100">
-                     <h3 className="text-2xl font-black mb-6 flex items-center gap-3"><X className="text-red-500" /> Стоп-лист</h3>
-                     <div className="space-y-2">
+                  <div className="bg-white p-10 rounded-[3.5rem] border border-stone-100">
+                     <h3 className="text-2xl font-black mb-6 flex items-center gap-3"><X className="text-red-500" size={28} /> Стоп-лист</h3>
+                     <div className="space-y-3">
                         {content.rules.stopList.map((item: string, i: number) => (
                            <div key={i} className="flex gap-2">
-                              <input className="flex-1 bg-stone-50 px-4 py-2 rounded-lg font-bold text-sm" value={item} onChange={(e) => {
+                              <input className="flex-1 bg-stone-50 px-6 py-4 rounded-xl font-bold text-sm outline-none" value={item} onChange={(e) => {
                                  const newList = [...content.rules.stopList];
                                  newList[i] = e.target.value;
                                  setContent({...content, rules: {...content.rules, stopList: newList}});
@@ -327,12 +369,12 @@ export default function AdminPanel() {
                         ))}
                      </div>
                   </div>
-                  <div className="bg-white p-8 rounded-[3rem] border border-stone-100">
-                     <h3 className="text-2xl font-black mb-6 flex items-center gap-3"><Check className="text-[#99ed36]" /> Чек-лист вещей</h3>
-                     <div className="space-y-2">
+                  <div className="bg-white p-10 rounded-[3.5rem] border border-stone-100">
+                     <h3 className="text-2xl font-black mb-6 flex items-center gap-3"><Check className="text-[#99ed36]" size={28} /> Что взять</h3>
+                     <div className="space-y-3">
                         {content.rules.checklist.map((item: string, i: number) => (
                            <div key={i} className="flex gap-2">
-                              <input className="flex-1 bg-stone-50 px-4 py-2 rounded-lg font-bold text-sm" value={item} onChange={(e) => {
+                              <input className="flex-1 bg-stone-50 px-6 py-4 rounded-xl font-bold text-sm outline-none" value={item} onChange={(e) => {
                                  const newList = [...content.rules.checklist];
                                  newList[i] = e.target.value;
                                  setContent({...content, rules: {...content.rules, checklist: newList}});
@@ -345,89 +387,163 @@ export default function AdminPanel() {
             </div>
           )}
 
+          {activeTab === 'contacts' && (
+            <div className="space-y-10">
+               <div className="bg-white p-12 rounded-[4rem] border border-stone-100 space-y-12 shadow-sm">
+                  <div className="grid md:grid-cols-2 gap-10">
+                     <div className="space-y-4">
+                        <div className="flex items-center gap-3 text-[#99ed36]">
+                           <Phone size={18} />
+                           <label className="text-[10px] font-black uppercase tracking-widest">Телефон отеля</label>
+                        </div>
+                        <input className="w-full bg-stone-50 p-6 rounded-2xl font-black text-2xl outline-none" value={content.contacts.phone} onChange={(e) => setContent({...content, contacts: {...content.contacts, phone: e.target.value}})} />
+                     </div>
+                     <div className="space-y-4">
+                        <div className="flex items-center gap-3 text-[#99ed36]">
+                           <Mail size={18} />
+                           <label className="text-[10px] font-black uppercase tracking-widest">Email для писем</label>
+                        </div>
+                        <input className="w-full bg-stone-50 p-6 rounded-2xl font-black text-2xl outline-none" value={content.contacts.email} onChange={(e) => setContent({...content, contacts: {...content.contacts, email: e.target.value}})} />
+                     </div>
+                  </div>
+                  
+                  <div className="space-y-4">
+                    <div className="flex items-center gap-3 text-[#99ed36]">
+                       <Clock size={18} />
+                       <label className="text-[10px] font-black uppercase tracking-widest">График работы</label>
+                    </div>
+                    <input className="w-full bg-stone-50 p-6 rounded-2xl font-black text-lg outline-none" value={content.contacts.schedule} onChange={(e) => setContent({...content, contacts: {...content.contacts, schedule: e.target.value}})} />
+                  </div>
+
+                  <div className="space-y-4">
+                    <div className="flex items-center gap-3 text-[#99ed36]">
+                       <MapPin size={18} />
+                       <label className="text-[10px] font-black uppercase tracking-widest">Точный адрес</label>
+                    </div>
+                    <textarea className="w-full bg-stone-50 p-8 rounded-3xl font-bold text-lg h-32 resize-none outline-none opacity-80" value={content.contacts.address} onChange={(e) => setContent({...content, contacts: {...content.contacts, address: e.target.value}})} />
+                  </div>
+               </div>
+
+               <div className="bg-[#141414] p-12 rounded-[4rem] border border-white/5 space-y-10 shadow-2xl text-white">
+                  <h3 className="text-2xl font-black flex items-center gap-4 italic"><ExternalLink className="text-[#99ed36]" /> Социальные сети</h3>
+                  <div className="grid md:grid-cols-3 gap-8">
+                     {[
+                        { key: 'telegram', icon: Send, label: 'Telegram отеля' },
+                        { key: 'max', icon: User, label: 'MAX (поддержка)' },
+                        { key: 'whatsapp', icon: Phone, label: 'WhatsApp' }
+                     ].map(sc => (
+                        <div key={sc.key} className="space-y-4">
+                           <div className="flex items-center gap-3 text-white/40">
+                              {/* @ts-ignore */}
+                              <sc.icon size={14} />
+                              <label className="text-[9px] font-black uppercase tracking-widest">{sc.label}</label>
+                           </div>
+                           <input className="w-full bg-white/5 border border-white/10 p-5 rounded-2xl font-bold text-xs outline-none focus:border-[#99ed36] transition-all" value={content.contacts.social[sc.key]} onChange={(e) => {
+                              const newSocial = {...content.contacts.social};
+                              newSocial[sc.key] = e.target.value;
+                              setContent({...content, contacts: {...content.contacts, social: newSocial}});
+                           }} />
+                        </div>
+                     ))}
+                  </div>
+               </div>
+            </div>
+          )}
+
           {activeTab === 'promo' && (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
               {content.promo.items.map((item: any, i: number) => (
-                <div key={i} className={`p-10 rounded-[3rem] border shadow-sm space-y-6 ${item.textWhite ? 'bg-[#141414] text-white' : 'bg-white text-[#141414]'}`}>
-                  <input className={`text-2xl font-black w-full bg-transparent border-b-2 mb-2 ${item.textWhite ? 'border-white/10' : 'border-stone-100'}`} value={item.title} onChange={(e) => {
-                    const newItems = [...content.promo.items];
-                    newItems[i].title = e.target.value;
-                    setContent({...content, promo: {...content.promo, items: newItems}});
-                  }} />
-                  <textarea className={`w-full bg-transparent font-bold text-sm h-24 resize-none opacity-80`} value={item.text} onChange={(e) => {
+                <div key={i} className={`p-12 rounded-[3.5rem] border shadow-sm space-y-8 flex flex-col ${item.textWhite ? 'bg-[#141414] text-white' : 'bg-white text-[#141414]'}`}>
+                  <div className="space-y-4">
+                    <label className={`text-[9px] font-black uppercase tracking-widest ${item.textWhite ? 'text-white/30' : 'text-stone-300'}`}>Блок акции {i+1}</label>
+                    <input className={`text-2xl font-black w-full bg-transparent border-b-2 outline-none pb-4 ${item.textWhite ? 'border-white/10' : 'border-stone-100'}`} value={item.title} onChange={(e) => {
+                      const newItems = [...content.promo.items];
+                      newItems[i].title = e.target.value;
+                      setContent({...content, promo: {...content.promo, items: newItems}});
+                    }} />
+                  </div>
+                  <textarea className={`w-full bg-transparent font-bold text-sm h-32 resize-none opacity-80 outline-none`} value={item.text} onChange={(e) => {
                     const newItems = [...content.promo.items];
                     newItems[i].text = e.target.value;
                     setContent({...content, promo: {...content.promo, items: newItems}});
                   }} />
-                  <div className="flex gap-4">
-                    <input className="w-24 p-3 rounded-xl bg-white/10 font-black text-center" value={item.discount} onChange={(e) => {
-                      const newItems = [...content.promo.items];
-                      newItems[i].discount = e.target.value;
-                      setContent({...content, promo: {...content.promo, items: newItems}});
-                    }} />
-                    <input className="flex-1 p-3 rounded-xl bg-white/10 font-bold italic text-sm" value={item.note} onChange={(e) => {
-                      const newItems = [...content.promo.items];
-                      newItems[i].note = e.target.value;
-                      setContent({...content, promo: {...content.promo, items: newItems}});
-                    }} />
+                  <div className="mt-auto pt-6 flex flex-col gap-4">
+                    <div className="flex gap-4">
+                       <input className="w-24 p-5 rounded-2xl bg-white/10 font-black text-center text-xl" value={item.discount} onChange={(e) => {
+                        const newItems = [...content.promo.items];
+                        newItems[i].discount = e.target.value;
+                        setContent({...content, promo: {...content.promo, items: newItems}});
+                       }} />
+                       <input className="flex-1 p-5 rounded-2xl bg-white/10 font-bold italic text-sm" value={item.note} onChange={(e) => {
+                        const newItems = [...content.promo.items];
+                        newItems[i].note = e.target.value;
+                        setContent({...content, promo: {...content.promo, items: newItems}});
+                       }} />
+                    </div>
                   </div>
                 </div>
               ))}
             </div>
           )}
 
-          {/* ... other tabs (faq, gallery, etc) can be expanded similarly if needed ... */}
           {activeTab === 'faq' && (
-             <div className="space-y-4">
+             <div className="space-y-6">
                 {content.faq.map((item: any, i: number) => (
-                   <div key={i} className="bg-white p-8 rounded-[2rem] border border-stone-100 flex gap-4">
-                      <div className="flex-1 space-y-4">
-                         <input className="w-full font-black text-lg bg-stone-50 p-4 rounded-xl" value={item.q} onChange={(e) => {
-                            const newFaq = [...content.faq];
-                            newFaq[i].q = e.target.value;
-                            setContent({...content, faq: newFaq});
-                         }} />
-                         <textarea className="w-full font-bold text-sm bg-stone-50 p-4 rounded-xl h-24" value={item.a} onChange={(e) => {
-                             const newFaq = [...content.faq];
-                             newFaq[i].a = e.target.value;
-                             setContent({...content, faq: newFaq});
-                         }} />
+                   <div key={i} className="bg-white p-10 rounded-[3rem] border border-stone-100 flex gap-6 hover:shadow-lg transition-all group">
+                      <div className="flex-1 space-y-6">
+                         <div>
+                            <label className="text-[10px] font-black text-stone-300 uppercase tracking-widest block mb-2">Вопрос</label>
+                            <input className="w-full font-black text-xl bg-stone-50 p-5 rounded-2xl outline-none focus:bg-white focus:ring-2 ring-[#99ed36]" value={item.q} onChange={(e) => {
+                               const newFaq = [...content.faq];
+                               newFaq[i].q = e.target.value;
+                               setContent({...content, faq: newFaq});
+                            }} />
+                         </div>
+                         <div>
+                            <label className="text-[10px] font-black text-stone-300 uppercase tracking-widest block mb-2">Ответ</label>
+                            <textarea className="w-full font-bold text-sm bg-stone-50 p-6 rounded-2xl h-32 resize-none outline-none focus:bg-white focus:ring-2 ring-[#99ed36] opacity-70" value={item.a} onChange={(e) => {
+                                const newFaq = [...content.faq];
+                                newFaq[i].a = e.target.value;
+                                setContent({...content, faq: newFaq});
+                            }} />
+                         </div>
                       </div>
-                      <button onClick={() => setContent({...content, faq: content.faq.filter((_:any,idx:number) => idx !== i)})} className="p-4 text-stone-200 hover:text-red-500 hover:bg-stone-50 rounded-xl transition-all self-start">
-                         <Trash2 size={20} />
+                      <button onClick={() => setContent({...content, faq: content.faq.filter((_:any,idx:number) => idx !== i)})} className="p-6 text-stone-200 hover:text-red-500 hover:bg-red-50 rounded-[2rem] transition-all self-start">
+                         <Trash2 size={24} />
                       </button>
                    </div>
                 ))}
-                <button onClick={() => setContent({...content, faq: [...content.faq, {q: "Вопрос", a: "Ответ"}]})} className="w-full py-6 bg-[#141414] text-white font-black rounded-full flex items-center justify-center gap-3 hover:bg-[#ff7e27] transition-all">
-                   <Plus /> Добавить вопрос
+                <button onClick={() => setContent({...content, faq: [...content.faq, {q: "Новый вопрос?", a: "Текст ответа..."}]})} className="w-full py-8 bg-[#141414] text-white font-black rounded-full flex items-center justify-center gap-4 hover:bg-[#ff7e27] hover:scale-105 transition-all text-xl shadow-2xl">
+                   <Plus size={28} /> ДОБАВИТЬ ВОПРОС
                 </button>
              </div>
           )}
 
           {activeTab === 'gallery' && (
-            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
+            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8">
                {content.gallery.map((img: any, i: number) => (
-                  <div key={i} className="aspect-[4/5] rounded-[2rem] overflow-hidden group relative border-4 border-white shadow-xl">
+                  <div key={i} className="aspect-[4/5] rounded-[3rem] overflow-hidden group relative border-4 border-white shadow-2xl">
                      <img src={img.url} className="w-full h-full object-cover" />
-                     <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-all flex items-center justify-center gap-4">
-                        <button onClick={() => setContent({...content, gallery: content.gallery.filter((_:any,idx:number) => idx !== i)})} className="p-4 bg-red-500 text-white rounded-xl hover:scale-110 transition-all shadow-xl">
-                           <Trash2 size={24} />
+                     <div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-all flex flex-col items-center justify-center gap-4">
+                        <button onClick={() => setContent({...content, gallery: content.gallery.filter((_:any,idx:number) => idx !== i)})} className="p-6 bg-red-500 text-white rounded-3xl hover:scale-110 transition-all shadow-2xl">
+                           <Trash2 size={28} />
                         </button>
+                        <span className="text-[10px] font-black text-white uppercase tracking-widest">Удалить</span>
                      </div>
                   </div>
                ))}
-               <label className="aspect-[4/5] bg-white border-4 border-dashed border-stone-100 rounded-[2rem] flex flex-col items-center justify-center cursor-pointer hover:border-[#99ed36] hover:bg-stone-50 transition-all group">
-                  <div className="w-12 h-12 bg-black rounded-xl flex items-center justify-center text-[#99ed36] group-hover:scale-110 transition-all shadow-lg">
-                     {imgLoading ? <Loader2 className="animate-spin" /> : <Plus />}
+               <label className="aspect-[4/5] bg-white border-4 border-dashed border-stone-100 rounded-[3rem] flex flex-col items-center justify-center cursor-pointer hover:border-[#99ed36] hover:bg-stone-50 transition-all group shadow-sm">
+                  <div className="w-16 h-16 bg-black rounded-2xl flex items-center justify-center text-[#99ed36] group-hover:scale-110 transition-all shadow-xl">
+                     {imgLoading ? <Loader2 className="animate-spin" /> : <Plus size={32} />}
                   </div>
-                  <span className="mt-3 text-[10px] font-black uppercase text-stone-400">Добавить фото</span>
+                  <span className="mt-4 text-xs font-black uppercase text-stone-400">Выбрать фото</span>
                   <input type="file" className="hidden" disabled={imgLoading} onChange={async (e) => {
                      const file = e.target.files?.[0];
                      if (file) {
                         try {
                            const url = await compressAndUploadImage(file);
                            setContent({...content, gallery: [...content.gallery, { url, title: "Gallery", span: "col-span-1", rotate: 0 }]});
-                           setStatus({ type: 'success', msg: 'Фото добавлено' });
+                           setStatus({ type: 'success', msg: 'Фото успешно добавлено!' });
                         } catch (err:any) { setStatus({ type: 'error', msg: err }); }
                      }
                   }} />
@@ -435,56 +551,57 @@ export default function AdminPanel() {
             </div>
           )}
 
-          {activeTab === 'contacts' && (
-            <div className="bg-white p-10 rounded-[3rem] border border-stone-100 space-y-10">
-               <div className="grid md:grid-cols-2 gap-8">
-                  <div>
-                    <label className="text-xs font-black uppercase text-stone-300 block mb-3">Телефон</label>
-                    <input className="w-full bg-stone-50 p-5 rounded-xl font-black text-xl" value={content.contacts.phone} onChange={(e) => setContent({...content, contacts: {...content.contacts, phone: e.target.value}})} />
-                  </div>
-                  <div>
-                    <label className="text-xs font-black uppercase text-stone-300 block mb-3">Email</label>
-                    <input className="w-full bg-stone-50 p-5 rounded-xl font-black text-xl" value={content.contacts.email} onChange={(e) => setContent({...content, contacts: {...content.contacts, email: e.target.value}})} />
-                  </div>
-               </div>
-               <div>
-                  <label className="text-xs font-black uppercase text-stone-300 block mb-3">Адрес</label>
-                  <textarea className="w-full bg-stone-50 p-5 rounded-xl font-bold h-32 resize-none" value={content.contacts.address} onChange={(e) => setContent({...content, contacts: {...content.contacts, address: e.target.value}})} />
-               </div>
-            </div>
-          )}
-
           {activeTab === 'reviews' && (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                {content.reviews.map((rev: any, i: number) => (
-                  <div key={i} className="bg-white p-8 rounded-[2.5rem] border border-stone-100 shadow-sm relative group flex flex-col">
+                  <div key={i} className="bg-white p-10 rounded-[3.5rem] border border-stone-100 shadow-sm relative group flex flex-col hover:shadow-xl transition-all">
                      <div className="flex justify-between items-center mb-6">
                         <div className="flex gap-1 text-[#ff7e27]">
-                           {[...Array(rev.stars)].map((_, i) => <Star key={i} size={14} fill="currentColor" />)}
+                           {[...Array(5)].map((_, si) => (
+                             <button key={si} onClick={() => {
+                               const newRev = [...content.reviews];
+                               newRev[i].stars = si + 1;
+                               setContent({...content, reviews: newRev});
+                             }}>
+                               <Star size={16} fill={si < rev.stars ? "currentColor" : "none"} className={si < rev.stars ? 'text-[#ff7e27]' : 'text-stone-200'} />
+                             </button>
+                           ))}
                         </div>
-                        <button onClick={() => setContent({...content, reviews: content.reviews.filter((_:any,idx:number) => idx !== i)})} className="text-stone-100 hover:text-red-500 transition-colors">
+                        <button onClick={() => setContent({...content, reviews: content.reviews.filter((_:any,idx:number) => idx !== i)})} className="text-stone-200 hover:text-red-500 transition-colors p-2">
                            <Trash2 size={18} />
                         </button>
                      </div>
-                     <textarea className="flex-1 bg-stone-50 rounded-2xl p-4 font-bold text-sm text-stone-600 outline-none h-40 resize-none mb-6" value={rev.text} onChange={(e) => {
+                     <textarea className="flex-1 bg-stone-50 rounded-2xl p-6 font-bold text-sm text-stone-600 outline-none h-48 resize-none mb-6 opacity-80" value={rev.text} onChange={(e) => {
                         const newRev = [...content.reviews];
                         newRev[i].text = e.target.value;
                         setContent({...content, reviews: newRev});
                      }} />
-                     <div className="space-y-2">
-                        <input className="font-black text-xl w-full" value={rev.name} onChange={(e) => {
-                           const newRev = [...content.reviews];
-                           newRev[i].name = e.target.value;
-                           setContent({...content, reviews: newRev});
-                        }} />
-                        <input className="text-[10px] font-black uppercase text-[#99ed36] bg-[#99ed36]/5 px-3 py-1 rounded-full" value={rev.pet} onChange={(e) => {
-                           const newRev = [...content.reviews];
-                           newRev[i].pet = e.target.value;
-                           setContent({...content, reviews: newRev});
-                        }} />
+                     <div className="space-y-3">
+                        <div className="flex items-center gap-3">
+                           <User size={14} className="text-stone-300" />
+                           <input className="font-black text-xl w-full outline-none" value={rev.name} onChange={(e) => {
+                              const newRev = [...content.reviews];
+                              newRev[i].name = e.target.value;
+                              setContent({...content, reviews: newRev});
+                           }} />
+                        </div>
+                        <div className="flex items-center gap-2">
+                           <CheckCircle2 size={12} className="text-[#99ed36]" />
+                           <input className="text-[10px] font-black uppercase text-[#99ed36] bg-[#99ed36]/5 px-4 py-2 rounded-full outline-none" value={rev.pet} onChange={(e) => {
+                              const newRev = [...content.reviews];
+                              newRev[i].pet = e.target.value;
+                              setContent({...content, reviews: newRev});
+                           }} />
+                        </div>
                      </div>
                   </div>
                ))}
+               <button onClick={() => setContent({...content, reviews: [{ name: "Имя клиента", pet: "Кот/Собака", text: "Ваш отзыв...", stars: 5, stayDate: "Март 2026" }, ...content.reviews]})} className="bg-white border-4 border-dashed border-stone-100 rounded-[3.5rem] flex flex-col items-center justify-center gap-4 hover:border-[#99ed36] transition-all group">
+                  <div className="w-16 h-16 bg-stone-50 rounded-2xl flex items-center justify-center text-stone-300 group-hover:bg-[#99ed36] group-hover:text-white transition-all">
+                      <Plus size={32} />
+                  </div>
+                  <span className="text-[10px] font-black uppercase text-stone-300">Добавить отзыв</span>
+               </button>
             </div>
           )}
 
@@ -493,7 +610,3 @@ export default function AdminPanel() {
     </div>
   );
 }
-
-const HelpCircle = (props: any) => (
-  <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-);

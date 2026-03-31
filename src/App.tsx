@@ -174,7 +174,7 @@ export default function App() {
     Star, Clock, UserCheck, Dog, Cat, Syringe, CheckCircle2,
     Verified, MessageCircle, ShieldCheck, Camera, Coffee,
     Thermometer, LucideImage, Info, Mail, Maximize2, Layers,
-    Check, Sparkles, Car, AlertTriangle, XCircle
+    Check, Sparkles, Car, AlertTriangle, XCircle, Heart
   };
 
   const isAdmin = typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('admin') === 'true';
@@ -267,10 +267,10 @@ export default function App() {
                   transition={{ delay: 0.5 }}
                   className="pt-8 border-t border-stone-100 mt-4 flex flex-col gap-4"
                 >
-                  <a href="tel:79670578130" className="text-2xl font-black text-[#ff7e27] flex items-center gap-3">
-                    <Phone size={24} /> 7 (967) 057-81-30
+                  <a href={`tel:${contacts.phone.replace(/[^0-9]/g, '')}`} className="text-2xl font-black text-[#ff7e27] flex items-center gap-3">
+                    <Phone size={24} /> {contacts.phone}
                   </a>
-                  <p className="text-stone-400 font-bold text-sm">с 10:00 до 21:00 ежедневно — Мы на связи</p>
+                  <p className="text-stone-400 font-bold text-sm">{contacts.schedule}</p>
 
                 </motion.div>
               </div>
@@ -527,6 +527,49 @@ export default function App() {
                     </motion.div>
                   ))}
                 </div>
+              </div>
+            </section>
+
+            {/* HOURLY PAYMENT BANNER */}
+            <section className="py-6 md:py-10 bg-white">
+              <div className="max-w-7xl mx-auto px-4 md:px-6">
+                <motion.div 
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  className="bg-brand-orange rounded-[3rem] md:rounded-[4rem] p-8 md:p-12 relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-8 shadow-2xl"
+                >
+                  {/* Decorative Blur Effects */}
+                  <div className="absolute -top-20 -right-20 w-64 h-64 bg-white/20 rounded-full blur-3xl pointer-events-none"></div>
+                  <div className="absolute -bottom-20 -left-20 w-64 h-64 bg-white/10 rounded-full blur-3xl pointer-events-none"></div>
+
+                  <div className="relative z-10 flex flex-col items-center md:items-start text-center md:text-left max-w-xl">
+                    <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-md px-4 py-2 rounded-full mb-6 border border-white/30">
+                      <Clock size={16} className="text-white" />
+                      <span className="text-xs font-black text-white">Наше преимущество</span>
+                    </div>
+                    <h3 className="text-4xl md:text-6xl font-black text-white mb-4 tracking-tighter leading-none">
+                      Почасовая оплата
+                    </h3>
+                    <p className="text-lg md:text-xl text-white/95 font-bold leading-relaxed text-balance">
+                      Оставляете питомца до 5 часов? <br className="hidden md:block" /> 
+                      Берем всего <span className="text-brand-dark bg-brand-green px-3 py-1 rounded-xl shadow-sm whitespace-nowrap">50% от цены</span> за полные сутки!
+                    </p>
+                  </div>
+
+                  <div className="relative z-10 w-full md:w-auto flex flex-col items-center gap-4">
+                    <a 
+                      href="tel:79670578130" 
+                      className="group flex items-center justify-center gap-4 bg-brand-dark text-white px-10 md:px-14 py-6 md:py-8 rounded-full font-black text-xl md:text-2xl hover:scale-105 active:scale-95 transition-all shadow-2xl w-full md:w-auto"
+                    >
+                      <Phone className="w-6 h-6 md:w-8 md:h-8" />
+                      Позвонить...
+                    </a>
+                    <span className="text-white/80 font-bold text-lg md:text-xl tracking-tight">
+                      +7 (967) 057-81-30
+                    </span>
+                  </div>
+                </motion.div>
               </div>
             </section>
 
@@ -843,7 +886,7 @@ export default function App() {
                           <Clock size={22} className="text-[#ff7e27]" />
                         </div>
                         <p className="text-lg md:text-xl font-bold tracking-tight text-[#141414]">
-                          {contacts.working_hours}
+                          {contacts.schedule}
                         </p>
                       </div>
 
@@ -862,7 +905,7 @@ export default function App() {
                         <p className="text-stone-400 font-bold mb-6 text-sm">Написать нам:</p>
                       <div className="flex flex-wrap gap-3">
                         <a 
-                          href="https://t.me/best_friend_hotel" 
+                          href={contacts.social.telegram}
                           target="_blank"
                           rel="noreferrer"
                           className="flex items-center gap-3 bg-stone-50 py-4 px-6 rounded-2xl hover:bg-[#24A1DE] hover:text-white transition-all duration-300 border border-stone-100 group"
@@ -872,7 +915,7 @@ export default function App() {
                         </a>
 
                         <a 
-                          href="https://t.me/MAX_CONTACT" 
+                          href={contacts.social.max}
                           target="_blank"
                           rel="noreferrer"
                           className="flex items-center gap-3 bg-stone-50 py-4 px-6 rounded-2xl hover:bg-[#99ed36] hover:text-[#141414] transition-all duration-300 border border-stone-100 group"
@@ -882,7 +925,7 @@ export default function App() {
                         </a>
 
                         <a 
-                          href="mailto:hello@best-friend.ru" 
+                          href={`mailto:${contacts.email}`}
                           className="flex items-center gap-3 bg-stone-50 py-4 px-6 rounded-2xl hover:bg-[#ff7e27] hover:text-white transition-all duration-300 border border-stone-100 group"
                         >
                           <Mail size={18} />
@@ -953,20 +996,20 @@ export default function App() {
               <div className="space-y-6">
                 <div className="flex flex-col gap-1.5">
                   <span className="text-xs font-black text-stone-700 uppercase tracking-wider">Адрес</span>
-                  <p className="text-stone-300 font-bold leading-relaxed text-sm">
-                    г. Москва, Волжский бульвар, <br />д.51 с.7, пом. 123-124
+                  <p className="text-stone-300 font-bold leading-relaxed text-sm whitespace-pre-line">
+                    {contacts.address}
                   </p>
                 </div>
                 <div className="flex flex-col gap-1.5">
                   <span className="text-xs font-black text-stone-700 uppercase tracking-wider">Телефон</span>
-                  <a href="tel:79670578130" className="text-white text-lg font-black hover:text-[#ff7e27] transition-all">
-                    7 (967) 057-81-30
+                  <a href={`tel:${contacts.phone.replace(/[^0-9]/g, '')}`} className="text-white text-lg font-black hover:text-[#ff7e27] transition-all">
+                    {contacts.phone}
                   </a>
                 </div>
                 <div className="flex flex-col gap-1.5">
                   <span className="text-xs font-black text-stone-700 uppercase tracking-wider">Режим работы</span>
                   <p className="text-white text-lg font-black tracking-tight">
-                    с 10:00 до 21:00 ежедневно
+                    {contacts.schedule}
                   </p>
                 </div>
               </div>
@@ -975,13 +1018,13 @@ export default function App() {
           
           <div className="pt-12 border-t border-white/5 flex flex-col lg:flex-row justify-between items-start lg:items-center gap-10">
             <div className="flex flex-wrap gap-4">
-              <a href="https://t.me/best_friend_hotel" target="_blank" rel="noreferrer" className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center text-white hover:bg-[#24A1DE] transition-all border border-white/5">
+              <a href={contacts.social.telegram} target="_blank" rel="noreferrer" className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center text-white hover:bg-[#24A1DE] transition-all border border-white/5">
                 <img src={telegramLogoImg} className="w-6 h-6 object-contain" alt="Telegram" />
               </a>
-              <a href="https://t.me/MAX_CONTACT" target="_blank" rel="noreferrer" className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center hover:bg-[#99ed36] transition-all border border-white/5 group">
+              <a href={contacts.social.max} target="_blank" rel="noreferrer" className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center hover:bg-[#99ed36] transition-all border border-white/5 group">
                 <img src={logoMaxImg} className="w-6 h-6 object-contain" alt="Max" />
               </a>
-              <a href="mailto:hello@best-friend.ru" className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center text-white hover:bg-[#ff7e27] transition-all border border-white/5">
+              <a href={`mailto:${contacts.email}`} className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center text-white hover:bg-[#ff7e27] transition-all border border-white/5">
                 <Mail size={20} />
               </a>
             </div>
