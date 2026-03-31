@@ -600,20 +600,22 @@ export default function App() {
                   transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
                   className="max-w-7xl w-full"
                 >
-                  <div className="flex flex-col items-center mb-6">
+                  <div className="flex flex-col items-center mb-4 md:mb-6">
                     <h1 className="text-center px-2">
-                      <span className="text-5xl md:text-[120px] font-black leading-[0.95] md:leading-[0.85] block text-brand-dark tracking-[-0.04em]">
-                        Бест френд — <br className="hidden md:block" /> зоотель в Москве <br className="hidden md:block" /> для кошек и собак
+                      <span className="text-4xl sm:text-5xl md:text-[120px] font-black leading-[1.1] md:leading-[0.85] block text-brand-dark tracking-[-0.04em] md:tracking-[-0.05em]">
+                        Бест френд — <br className="md:block hidden" />
+                        зоотель в Москве <br className="md:block hidden" />
+                        для кошек и собак
                       </span>
                     </h1>
                   </div>
 
-                  <p className="text-lg md:text-xl text-brand-dark font-bold mb-12 leading-relaxed max-w-3xl mx-auto text-center px-4 text-balance tracking-tight opacity-80">
+                  <p className="text-[15px] md:text-xl text-brand-dark font-bold mb-8 md:mb-12 leading-relaxed max-w-2xl mx-auto text-center px-6 text-balance tracking-tight opacity-80">
                     Бережный уход, видеонаблюдение 24/7 и ежедневные фотоотчёты.
                     Создаем идеальные условия, чтобы ваш любимец чувствовал себя как&nbsp;дома.
                   </p>
-                  <div className="flex justify-center mb-16 md:mb-12">
-                    <a href="#rooms" className="group relative bg-brand-dark text-white px-14 py-7 rounded-full font-black text-xl hover:scale-105 transition-all shadow-2xl">
+                  <div className="flex justify-center mb-12 md:mb-12">
+                    <a href="#rooms" className="group relative bg-brand-dark text-white px-10 md:px-14 py-5 md:py-7 rounded-full font-black text-lg md:text-xl hover:scale-105 transition-all shadow-2xl">
                       <span className="relative z-10 flex items-center gap-3">
                         Выбрать номер
                         <ArrowLeft className="w-6 h-6 rotate-180 group-hover:translate-x-2 transition-transform" />
@@ -623,23 +625,23 @@ export default function App() {
                 </motion.div>
               </div>
 
-              {/* THE WHITE PLATE (BADGE) - FIXED SIZE (OUTSIDE SCALE CONTAINER) */}
+              {/* THE WHITE PLATE (BADGE) - FIXED SIZE & POSITION (OUTSIDE SCALE CONTAINER) */}
               <motion.div
                 initial={{ opacity: 0, scale: 0.8, x: 20 }}
                 animate={{ opacity: 1, scale: 1, x: 0 }}
                 transition={{ delay: 1, duration: 0.6, type: "spring" }}
-                className="absolute right-[6%] md:right-[12%] bottom-[12%] md:bottom-[20%] z-40 bg-white p-4 md:p-8 rounded-[2rem] md:rounded-[2.5rem] shadow-[0_15px_40px_rgba(0,0,0,0.12)] animate-float max-w-[140px] md:max-w-[260px]"
+                className="absolute right-[4%] md:right-[12%] bottom-[8%] md:bottom-[20%] z-40 bg-white p-3 md:p-8 rounded-[1.8rem] md:rounded-[2.5rem] shadow-[0_15px_40px_rgba(0,0,0,0.12)] animate-float max-w-[130px] md:max-w-[260px]"
               >
-                <div className="flex items-center gap-3 mb-2 md:mb-4">
+                <div className="flex items-center gap-3 mb-1.5 md:mb-4">
                    <div className="flex -space-x-1.5 md:-space-x-2">
-                      <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-[#141414] flex items-center justify-center overflow-hidden"><Dog size={14} className="text-[#99ed36] md:scale-125" /></div>
-                      <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-[#141414] flex items-center justify-center overflow-hidden"><Heart size={14} className="text-white md:scale-125" /></div>
+                      <div className="w-7 h-7 md:w-10 md:h-10 rounded-full bg-[#141414] flex items-center justify-center overflow-hidden"><Dog size={12} className="text-[#99ed36] md:scale-125" /></div>
+                      <div className="w-7 h-7 md:w-10 md:h-10 rounded-full bg-[#141414] flex items-center justify-center overflow-hidden"><Heart size={12} className="text-white md:scale-125" /></div>
                    </div>
                 </div>
-                <p className="text-[11px] md:text-xl font-black text-brand-dark leading-[1.1] tracking-tight">
+                <p className="text-[10px] md:text-xl font-black text-brand-dark leading-[1.1] tracking-tight">
                   Берем собак <br /> всех пород <br /> и размеров
                 </p>
-                <p className="mt-2 text-[9px] md:text-sm font-bold text-stone-400">
+                <p className="mt-1 md:mt-2 text-[8px] md:text-sm font-bold text-stone-400">
                   до 20 кг
                 </p>
               </motion.div>
