@@ -531,11 +531,11 @@ export default function App() {
 
                       <div className="space-y-6 mb-8 flex-1">
                         <div>
-                          <p className="text-xs font-black text-[#141414] mb-4 tracking-wider uppercase">В стоимость входит:</p>
+                          <p className="text-xs font-black text-[#141414] mb-4 tracking-wider uppercase">Включено:</p>
                           <div className="columns-1 sm:columns-2 gap-x-6 space-y-2 mb-6">
                             {selectedRoom.inclusions.map((item: string, i: number) => (
                               <div key={i} className="flex items-start gap-3 break-inside-avoid">
-                                <div className="w-1.5 h-1.5 rounded-full bg-black/20 mt-1.5 shrink-0" />
+                                <Check size={16} className="text-[#99ed36] mt-0.5 shrink-0" />
                                 <span className="font-bold text-sm leading-tight text-[#141414]">{item}</span>
                               </div>
                             ))}
@@ -716,11 +716,11 @@ export default function App() {
 
                         <div className="space-y-6 mb-10 flex-1">
                           <div className="bg-stone-50/50 p-6 rounded-[2rem] border border-stone-100">
-                             <p className="text-xs font-black text-[#141414] mb-4 tracking-wider uppercase">В стоимость входит:</p>
+                             <p className="text-xs font-black text-[#141414] mb-4 tracking-wider uppercase">Включено:</p>
                              <div className="columns-2 gap-x-4 space-y-1.5">
                                {room.inclusions.map((item: string, i: number) => (
                                  <div key={i} className="flex items-start gap-2.5 break-inside-avoid">
-                                    <div className="w-1 h-1 rounded-full bg-stone-300 mt-1.5 shrink-0" />
+                                    <Check size={14} className="text-[#99ed36] mt-0.5 shrink-0" />
                                     <span className="text-sm font-bold text-[#141414] leading-snug">{item}</span>
                                  </div>
                                ))}
