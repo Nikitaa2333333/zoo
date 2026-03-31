@@ -416,9 +416,9 @@
     "features": [
       {
         "icon": "Camera",
-        "title": "Видео 24/",
+        "title": "Видео 24/7",
         "text": "Круглосуточный видеоконтроль с доступом через приложение.",
-        "color": "bg-stone-200"
+        "color": "bg-[#99ed36]"
       },
       {
         "icon": "LucideImage",
