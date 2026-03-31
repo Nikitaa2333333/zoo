@@ -11,18 +11,18 @@ import {
 import BookingWidget from './components/BookingWidget';
 import { litePmsApi } from './services/litePmsApi';
 
-import logoImg from './assets/logo.png';
-import catStandardImg from './assets/rooms/cat_standard.png';
-import catImprovedImg from './assets/rooms/cat_improved.png';
-import catComfortImg from './assets/rooms/cat_comfort.png';
-import dogStandardImg from './assets/rooms/dog_standard.png';
-import dogComfortImg from './assets/rooms/dog_comfort.png';
-import dogLuxuryImg from './assets/rooms/dog_luxury.png';
-import heroSpaImg from './assets/hero_spa.png';
-import heroMainImg from './assets/hero_main.png';
+import logoImg from './assets/logo.webp';
+import catStandardImg from './assets/rooms/cat_standard.webp';
+import catImprovedImg from './assets/rooms/cat_improved.webp';
+import catComfortImg from './assets/rooms/cat_comfort.webp';
+import dogStandardImg from './assets/rooms/dog_standard.webp';
+import dogComfortImg from './assets/rooms/dog_comfort.webp';
+import dogLuxuryImg from './assets/rooms/dog_luxury.webp';
+import heroSpaImg from './assets/hero_spa.webp';
+import heroMainImg from './assets/hero_main.webp';
 import logoMaxImg from './assets/logo_max.svg';
-import telegramLogoImg from './assets/telegram_logo.png';
-import dogRulesImg from './assets/dog_rules.png';
+import telegramLogoImg from './assets/telegram_logo.webp';
+import dogRulesImg from './assets/dog_rules.webp';
 
 const catRooms = [
   {
@@ -589,11 +589,9 @@ export default function App() {
             className="pt-16 md:pt-20"
           >
             {/* HERO */}
-            <section className="relative pt-3 md:pt-5 overflow-hidden bg-white">
-              {/* Massive Vibrant Background Glow Blobs */}
-              <div className="absolute -top-20 -left-40 w-[600px] h-[600px] bg-[#99ed36]/40 rounded-full blur-[120px] pointer-events-none mix-blend-multiply opacity-70" />
-              <div className="absolute -bottom-40 -right-40 w-[800px] h-[800px] bg-[#ff7e27]/30 rounded-full blur-[150px] pointer-events-none mix-blend-multiply opacity-70" />
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#ff7e27]/10 rounded-full blur-[180px] pointer-events-none" />
+            <section className="relative pt-3 md:pt-5 overflow-hidden bg-brand-orange">
+              {/* Subtle Decorative Pattern or Glow */}
+              <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-white/10 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/4 pointer-events-none" />
 
               <div className="max-w-7xl mx-auto px-6 relative z-10 w-full text-center flex flex-col items-center mb-0">
                 <motion.div
@@ -604,18 +602,18 @@ export default function App() {
                 >
                   <div className="flex flex-col items-center mb-6">
                     <h1 className="text-center px-2">
-                      <span className="text-5xl md:text-[120px] font-black leading-[0.95] md:leading-[0.85] block text-brand-orange tracking-[-0.04em]">
+                      <span className="text-5xl md:text-[120px] font-black leading-[0.95] md:leading-[0.85] block text-brand-dark tracking-[-0.04em]">
                         Бест френд — <br className="hidden md:block" /> зоотель в Москве <br className="hidden md:block" /> для кошек и собак
                       </span>
                     </h1>
                   </div>
 
-                  <p className="text-lg md:text-xl text-stone-900 font-bold mb-12 leading-relaxed max-w-3xl mx-auto text-center px-4 text-balance tracking-tight opacity-70">
+                  <p className="text-lg md:text-xl text-brand-dark font-bold mb-12 leading-relaxed max-w-3xl mx-auto text-center px-4 text-balance tracking-tight opacity-80">
                     Бережный уход, видеонаблюдение 24/7 и ежедневные фотоотчёты.
                     Создаем идеальные условия, чтобы ваш любимец чувствовал себя как&nbsp;дома.
                   </p>
                   <div className="flex justify-center mb-16 md:mb-12">
-                    <a href="#rooms" className="group relative bg-brand-orange text-white px-14 py-7 rounded-full font-black text-xl hover:scale-105 transition-all shadow-[0_20px_50px_rgba(255,126,39,0.3)] hover:shadow-[0_25px_60px_rgba(255,126,39,0.45)]">
+                    <a href="#rooms" className="group relative bg-brand-dark text-white px-14 py-7 rounded-full font-black text-xl hover:scale-105 transition-all shadow-2xl">
                       <span className="relative z-10 flex items-center gap-3">
                         Выбрать номер
                         <ArrowLeft className="w-6 h-6 rotate-180 group-hover:translate-x-2 transition-transform" />
@@ -625,16 +623,35 @@ export default function App() {
                 </motion.div>
               </div>
 
+              {/* THE WHITE PLATE (BADGE) - FIXED SIZE (OUTSIDE SCALE CONTAINER) */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8, x: 20 }}
+                animate={{ opacity: 1, scale: 1, x: 0 }}
+                transition={{ delay: 1, duration: 0.6, type: "spring" }}
+                className="absolute right-[6%] md:right-[12%] bottom-[12%] md:bottom-[20%] z-40 bg-white p-4 md:p-8 rounded-[2rem] md:rounded-[2.5rem] shadow-[0_15px_40px_rgba(0,0,0,0.12)] animate-float max-w-[140px] md:max-w-[260px]"
+              >
+                <div className="flex items-center gap-3 mb-2 md:mb-4">
+                   <div className="flex -space-x-1.5 md:-space-x-2">
+                      <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-[#141414] flex items-center justify-center overflow-hidden"><Dog size={14} className="text-[#99ed36] md:scale-125" /></div>
+                      <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-[#141414] flex items-center justify-center overflow-hidden"><Heart size={14} className="text-white md:scale-125" /></div>
+                   </div>
+                </div>
+                <p className="text-[11px] md:text-xl font-black text-brand-dark leading-[1.1] tracking-tight">
+                  Берем собак <br /> всех пород <br /> и размеров
+                </p>
+              </motion.div>
+
               {/* Narrower Image with Scroll Scale Effect */}
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3, duration: 1, ease: [0.22, 1, 0.36, 1] }}
                 style={{ scale }}
-                className="relative z-20 max-w-4xl mx-auto px-4 md:px-6 will-change-transform"
+                className="relative z-20 max-w-4xl mx-auto px-4 md:px-6 will-change-transform group"
               >
-                {/* Image Glow Support - Crucial for contrast */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-[80%] bg-gradient-to-r from-[#99ed36]/40 via-[#ff7e27]/50 to-[#99ed36]/40 blur-[130px] rounded-full -z-10" />
+                {/* Image Background Support */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-[80%] bg-white/5 blur-[130px] rounded-full -z-10" />
+
                 <img
                   src={heroMainImg}
                   alt="Интерьер зоотеля Бест френд — комфортные номера для собак и кошек в Москве"
