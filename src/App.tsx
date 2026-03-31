@@ -23,268 +23,33 @@ import heroMainImg from './assets/hero_main.webp';
 import logoMaxImg from './assets/logo_max.svg';
 import telegramLogoImg from './assets/telegram_logo.webp';
 import dogRulesImg from './assets/dog_rules.webp';
+import contentRaw from './data/content.json';
+import AdminPanel from './Admin';
 
-const catRooms = [
-  {
-    title: 'Стандарт',
-    image: catStandardImg,
-    price: '850 ₽/сут',
-    pricePerNight: 850,
-    area: '0.8 м²',
-    height: '0.8 м',
-    inclusions: ["Миски", "Лежанка", "Когтеточка", "Лоток", "Наполнитель (древесный)", "Питьевая вода", "Кормление по графику", "Индивидуальная вентиляция", "Фото/видео-отчет", "Игровая зона"],
-    note: 'Для 1-ой кошки',
-    extras: ["Поилка-фонтанчик +100 ₽/сут", "Свежая травка +50 ₽/сут", "Наполнитель селикагель +60 ₽/сут", "Активный выгул 20 мин +250 ₽/сут"],
-    litePmsId: '75241',
-  },
-  {
-    title: 'Улучшенный',
-    image: catImprovedImg,
-    price: '1050 ₽/сут',
-    pricePerNight: 1050,
-    area: '0.8 м²',
-    height: '1.3 м',
-    inclusions: ["Миски", "Лежанка", "Когтеточка", "Лоток", "Наполнитель (древесный)", "Питьевая вода", "Кормление по графику", "Индивидуальная вентиляция", "Фото/видео-отчет", "Игровая зона"],
-    note: 'Можно поселить 2-х кошек (+30% к стоимости)',
-    extras: ["Поилка-фонтанчик +100 ₽/сут", "Свежая травка +50 ₽/сут", "Наполнитель селикагель +60 ₽/сут", "Активный выгул 20 мин +250 ₽/сут"],
-    litePmsId: '75240',
-  },
-  {
-    title: 'Комфорт',
-    image: catComfortImg,
-    price: '1250 ₽/сут',
-    pricePerNight: 1250,
-    area: '1.12 м²',
-    height: '1.3 м',
-    inclusions: ["Миски", "Лежанка", "Когтеточка", "Лоток", "Наполнитель (древесный)", "Питьевая вода", "Кормление по графику", "Индивидуальная вентиляция", "Фото/видео-отчет", "Игровая зона"],
-    note: 'Можно поселить 2-х кошек (+30% к стоимости)',
-    extras: ["Поилка-фонтанчик +100 ₽/сут", "Свежая травка +50 ₽/сут", "Наполнитель селикагель +60 ₽/сут", "Активный выгул 20 мин +250 ₽/сут"],
-    litePmsId: '75242',
+const getInitialContent = () => {
+  if (typeof window !== 'undefined') {
+    const saved = localStorage.getItem('sandbox_content');
+    if (saved) return JSON.parse(saved);
   }
-];
-
-const dogRooms = [
-  {
-    title: 'Стандарт',
-    image: dogStandardImg,
-    price: '1350 ₽/сут',
-    pricePerNight: 1350,
-    area: '0.8 м²',
-    height: '0.9 м',
-    inclusions: ["Миски", "Лежанка", "Питьевая вода", "Кормление по графику", "Индивидуальная вентиляция", "Фото/видео-отчет", "Одноразовые пеленки"],
-    note: 'Декоративные породы собак до 5 кг',
-    extras: ["Активный выгул 20 мин +250 ₽/выгул"],
-  },
-  {
-    title: 'Улучшенный',
-    image: dogComfortImg,
-    price: '1690 ₽/сут',
-    pricePerNight: 1690,
-    area: '0.8 м²',
-    height: '1.4 м',
-    inclusions: ["Миски", "Лежанка", "Питьевая вода", "Кормление по графику", "Индивидуальная вентиляция", "Фото/видео-отчет", "Полотенце", "Гигиенический выгул 2 раза/день", "Мытье лап"],
-    note: 'Малые породы собак до 10 кг',
-    extras: ["Активный выгул 20 мин +250 ₽/выгул"],
-  },
-  {
-    title: 'Комфорт (2 этаж)',
-    image: dogComfortImg,
-    price: '1890 ₽/сут',
-    pricePerNight: 1890,
-    area: '1.12 м²',
-    height: '1.4 м',
-    inclusions: ["Миски", "Лежанка", "Питьевая вода", "Кормление по графику", "Индивидуальная вентиляция", "Фото/видео-отчет", "Полотенце", "Гигиенический выгул 2 раза/день", "Мытье лап"],
-    note: 'До 10 кг. Можно поселить 2-х собак (+500 ₽ за 2-ого)',
-    extras: ["Активный выгул 20 мин +250 ₽/выгул"],
-  },
-  {
-    title: 'Комфорт+ (1 этаж)',
-    image: dogComfortImg,
-    price: '2190 ₽/сут',
-    pricePerNight: 2190,
-    area: '1.12 м²',
-    height: '1.4 м',
-    inclusions: ["Миски", "Лежанка", "Питьевая вода", "Кормление по графику", "Индивидуальная вентиляция", "Фото/видео-отчет", "Полотенце", "Гигиенический выгул 2 раза/день", "Мытье лап"],
-    note: 'Средние породы до 20 кг. Можно поселить 2-х собак (+500 ₽ за 2-ого)',
-    extras: ["Активный выгул 20 мин +250 ₽/выгул"],
-  },
-  {
-    title: 'Люкс',
-    image: dogLuxuryImg,
-    price: '2490 ₽/сут',
-    pricePerNight: 2490,
-    area: '1.7 м²',
-    height: '3 м',
-    inclusions: ["Миски", "Лежанка", "Питьевая вода", "Кормление по графику", "Индивидуальная вентиляция", "Фото/видео-отчет", "Полотенце", "Гигиенический выгул 2 раза/день", "Мытье лап"],
-    note: 'Средние породы до 20 кг. Можно поселить 2-х собак (+500 ₽ за 2-ого)',
-    extras: ["Активный выгул 20 мин +250 ₽/выгул"],
-  }
-];
-
-const testimonialData = [
-  {
-    name: "Елена",
-    pet: "Кот Марс",
-    type: "cat",
-    stayDate: "Январь 2026",
-    text: "Оставляла кота в номере «Комфорт» на 2 недели. Очень переживала, как он перенесет разлуку, но благодаря видеонаблюдению видела, что Марс чувствует себя как дома. Вечерние фотоотчеты в Telegram — это просто находка! Вернулся спокойным, чистым и даже не сразу захотел выходить из переноски дома.",
-    stars: 5,
-  },
-  {
-    name: "Игорь",
-    pet: "Бигль Рокки",
-    type: "dog",
-    stayDate: "Декабрь 2025",
-    text: "Пользовались услугой зоотакси — это мега-удобно! Забрали Рокки прямо от подъезда. В отеле отличные площадки для выгула, пес приехал уставший и счастливый. Понравилось, что за соблюдением правил вакцинации следят строго — это залог безопасности всех животных. Теперь только к вам!",
-    stars: 5,
-  },
-  {
-    name: "Мария",
-    pet: "Шпиц Буся",
-    type: "dog",
-    stayDate: "Ноябрь 2025",
-    text: "В «Бест Френд» работают настоящие профессионалы. У Буси специфический рацион, и я очень просила соблюдать график кормления. Все выполнили идеально. В номере «Люкс» очень просторно, тепло и чисто. Спасибо няням за терпение и любовь к таким характерным собачкам, как наша!",
-    stars: 4,
-  },
-  {
-    name: "Александр",
-    pet: "Мейн-кун Цезарь",
-    type: "cat",
-    stayDate: "Октябрь 2025",
-    text: "Наш кот — настоящий гигант, и обычные гостиницы ему тесноваты. Здесь в номере «Улучшенный» ему было где развернуться (высота 1.3м!). Полочки — это супер, коты это обожают. Вернулся довольный, шерсть в отличном состоянии. Рекомендую для крупных пород!",
-    stars: 5,
-  },
-  {
-    name: "Татьяна",
-    pet: "Лабрадор Бадди",
-    type: "dog",
-    stayDate: "Август — сентябрь 2025",
-    text: "Искали место с хорошим выгулом, так как Бадди очень активный. Выгул 3 раза в день — это то, что нужно. Персонал знает подход к крупным собакам. Фотоотчеты радовали всю семью во время отпуска. Спасибо за спокойствие за нашего друга!",
-    stars: 4,
-  },
-  {
-    name: "Ольга",
-    pet: "Британка Луна",
-    type: "cat",
-    stayDate: "Июль 2025",
-    text: "Очень понравился интерьер — современно, без лишних запахов. Луна обычно стрессует в новых местах, но здесь быстро адаптировалась. Няни очень ласковые, видно, что любят животных. Приедем еще!",
-    stars: 5,
-  },
-  {
-    name: "Дмитрий",
-    pet: "Хаски Гром",
-    type: "dog",
-    stayDate: "Май 2025",
-    text: "Огромное спасибо за профессионализм! Гром — парень с характером, но няни нашли к нему подход. Номер «Люкс» оправдал все ожидания. Рекомендую всем, кто ищет качественное зоопроживание.",
-    stars: 5,
-  },
-  {
-    name: "Анна",
-    pet: "Бенгалка Симба",
-    type: "cat",
-    stayDate: "Апрель 2025",
-    text: "В «Бест Френд» лучшие условия для кошек. Чисто, тихо и очень уютно.",
-    stars: 4,
-  }
-];
-
-const faqData = [
-  { q: "Можно привезти питомца ночью или рано утром?", a: "Мы работаем с 10:00 до 21:00 без обеда и выходных. Заезд и выезд возможен в любое удобное для вас время в рамках рабочего графика. Услуги раннего или позднего заезда/выезда вне рабочего времени могут быть предоставлены по согласованию с администратором за дополнительную плату" },
-  { q: "Где выгуливаете собак?", a: "Гостинница расположена в непосредственной близости от парка «Кузьминки». Выгул осуществляется на территории лесопарковой зоны  При заселении учитываем все ваши пожелания по выгулу и прописываем их в договоре, по вашему усмотрению находим компанию питомцу в одной весовой категории или гуляем индивидуально, если Ваш питомец не дружит с другими собаками." },
-  { q: "Можно заселиться без прививок?", a: "Нет.  Мы принимаем питомцев только старше 4-х месячного возраста и с полным комплексом ежегодных действующих прививок." },
-  { q: "Можно оставить питомца на несколько часов?", a: "Да. При наличии свободных номеров есть возможность кратковременного пребывания (до 5-ти часов). Стоимость - 50% от базовой цены номера за 1 сутки. При пребывании свыше 5-ти часов без ночевки, оплачивается стоимость номера за полные сутки" },
-  { q: "Как проводится уборка номера?", a: "В каждом из номеров производится уборка дважды в день. После освобождения номера осуществляется антибактериальная обработка и кварцевание." },
-  { q: "Могу приехать и посмотреть гостиницу перед тем, как бронировать?", a: "Да.  Необходимо заранее согласовать время визита по телефону или в мессенджерах, чтобы приехать и посмотреть помещение гостиницы." },
-  { q: "Есть ли камеры видеонаблюдения в гостинице?", a: "Да. В отеле  ведётся внутреннее видеонаблюдение для обеспечения максимальной безопасности всех животных. Мы бесплатно предоставляем вам доступ к онлайн-камерам в режиме 24/7. Вы можете в любой момент убедиться, что с вашим любимцем всё в порядке." }
-];
-
-const promoData = [
-  { 
-    title: "Постоянным клиентам", 
-    text: "Постоянная скидка 10% на все услуги отеля, действующая с 6-ого бронирования.", 
-    bg: "bg-[#99ed36]", 
-    discount: "10%",
-    icon: Star,
-    note: "Верным друзьям"
-  },
-  { 
-    title: "От срока размещения", 
-    text: "При проживании свыше 14 дней — скидка 10%, свыше 30 дней — 20%.", 
-    bg: "bg-[#ff7e27]", 
-    discount: "до 20%",
-    icon: Clock,
-    note: "Чем дольше, тем выгоднее"
-  },
-  { 
-    title: "Приведи друга", 
-    text: "Разовая скидка 10% на следующее бронирование за каждого приведенного нового клиента.", 
-    bg: "bg-[#141414]", 
-    textWhite: true,
-    discount: "10%",
-    icon: UserCheck,
-    note: "Растем вместе"
-  }
-];
-
-
-const rulesSections = {
-  main: [
-    {
-      title: "Кого мы принимаем",
-      icon: "Dog",
-      content: "Мы принимаем кошек, собак (до 20 кг) старше 4-х месячного возраста, приученных к лотку/пеленке/выгулу."
-    },
-    {
-      title: "Ветеринарный контроль",
-      icon: "Syringe",
-      content: "Наличие ветеринарного паспорта с ежегодной вакцинацией. Вакцинация должна быть проведена не менее чем за 14 дней и не позднее 1 года до заселения."
-    },
-    {
-      title: "Обработка и здоровье",
-      icon: "CheckCircle2",
-      content: "Обработка от глистов и паразитов не более чем за 3 месяца до заселения. Администратор проверяет отметки при заезде."
-    },
-    {
-      title: "Безопасность",
-      icon: "Verified",
-      content: "К заселению принимаются только кастрированные животные. Для выгулов обязателен намордник. Собаки — на мягком ошейнике (безопасность 24/7)."
-    }
-  ],
-  stopList: [
-    "Без документов", 
-    "Агрессивных / Постоянно лающих", 
-    "Беременных / В период течки", 
-    "Щенков и котят младше 4-х месяцев", 
-    "Не кастрированных (по возрасту)", 
-    "С медицинским уходом или инфекциями"
-  ],
-  checklist: [
-    "Ветеринарный паспорт (на всё время)", 
-    "Паспорт хозяина (для договора)", 
-    "Любимые игрушки, лежанка или плед", 
-    "Корм на весь период проживания", 
-    "Витамины (при необходимости)", 
-    "Одежда и ботиночки (если нужно)",
-    "Шлейка / поводок / намордник",
-    "Кошки — только в переноске"
-  ]
+  return contentRaw;
 };
 
+const content = getInitialContent() as any;
 
-const galleryImages = [
-  { url: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?q=80&w=800&auto=format&fit=crop", title: "Уютный котик", span: "col-span-2", rotate: -1 },
-  { url: "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?q=80&w=800&auto=format&fit=crop", title: "Активные игры", span: "col-span-1", rotate: 1 },
-  { url: "https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?q=80&w=800&auto=format&fit=crop", title: "Тихий час", span: "col-span-1", rotate: -1 },
-  { url: "https://images.unsplash.com/photo-1533738363-b7f9aef128ce?q=80&w=800&auto=format&fit=crop", title: "Стильный гость", span: "col-span-2", rotate: 1 },
-  { url: "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?q=80&w=800&auto=format&fit=crop", title: "Комфортный сон", span: "col-span-2", rotate: -1 },
-  { url: "https://images.unsplash.com/photo-1592754862816-1a6e7e7ad29d?q=80&w=800&auto=format&fit=crop", title: "Прогулка", span: "col-span-1", rotate: 1 },
-  { url: "https://images.unsplash.com/photo-1543852786-1cf6624b9987?q=80&w=800&auto=format&fit=crop", title: "Любопытство", span: "col-span-1", rotate: -1 },
-  { url: "https://images.unsplash.com/photo-1554692990-280459345688?q=80&w=800&auto=format&fit=crop", title: "Верный друг", span: "col-span-2", rotate: 1 },
-  { url: "https://images.unsplash.com/photo-1574158622682-e40e69881006?q=80&w=800&auto=format&fit=crop", title: "Минимализм", span: "col-span-1", rotate: -1 },
-  { url: "https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?q=80&w=800&auto=format&fit=crop", title: "Отдых", span: "col-span-2", rotate: 1 },
-  { url: "https://images.unsplash.com/photo-1450778869180-41d0601e046e?q=80&w=800&auto=format&fit=crop", title: "Забота", span: "col-span-1", rotate: -1 },
-  { url: "https://images.unsplash.com/photo-1548191265-cc70d3d45ba1?q=80&w=800&auto=format&fit=crop", title: "Друзья", span: "col-span-3", rotate: 1 },
-];
+const rulesSections = content.rules;
+const aboutData = content.about;
+const promoData = content.promo.items;
+const promoText = content.promo.text;
+const catRooms = content.catRooms;
+const dogRooms = content.dogRooms;
+const testimonialData = content.reviews;
+const faqData = content.faq;
+const galleryImages = content.gallery;
+const contacts = content.contacts;
+const heroData = content.hero || { 
+  title: "Бест френд — зоотель в Москве для кошек и собак", 
+  subtitle: content.promo.text 
+};
 
 const FAQItem = ({ item, isOpen, onClick }: { item: any, isOpen: boolean, onClick: () => void, key?: any }) => {
   return (
@@ -325,7 +90,7 @@ const FAQList = () => {
   const [activeFaq, setActiveFaq] = useState<number | null>(null);
   return (
     <div className="space-y-6">
-      {faqData.map((item, idx) => (
+      {faqData.map((item: any, idx: number) => (
         <FAQItem 
           key={idx} 
           item={item} 
@@ -390,7 +155,6 @@ export default function App() {
   const scrollToId = (id: string) => {
     if (currentPage !== 'main') {
       setCurrentPage('main');
-      // Wait for the main page to render before scrolling
       setTimeout(() => {
         const element = document.getElementById(id);
         if (element) {
@@ -405,6 +169,16 @@ export default function App() {
     }
     setIsMenuOpen(false);
   };
+
+  const IconMap: Record<string, any> = {
+    Star, Clock, UserCheck, Dog, Cat, Syringe, CheckCircle2,
+    Verified, MessageCircle, ShieldCheck, Camera, Coffee,
+    Thermometer, LucideImage, Info, Mail, Maximize2, Layers,
+    Check, Sparkles, Car, AlertTriangle, XCircle
+  };
+
+  const isAdmin = typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('admin') === 'true';
+  if (isAdmin) return <AdminPanel />;
 
   return (
     <div className="min-h-screen bg-white text-[#141414] font-sans selection:bg-[#99ed36] selection:text-[#141414]">
@@ -524,7 +298,12 @@ export default function App() {
                     <div className="relative z-10 flex flex-col">
                       <div className="mb-10">
                         <h1 className="text-4xl md:text-5xl font-black mb-2 tracking-tighter">{selectedRoom.title}</h1>
-                        <p className="text-2xl font-black opacity-60 tracking-tight">{selectedRoom.price}</p>
+                        <p className="text-2xl font-black opacity-60 tracking-tight">
+                          {selectedRoom.litePmsId && livePrices[selectedRoom.litePmsId] 
+                            ? `${livePrices[selectedRoom.litePmsId]} ₽/сут` 
+                            : selectedRoom.price
+                          }
+                        </p>
                       </div>
                       
 
@@ -602,17 +381,14 @@ export default function App() {
                 >
                   <div className="flex flex-col items-center mb-4 md:mb-6">
                     <h1 className="text-center px-2">
-                      <span className="text-4xl sm:text-5xl md:text-[120px] font-black leading-[1.1] md:leading-[0.85] block text-brand-dark tracking-[-0.04em] md:tracking-[-0.05em]">
-                        Бест френд — <br className="md:block hidden" />
-                        зоотель в Москве <br className="md:block hidden" />
-                        для кошек и собак
+                      <span className="text-4xl sm:text-5xl md:text-[120px] font-black leading-[1.1] md:leading-[0.85] block text-brand-dark tracking-[-0.04em] md:tracking-[-0.05em] whitespace-pre-line">
+                        {heroData.title}
                       </span>
                     </h1>
                   </div>
 
                   <p className="text-[15px] md:text-xl text-brand-dark font-bold mb-8 md:mb-12 leading-relaxed max-w-2xl mx-auto text-center px-6 text-balance tracking-tight opacity-80">
-                    Бережный уход, видеонаблюдение 24/7 и ежедневные фотоотчёты.
-                    Создаем идеальные условия, чтобы ваш любимец чувствовал себя как&nbsp;дома.
+                    {heroData.subtitle}
                   </p>
                   <div className="flex justify-center mb-12 md:mb-12">
                     <a href="#rooms" className="group relative bg-brand-dark text-white px-10 md:px-14 py-5 md:py-7 rounded-full font-black text-lg md:text-xl hover:scale-105 transition-all shadow-2xl">
@@ -638,11 +414,11 @@ export default function App() {
                       <div className="w-7 h-7 md:w-10 md:h-10 rounded-full bg-[#141414] flex items-center justify-center overflow-hidden"><Heart size={12} className="text-white md:scale-125" /></div>
                    </div>
                 </div>
-                <p className="text-[10px] md:text-xl font-black text-brand-dark leading-[1.1] tracking-tight">
-                  Берем собак <br /> всех пород <br /> и размеров
+                <p className="text-[10px] md:text-xl font-black text-brand-dark leading-[1.1] tracking-tight whitespace-pre-line">
+                  {content.hero?.badge?.title || "Берем собак\nвсех пород\nи размеров"}
                 </p>
                 <p className="mt-1 md:mt-2 text-[8px] md:text-sm font-bold text-stone-400">
-                  до 20 кг
+                  {content.hero?.badge?.note || "до 20 кг"}
                 </p>
               </motion.div>
 
@@ -710,7 +486,12 @@ export default function App() {
                         <div className="flex justify-between items-start mb-2">
                            <h4 className="text-3xl font-black tracking-tight">{room.title}</h4>
                         </div>
-                        <p className="text-2xl font-black text-stone-900 mb-8 tracking-tight">{room.price}</p>
+                        <p className="text-2xl font-black text-stone-900 mb-8 tracking-tight">
+                          {room.litePmsId && livePrices[room.litePmsId] 
+                            ? `${livePrices[room.litePmsId]} ₽/сут` 
+                            : room.price
+                          }
+                        </p>
                         
 
 
@@ -753,27 +534,27 @@ export default function App() {
             <section id="about" className="py-12 md:py-20 bg-white">
               <div className="max-w-7xl mx-auto px-4 md:px-6">
                 <div className="max-w-3xl mb-12">
-                  <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-8 leading-tight">Курорт, который <br /><span className="text-[#ff7e27]">они заслужили</span></h2>
-                  <p className="text-xl text-stone-500 font-medium leading-relaxed"><strong>Бест френд</strong> — это не просто современный <strong>зоотель в Москве</strong>, а уютная <strong>гостиница для кошек и собак</strong> с круглосуточным присмотром. Мы создали безопасное и технологичное пространство для <strong>передержки животных</strong>, где каждый гость окружен искренней любовью и заботой.</p>
+                  <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-8 leading-tight">
+                    {aboutData.title}
+                  </h2>
+                  <p className="text-xl text-stone-500 font-medium leading-relaxed">
+                    {aboutData.subtitle}
+                  </p>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {[
-                    { icon: Camera, title: "Видео 24/7", text: "Круглосуточный видеоконтроль с доступом через приложение.", color: "bg-[#99ed36]" },
-                    { icon: LucideImage, title: "Фотоотчёт", text: "Ежедневные фото и видео вашего любимца в мессенджеры.", color: "bg-[#ff7e27]" },
-                    { icon: Thermometer, title: "Климат", text: "Теплые полы, очистка воздуха и комфортная температура.", color: "bg-[#99ed36]" },
-                    { icon: Heart, title: "Любовь", text: "Профессиональный уход и безграничное внимание 24/7.", color: "bg-[#ff7e27]" },
-                    { icon: ShieldCheck, title: "Изоляция", text: "Зоны кошек и собак полностью разделены, что исключает стресс постояльцев.", color: "bg-[#99ed36]" },
-                    { icon: Sparkles, title: "Гигиена", text: "Уборка дважды в день и полная дезинфекция каждого номера после выезда.", color: "bg-[#ff7e27]" },
-                  ].map((item, i) => (
-                    <div key={i} className="bg-stone-50 p-10 rounded-[2.5rem] border border-stone-50 transition-all">
-                      <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-10 ${item.color} text-black`}>
-                        <item.icon size={28} />
+                  {aboutData.features.map((item: any, i: number) => {
+                    const FeatureIcon = IconMap[item.icon] || Info;
+                    return (
+                      <div key={i} className="bg-stone-50 p-10 rounded-[2.5rem] border border-stone-50 transition-all">
+                        <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-10 ${item.color} text-black`}>
+                          <FeatureIcon size={28} />
+                        </div>
+                        <h4 className="text-3xl font-black mb-4">{item.title}</h4>
+                        <p className="text-stone-400 font-bold text-lg leading-relaxed">{item.text}</p>
                       </div>
-                      <h4 className="text-3xl font-black mb-4">{item.title}</h4>
-                      <p className="text-stone-400 font-bold text-lg leading-relaxed">{item.text}</p>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               </div>
             </section>
@@ -793,10 +574,7 @@ export default function App() {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 mb-12">
                   {rulesSections.main.map((rule, i) => {
-                    const Icon = rule.icon === 'Dog' ? Dog : 
-                                 rule.icon === 'Syringe' ? Syringe : 
-                                 rule.icon === 'CheckCircle2' ? CheckCircle2 : 
-                                 Verified;
+                    const Icon = IconMap[rule.icon] || Verified;
                     return (
                       <div key={i} className="break-inside-avoid">
                         <div className="p-8 md:p-10 bg-white rounded-[2rem] md:rounded-[3rem] border border-stone-100/60 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col items-start text-left h-full">
@@ -832,7 +610,7 @@ export default function App() {
                     
                     {/* CHECKLIST Section */}
                     <div>
-                      <div className="flex flex-col items-center text-center mb-8">
+                      <div className="flex flex-col items-start text-left mb-8">
                         <h3 className="text-3xl md:text-5xl font-black tracking-tighter text-[#141414]">Что взять с собой</h3>
                       </div>
                       
@@ -851,7 +629,7 @@ export default function App() {
 
                     {/* STOP LIST Section */}
                     <div>
-                      <div className="flex flex-col items-center text-center mb-8">
+                      <div className="flex flex-col items-start text-left mb-8">
                         <h3 className="text-3xl md:text-5xl font-black tracking-tighter text-[#141414]">Мы не принимаем</h3>
                       </div>
                       
@@ -879,45 +657,47 @@ export default function App() {
                 </div>
 
                 <div className="grid md:grid-cols-3 gap-8">
-                  {promoData.map((promo, idx) => (
-                    <motion.div 
-                      key={idx} 
-                      whileHover={{ y: -10 }}
-                      className={`${promo.bg} p-10 rounded-[3rem] shadow-xl relative overflow-hidden group min-h-[360px] flex flex-col justify-start border border-black/5`}
-                    >
-                      {/* Decorative elements */}
-                      <div className={`absolute -top-10 -right-10 w-40 h-40 rounded-full blur-3xl opacity-20 ${promo.textWhite ? 'bg-white' : 'bg-black'}`}></div>
-                      
-                      <div className="relative z-10 h-full flex flex-col">
-                        <div className="flex justify-between items-start mb-8">
-                          <div className={`w-14 h-14 rounded-2xl flex items-center justify-center ${promo.textWhite ? 'bg-white/10 text-white' : 'bg-black/10 text-black'}`}>
-                            <promo.icon size={28} />
+                  {promoData.map((promo: any, idx: number) => {
+                    const PromoIcon = IconMap[promo.icon] || Star;
+                    return (
+                      <motion.div 
+                        key={idx} 
+                        whileHover={{ y: -10 }}
+                        className={`${promo.bg} p-10 rounded-[3rem] shadow-xl relative overflow-hidden group min-h-[360px] flex flex-col justify-start border border-black/5`}
+                      >
+                        <div className={`absolute -top-10 -right-10 w-40 h-40 rounded-full blur-3xl opacity-20 ${promo.textWhite ? 'bg-white' : 'bg-black'}`}></div>
+                        
+                        <div className="relative z-10 h-full flex flex-col">
+                          <div className="flex justify-between items-start mb-8">
+                            <div className={`w-14 h-14 rounded-2xl flex items-center justify-center ${promo.textWhite ? 'bg-white/10 text-white' : 'bg-black/10 text-black'}`}>
+                              <PromoIcon size={28} />
+                            </div>
+                            <div className={`px-4 py-2 rounded-full font-bold text-sm ${promo.textWhite ? 'bg-white/20 text-white' : 'bg-black/10 text-black'}`}>
+                              {promo.note}
+                            </div>
                           </div>
-                          <div className={`px-4 py-2 rounded-full font-bold text-sm ${promo.textWhite ? 'bg-white/20 text-white' : 'bg-black/10 text-black'}`}>
-                            {promo.note}
-                          </div>
-                        </div>
 
-                        <div className="mb-auto">
-                          <h4 className={`text-3xl md:text-4xl font-black mb-3 leading-tight tracking-tighter ${promo.textWhite ? 'text-white' : 'text-[#141414]'}`}>
-                            {promo.title}
-                          </h4>
-                          <p className={`font-bold text-lg leading-snug ${promo.textWhite ? 'text-white/60' : 'text-[#141414]/60'}`}>
-                            {promo.text}
-                          </p>
-                        </div>
+                          <div className="mb-auto">
+                            <h4 className={`text-3xl md:text-4xl font-black mb-3 leading-tight tracking-tighter ${promo.textWhite ? 'text-white' : 'text-[#141414]'}`}>
+                              {promo.title}
+                            </h4>
+                            <p className={`font-bold text-lg leading-snug ${promo.textWhite ? 'text-white/60' : 'text-[#141414]/60'}`}>
+                              {promo.text}
+                            </p>
+                          </div>
 
-                        <div className="mt-8 pt-8 border-t border-black/5 flex items-end justify-between font-black">
-                          <div className="flex flex-col">
-                            <span className={`text-xs font-bold opacity-40 ${promo.textWhite ? 'text-white' : 'text-black'}`}>Ваша выгода</span>
-                            <span className={`text-6xl md:text-7xl tracking-tighter ${promo.textWhite ? 'text-white' : 'text-black'}`}>
-                              {promo.discount}
-                            </span>
+                          <div className="mt-8 pt-8 border-t border-black/5 flex items-end justify-between font-black">
+                            <div className="flex flex-col">
+                              <span className={`text-xs font-bold opacity-40 ${promo.textWhite ? 'text-white' : 'text-black'}`}>Ваша выгода</span>
+                              <span className={`text-6xl md:text-7xl tracking-tighter ${promo.textWhite ? 'text-white' : 'text-black'}`}>
+                                {promo.discount}
+                              </span>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    </motion.div>
-                  ))}
+                      </motion.div>
+                    );
+                  })}
                 </div>
               </div>
             </section>
@@ -975,7 +755,7 @@ export default function App() {
                 </div>
                 
                  <div className="flex md:grid md:grid-cols-2 lg:grid-cols-3 overflow-x-auto md:overflow-x-visible no-scrollbar snap-x snap-mandatory gap-4 pb-12 px-5 md:px-0">
-                  {testimonialData.slice(0, visibleReviews).map((t, idx) => (
+                  {testimonialData.map((t: any, idx: number) => (
                     <motion.div 
                       key={idx} 
                       initial={{ opacity: 0, y: 20 }}
@@ -1021,16 +801,7 @@ export default function App() {
                   ))}
                 </div>
                 
-                {visibleReviews < testimonialData.length && (
-                  <div className="mt-16 text-center">
-                    <button 
-                      onClick={() => setVisibleReviews(prev => prev + 3)}
-                      className="px-10 py-5 rounded-full bg-[#141414] text-white font-black hover:bg-[#ff7e27] active:bg-[#ff7e27] transition-all active:scale-95 shadow-xl"
-                    >
-                      Показать больше отзывов
-                    </button>
-                  </div>
-                )}
+
               </div>
             </section>
 
@@ -1054,8 +825,7 @@ export default function App() {
                           <MapPin size={22} className="text-[#ff7e27]" />
                         </div>
                         <p className="text-lg md:text-xl font-bold tracking-tight text-[#141414]">
-                          Бизнес-парк «Волжский» <br /> 
-                          г. Москва, Волжский бульвар, д.51 с.7, пом. 123-124
+                          {contacts.address}
                         </p>
                       </div>
 
@@ -1063,8 +833,8 @@ export default function App() {
                         <div className="w-12 h-12 bg-stone-50 rounded-2xl flex items-center justify-center shrink-0 border border-stone-100 transition-all group-hover:bg-[#99ed36]/10 group-hover:border-[#99ed36]/30">
                           <Phone size={22} className="text-[#99ed36]" />
                         </div>
-                        <a href="tel:79670578130" className="text-lg md:text-xl font-black hover:text-[#ff7e27] transition-all tracking-tight text-[#141414]">
-                          7 (967) 057-81-30
+                        <a href={`tel:${contacts.phone.replace(/[^0-9]/g, '')}`} className="text-lg md:text-xl font-black hover:text-[#ff7e27] transition-all tracking-tight text-[#141414]">
+                          {contacts.phone}
                         </a>
                       </div>
 
@@ -1073,7 +843,7 @@ export default function App() {
                           <Clock size={22} className="text-[#ff7e27]" />
                         </div>
                         <p className="text-lg md:text-xl font-bold tracking-tight text-[#141414]">
-                          с 10:00 до 21:00 ежедневно
+                          {contacts.working_hours}
                         </p>
                       </div>
 
