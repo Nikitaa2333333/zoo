@@ -37,7 +37,8 @@
       "telegram": "https://t.me/best_friend_hotel",
       "whatsapp": "https://wa.me/79670578130",
       "max": "https://t.me/MAX_CONTACT"
-    }
+    },
+    "schedule": "с 10:00 до 21:00"
   },
   "catRooms": [
     {
@@ -277,6 +278,10 @@
     {
       "q": "Привет?",
       "a": "Привет?"
+    },
+    {
+      "q": "Новый вопрос?",
+      "a": "Текст ответа..."
     }
   ],
   "reviews": [
