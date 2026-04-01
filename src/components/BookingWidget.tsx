@@ -18,11 +18,11 @@ const BookingWidget: React.FC<BookingWidgetProps> = ({ litePmsId, checkIn, check
   const formattedIn = formatDateForWidget(checkIn);
   const formattedOut = formatDateForWidget(checkOut);
 
-  // Ссылка на стандартный виджет LitePMS с параметрами автозаполнения
-  const baseUrl = 'https://litepms.ru/widget/search?id=12015&wid=2055';
+  // Используем режим прямой резервации (reservation), чтобы убрать лишние элементы интерфейса LitePMS (шапку, контакты)
+  const baseUrl = 'https://litepms.ru/widget/reservation?id=12015&wid=2055';
   let widgetUrl = baseUrl;
   
-  if (litePmsId) widgetUrl += `&room_id=${litePmsId}`;
+  if (litePmsId) widgetUrl += `&category_id=${litePmsId}`;
   if (formattedIn) widgetUrl += `&date_in=${formattedIn}`;
   if (formattedOut) widgetUrl += `&date_out=${formattedOut}`;
 
