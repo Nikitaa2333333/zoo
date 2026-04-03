@@ -47,7 +47,7 @@ const faqData = content.faq;
 const galleryImages = content.gallery;
 const contacts = content.contacts;
 const heroData = content.hero || { 
-  title: "Бест френд — зоотель в Москве для кошек и собак", 
+  title: "Бест френд — зоогостиница для кошек и собак", 
   subtitle: content.promo.text 
 };
 
@@ -102,8 +102,10 @@ const FAQList = () => {
   );
 };
 
+import GuestCardForm from './components/GuestCardForm';
+
 export default function App() {
-  const [currentPage, setCurrentPage] = useState<'main' | 'booking'>('main');
+  const [currentPage, setCurrentPage] = useState<'main' | 'booking' | 'guest-card'>('main');
   const [selectedCategory, setSelectedCategory] = useState<'cats' | 'dogs' | null>(null);
   const [selectedRoom, setSelectedRoom] = useState<any | null>(null);
   const [checkInDate, setCheckInDate] = useState('');
@@ -194,7 +196,7 @@ export default function App() {
             />
             <div className="flex flex-col">
               <span className="text-xl md:text-2xl font-black tracking-tighter leading-none">Бест френд</span>
-              <span className="text-[12px] md:text-[13px] font-bold text-stone-400">Зоотель в Москве</span>
+              <span className="text-[12px] md:text-[13px] font-bold text-stone-400">Зоогостиница</span>
             </div>
           </div>
 
@@ -202,10 +204,7 @@ export default function App() {
             <button onClick={() => scrollToId('rooms')} className="hover:text-[#99ed36] transition-all">Номера</button>
             <button onClick={() => scrollToId('about')} className="hover:text-[#ff7e27] transition-all">О нас</button>
             <button onClick={() => scrollToId('rules')} className="hover:text-[#ff7e27] transition-all whitespace-nowrap">Правила</button>
-            <button onClick={() => scrollToId('promos')} className="hover:text-[#ff7e27] transition-all whitespace-nowrap">Акции</button>
-            <button onClick={() => scrollToId('gallery')} className="hover:text-[#ff7e27] transition-all whitespace-nowrap">Фото</button>
-            <button onClick={() => scrollToId('faq')} className="hover:text-[#ff7e27] transition-all">Вопросы</button>
-            <button onClick={() => scrollToId('reviews')} className="hover:text-[#ff7e27] transition-all">Отзывы</button>
+            <button onClick={() => { setCurrentPage('guest-card'); window.scrollTo(0, 0); setIsMenuOpen(false); }} className="hover:text-[#ff7e27] transition-all whitespace-nowrap">Анкета гостя</button>
             <button onClick={() => scrollToId('contacts')} className="hover:text-[#99ed36] transition-all">Контакты</button>
           </nav>
 
@@ -223,7 +222,7 @@ export default function App() {
               className="hidden sm:flex items-center gap-2 bg-[#141414] text-white px-8 py-3.5 rounded-full font-bold text-sm hover:scale-105 transition-all shadow-lg"
             >
               <MessageCircle size={18} />
-              Связаться с нами
+              Связаться
             </button>
           </div>
         </div>
@@ -243,10 +242,7 @@ export default function App() {
                   { name: 'Номера', id: 'rooms' },
                   { name: 'О нас', id: 'about' },
                   { name: 'Правила', id: 'rules' },
-                  { name: 'Акции', id: 'promos' },
-                  { name: 'Фото', id: 'gallery' },
-                  { name: 'Вопросы', id: 'faq' },
-                  { name: 'Отзывы', id: 'reviews' },
+                  { name: 'Анкета', id: 'guest-card' },
                   { name: 'Контакты', id: 'contacts' }
                 ].map((item, i) => (
                   <motion.button
@@ -254,25 +250,12 @@ export default function App() {
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.1 + i * 0.05 }}
-                    onClick={() => scrollToId(item.id)}
+                    onClick={() => item.id === 'guest-card' ? (setCurrentPage('guest-card'), setIsMenuOpen(false)) : scrollToId(item.id)}
                     className="text-left text-3xl md:text-4xl font-black hover:text-[#ff7e27] transition-colors"
                   >
                     {item.name}
                   </motion.button>
                 ))}
-
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.5 }}
-                  className="pt-8 border-t border-stone-100 mt-4 flex flex-col gap-4"
-                >
-                  <a href={`tel:${contacts.phone.replace(/[^0-9]/g, '')}`} className="text-2xl font-black text-[#ff7e27] flex items-center gap-3">
-                    <Phone size={24} /> {contacts.phone}
-                  </a>
-                  <p className="text-stone-400 font-bold text-sm">{contacts.schedule}</p>
-
-                </motion.div>
               </div>
             </motion.div>
           )}
@@ -280,13 +263,23 @@ export default function App() {
       </header>
 
       <AnimatePresence mode="wait">
-        {currentPage === 'booking' && selectedRoom ? (
+        {currentPage === 'guest-card' ? (
+          <motion.div
+            key="guest-card-page"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="pt-20 md:pt-24"
+          >
+            <GuestCardForm onBack={() => setCurrentPage('main')} />
+          </motion.div>
+        ) : currentPage === 'booking' && selectedRoom ? (
           <motion.div
             key="booking-page"
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -20 }}
-            className="pt-20 md:pt-24 pb-12 md:pb-20 max-w-7xl mx-auto px-4 i md:px-6"
+            className="pt-20 md:pt-24 pb-12 md:pb-20 max-w-7xl mx-auto px-4 md:px-6"
           >
             <button onClick={() => setCurrentPage('main')} className="flex items-center gap-2 mb-8 md:mb-10 font-bold text-stone-500 hover:text-[#ff7e27] transition-all group">
               <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" /> Назад к выбору
@@ -355,6 +348,7 @@ export default function App() {
                     litePmsId={selectedRoom.litePmsId}
                     checkIn={checkInDate}
                     checkOut={checkOutDate}
+                    wid={selectedCategory === 'cats' ? '2056' : '2055'}
                   />
                 </div>
               </div>
@@ -401,7 +395,28 @@ export default function App() {
                 </motion.div>
               </div>
 
-              {/* THE WHITE PLATE (BADGE) - FIXED SIZE & POSITION (OUTSIDE SCALE CONTAINER) */}
+              {/* THE WHITE PLATE (BADGE) - CATS */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8, x: -20 }}
+                animate={{ opacity: 1, scale: 1, x: 0 }}
+                transition={{ delay: 1.2, duration: 0.6, type: "spring" }}
+                className="absolute left-[4%] md:left-[8%] bottom-[8%] md:bottom-[20%] z-40 bg-white p-3 md:p-8 rounded-[1.8rem] md:rounded-[2.5rem] shadow-[0_15px_40px_rgba(0,0,0,0.12)] animate-float max-w-[130px] md:max-w-[260px]"
+              >
+                <div className="flex items-center gap-3 mb-1.5 md:mb-4">
+                   <div className="flex -space-x-1.5 md:-space-x-2">
+                      <div className="w-7 h-7 md:w-10 md:h-10 rounded-full bg-[#141414] flex items-center justify-center overflow-hidden"><Cat size={12} className="text-[#99ed36] md:scale-125" /></div>
+                      <div className="w-7 h-7 md:w-10 md:h-10 rounded-full bg-[#141414] flex items-center justify-center overflow-hidden"><Clock size={12} className="text-white md:scale-125" /></div>
+                   </div>
+                </div>
+                <p className="text-[10px] md:text-xl font-black text-brand-dark leading-[1.1] tracking-tight whitespace-pre-line">
+                  {"Почасовая бронь\nпитомца"}
+                </p>
+                <p className="mt-1 md:mt-2 text-[8px] md:text-sm font-bold text-stone-400">
+                  {"скидка 50%"}
+                </p>
+              </motion.div>
+
+              {/* THE WHITE PLATE (BADGE) - DOGS */}
               <motion.div
                 initial={{ opacity: 0, scale: 0.8, x: 20 }}
                 animate={{ opacity: 1, scale: 1, x: 0 }}

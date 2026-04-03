@@ -4,9 +4,10 @@ interface BookingWidgetProps {
   litePmsId?: string;
   checkIn?: string;
   checkOut?: string;
+  wid?: string;
 }
 
-const BookingWidget: React.FC<BookingWidgetProps> = ({ litePmsId, checkIn, checkOut }) => {
+const BookingWidget: React.FC<BookingWidgetProps> = ({ litePmsId, checkIn, checkOut, wid }) => {
   // Помощник для смены формата даты с ГГГГ-ММ-ДД на ДД-ММ-ГГГГ (для LitePMS)
   const formatDateForWidget = (dateStr?: string) => {
     if (!dateStr) return '';
@@ -19,7 +20,8 @@ const BookingWidget: React.FC<BookingWidgetProps> = ({ litePmsId, checkIn, check
   const formattedOut = formatDateForWidget(checkOut);
 
   // Используем режим прямой резервации (reservation), чтобы убрать лишние элементы интерфейса LitePMS (шапку, контакты)
-  const baseUrl = 'https://litepms.ru/widget/reservation?id=12015&wid=2055';
+  const finalWid = wid || '2055';
+  const baseUrl = `https://litepms.ru/widget/index?id=12015&wid=${finalWid}`;
   let widgetUrl = baseUrl;
   
   if (litePmsId) widgetUrl += `&category_id=${litePmsId}`;
