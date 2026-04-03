@@ -200,10 +200,14 @@ export default function App() {
             </div>
           </div>
 
-          <nav className="hidden lg:flex items-center gap-4 xl:gap-6 font-bold text-stone-600 text-[13px] xl:text-[14px]">
+          <nav className="hidden lg:flex items-center gap-4 xl:gap-5 font-bold text-stone-600 text-[13px] xl:text-[14px]">
             <button onClick={() => scrollToId('rooms')} className="hover:text-[#99ed36] transition-all">Номера</button>
             <button onClick={() => scrollToId('about')} className="hover:text-[#ff7e27] transition-all">О нас</button>
             <button onClick={() => scrollToId('rules')} className="hover:text-[#ff7e27] transition-all whitespace-nowrap">Правила</button>
+            <button onClick={() => scrollToId('promos')} className="hover:text-[#ff7e27] transition-all">Акции</button>
+            <button onClick={() => scrollToId('gallery')} className="hover:text-[#ff7e27] transition-all">Фото</button>
+            <button onClick={() => scrollToId('faq')} className="hover:text-[#ff7e27] transition-all">Вопросы</button>
+            <button onClick={() => scrollToId('reviews')} className="hover:text-[#ff7e27] transition-all">Отзывы</button>
             <button onClick={() => { setCurrentPage('guest-card'); window.scrollTo(0, 0); setIsMenuOpen(false); }} className="hover:text-[#ff7e27] transition-all whitespace-nowrap">Анкета гостя</button>
             <button onClick={() => scrollToId('contacts')} className="hover:text-[#99ed36] transition-all">Контакты</button>
           </nav>
@@ -242,6 +246,10 @@ export default function App() {
                   { name: 'Номера', id: 'rooms' },
                   { name: 'О нас', id: 'about' },
                   { name: 'Правила', id: 'rules' },
+                  { name: 'Акции', id: 'promos' },
+                  { name: 'Фото', id: 'gallery' },
+                  { name: 'Вопросы', id: 'faq' },
+                  { name: 'Отзывы', id: 'reviews' },
                   { name: 'Анкета', id: 'guest-card' },
                   { name: 'Контакты', id: 'contacts' }
                 ].map((item, i) => (
@@ -976,7 +984,7 @@ export default function App() {
                 <img src={logoImg} className="w-12 h-12 object-contain opacity-90" alt="Бест френд" />
                 <div className="flex flex-col">
                   <span className="text-xl font-black tracking-tighter leading-none text-white">Бест френд</span>
-                  <span className="text-xs font-bold text-stone-500">Зоотель в Москве</span>
+                  <span className="text-xs font-bold text-stone-500">Зоогостиница</span>
                 </div>
               </div>
             </div>
@@ -984,15 +992,12 @@ export default function App() {
             {/* NAVIGATION DUPLICATE */}
             <div className="md:col-span-1">
               <h4 className="text-white font-black text-lg mb-8">Навигация</h4>
-              <nav className="grid grid-cols-2 md:grid-cols-1 gap-x-4 gap-y-4 font-bold text-stone-500">
+              <nav className="flex flex-col gap-4 font-bold text-stone-500">
                 <button onClick={() => scrollToId('rooms')} className="hover:text-[#99ed36] transition-all text-left">Номера</button>
                 <button onClick={() => scrollToId('about')} className="hover:text-[#ff7e27] transition-all text-left">О нас</button>
                 <button onClick={() => scrollToId('rules')} className="hover:text-[#ff7e27] transition-all text-left">Правила</button>
                 <button onClick={() => scrollToId('promos')} className="hover:text-[#ff7e27] transition-all text-left">Акции</button>
                 <button onClick={() => scrollToId('gallery')} className="hover:text-[#ff7e27] transition-all text-left">Фото</button>
-                <button onClick={() => scrollToId('faq')} className="md:hidden hover:text-[#ff7e27] transition-all text-left">Вопросы</button>
-                <button onClick={() => scrollToId('reviews')} className="md:hidden hover:text-[#ff7e27] transition-all text-left">Отзывы</button>
-                <button onClick={() => scrollToId('contacts')} className="md:hidden hover:text-[#99ed36] transition-all text-left">Контакты</button>
               </nav>
             </div>
 
@@ -1001,6 +1006,7 @@ export default function App() {
               <nav className="flex flex-col gap-4 font-bold text-stone-500">
                 <button onClick={() => scrollToId('faq')} className="hover:text-[#ff7e27] transition-all text-left">Вопросы</button>
                 <button onClick={() => scrollToId('reviews')} className="hover:text-[#ff7e27] transition-all text-left">Отзывы</button>
+                <button onClick={() => { setCurrentPage('guest-card'); window.scrollTo(0, 0); }} className="hover:text-[#ff7e27] transition-all text-left">Анкета гостя</button>
                 <button onClick={() => scrollToId('contacts')} className="hover:text-[#99ed36] transition-all text-left">Контакты</button>
               </nav>
             </div>
