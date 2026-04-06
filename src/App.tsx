@@ -215,6 +215,7 @@ export default function App() {
           <div className="flex items-center gap-4">
             <button 
               className="lg:hidden w-10 h-10 flex flex-col items-center justify-center gap-1.5"
+              aria-label={isMenuOpen ? 'Закрыть меню' : 'Открыть меню'}
               onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
               <motion.div animate={{ rotate: isMenuOpen ? 45 : 0, y: isMenuOpen ? 7 : 0 }} className="w-6 h-0.5 bg-black" />
@@ -460,6 +461,8 @@ export default function App() {
                   src={heroMainImg}
                   alt="Интерьер зоотеля Бест френд — комфортные номера для собак и кошек в Москве"
                   className="w-full h-auto block scale-[1.3] md:scale-100 origin-bottom"
+                  fetchPriority="high"
+                  decoding="sync"
                 />
               </motion.div>
             </section>
@@ -1045,7 +1048,7 @@ export default function App() {
               <a href={contacts.social.max} target="_blank" rel="noreferrer" className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center hover:bg-[#99ed36] transition-all border border-white/5 group">
                 <img src={logoMaxImg} className="w-6 h-6 object-contain" alt="Max" />
               </a>
-              <a href={`mailto:${contacts.email}`} className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center text-white hover:bg-[#ff7e27] transition-all border border-white/5">
+              <a href={`mailto:${contacts.email}`} aria-label={`Написать на ${contacts.email}`} className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center text-white hover:bg-[#ff7e27] transition-all border border-white/5">
                 <Mail size={20} />
               </a>
             </div>
