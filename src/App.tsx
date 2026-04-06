@@ -417,7 +417,7 @@ export default function App() {
                    </div>
                 </div>
                 <p className="text-[10px] md:text-xl font-black text-brand-dark leading-[1.1] tracking-tight whitespace-pre-line">
-                  {"Почасовая бронь\nпитомца"}
+                  {"Почасовая оплата"}
                 </p>
                 <p className="mt-1 md:mt-2 text-[8px] md:text-sm font-bold text-stone-400">
                   {"скидка 50%"}

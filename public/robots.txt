@@ -19,4 +19,4 @@ User-agent: Yandex
 Allow: /
 Clean-param: utm_source&utm_medium&utm_campaign
 
-Sitemap: http://xn--90agca4bqgis.xn--p1ai/sitemap.xml
+Sitemap: https://xn--90agca4bqgis.xn--p1ai/sitemap.xml

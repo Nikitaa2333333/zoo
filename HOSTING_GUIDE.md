@@ -24,6 +24,12 @@ npm run build
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /
+
+  # Принудительный HTTPS (301 редирект)
+  RewriteCond %{HTTPS} off
+  RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+  # Маршрутизация для React
   RewriteRule ^index\.html$ - [L]
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
