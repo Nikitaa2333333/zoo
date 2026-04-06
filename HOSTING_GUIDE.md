@@ -25,7 +25,8 @@ npm run build
   RewriteEngine On
   RewriteBase /
 
-  # Принудительный HTTPS (301 редирект)
+  # Принудительный HTTPS (Редирект 301) — исправленный вариант для SprintHost
+  RewriteCond %{HTTP:X-Forwarded-Proto} !https
   RewriteCond %{HTTPS} off
   RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
