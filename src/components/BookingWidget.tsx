@@ -5,9 +5,10 @@ interface BookingWidgetProps {
   checkOut?: string;
   wid?: string;
   litePmsId?: string;
+  litePmsRoomId?: string;
 }
 
-const BookingWidget: React.FC<BookingWidgetProps> = ({ wid, litePmsId }) => {
+const BookingWidget: React.FC<BookingWidgetProps> = ({ wid, litePmsId, litePmsRoomId }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const finalWid = wid || '2055';
 
@@ -25,8 +26,10 @@ const BookingWidget: React.FC<BookingWidgetProps> = ({ wid, litePmsId }) => {
     // Переменные конфигурации
     const configScript = document.createElement('script');
     configScript.type = 'text/javascript';
-    const catParam = litePmsId ? `,set_cat_id=${litePmsId}` : '';
-    configScript.text = `var litepmsembed_id=12015,litepmsembed_wid=${finalWid}${catParam};`;
+    const filterParam = litePmsRoomId
+      ? `,set_room_id=${litePmsRoomId}`
+      : litePmsId ? `,set_cat_id=${litePmsId}` : '';
+    configScript.text = `var litepmsembed_id=12015,litepmsembed_wid=${finalWid}${filterParam};`;
     containerRef.current.appendChild(configScript);
 
     // Основной скрипт виджета
@@ -41,7 +44,7 @@ const BookingWidget: React.FC<BookingWidgetProps> = ({ wid, litePmsId }) => {
         containerRef.current.innerHTML = '';
       }
     };
-  }, [finalWid, litePmsId]);
+  }, [finalWid, litePmsId, litePmsRoomId]);
 
   return (
     <div className="w-full min-h-[600px] bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-xl p-2">

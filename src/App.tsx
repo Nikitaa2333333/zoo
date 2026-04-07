@@ -355,6 +355,7 @@ export default function App() {
                 <div className="bg-white rounded-[2.5rem] md:rounded-[3.5rem] p-2 md:p-4 shadow-2xl border border-stone-100 overflow-hidden min-h-[600px] md:min-h-[800px]">
                   <BookingWidget
                     litePmsId={selectedRoom.litePmsId}
+                    litePmsRoomId={selectedRoom.litePmsRoomId}
                     checkIn={checkInDate}
                     checkOut={checkOutDate}
                     wid={selectedCategory === 'cats' ? '2056' : '2055'}
