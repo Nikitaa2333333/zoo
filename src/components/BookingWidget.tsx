@@ -25,8 +25,8 @@ const BookingWidget: React.FC<BookingWidgetProps> = ({ wid, litePmsId }) => {
     // Переменные конфигурации
     const configScript = document.createElement('script');
     configScript.type = 'text/javascript';
-    const roomParam = litePmsId ? `,set_room_id=${litePmsId}` : '';
-    configScript.text = `var litepmsembed_id=12015,litepmsembed_wid=${finalWid}${roomParam};`;
+    const catParam = litePmsId ? `,set_cat_id=${litePmsId}` : '';
+    configScript.text = `var litepmsembed_id=12015,litepmsembed_wid=${finalWid}${catParam};`;
     containerRef.current.appendChild(configScript);
 
     // Основной скрипт виджета
