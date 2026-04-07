@@ -295,7 +295,7 @@ export default function App() {
             </button>
 
             <div className="grid lg:grid-cols-12 gap-8 md:gap-12">
-                <div className="lg:col-span-4 space-y-6">
+                <div className="lg:col-span-4 space-y-6 lg:sticky lg:top-8 lg:self-start">
                   <div className={`p-6 md:p-8 rounded-[2.5rem] md:rounded-[3rem] ${selectedCategory === 'cats' ? 'bg-[#99ed36]' : 'bg-[#ff7e27]'} text-[#141414] shadow-2xl relative overflow-hidden`}>
                     <div className="relative z-10 flex flex-col">
                       <div className="mb-10">
