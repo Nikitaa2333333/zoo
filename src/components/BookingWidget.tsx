@@ -1,48 +1,51 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 
 interface BookingWidgetProps {
-  litePmsId?: string;
   checkIn?: string;
   checkOut?: string;
   wid?: string;
+  litePmsId?: string;
 }
 
-const BookingWidget: React.FC<BookingWidgetProps> = ({ litePmsId, checkIn, checkOut, wid }) => {
-  // Помощник для смены формата даты с ГГГГ-ММ-ДД на ДД-ММ-ГГГГ (для LitePMS)
-  const formatDateForWidget = (dateStr?: string) => {
-    if (!dateStr) return '';
-    const parts = dateStr.split('-');
-    if (parts.length !== 3) return dateStr;
-    return `${parts[2]}-${parts[1]}-${parts[0]}`;
-  };
-
-  const formattedIn = formatDateForWidget(checkIn);
-  const formattedOut = formatDateForWidget(checkOut);
-
-  // Используем режим прямой резервации (reservation), чтобы убрать лишние элементы интерфейса LitePMS (шапку, контакты)
+const BookingWidget: React.FC<BookingWidgetProps> = ({ wid, litePmsId }) => {
+  const containerRef = useRef<HTMLDivElement>(null);
   const finalWid = wid || '2055';
-  const baseUrl = `https://litepms.ru/widget/index?id=12015&wid=${finalWid}`;
-  let widgetUrl = baseUrl;
-  
-  if (litePmsId) widgetUrl += `&category_id=${litePmsId}`;
-  if (formattedIn) widgetUrl += `&date_in=${formattedIn}`;
-  if (formattedOut) widgetUrl += `&date_out=${formattedOut}`;
+
+  useEffect(() => {
+    if (!containerRef.current) return;
+
+    // Очищаем предыдущий виджет перед вставкой нового
+    containerRef.current.innerHTML = '';
+
+    // Контейнер для виджета (требуется LitePMS)
+    const div = document.createElement('div');
+    div.id = 'litepmsiframe';
+    containerRef.current.appendChild(div);
+
+    // Переменные конфигурации
+    const configScript = document.createElement('script');
+    configScript.type = 'text/javascript';
+    const roomParam = litePmsId ? `,set_room_id=${litePmsId}` : '';
+    configScript.text = `var litepmsembed_id=12015,litepmsembed_wid=${finalWid}${roomParam};`;
+    containerRef.current.appendChild(configScript);
+
+    // Основной скрипт виджета
+    const widgetScript = document.createElement('script');
+    widgetScript.type = 'text/javascript';
+    widgetScript.src = 'https://litepms.ru/js/widget_embed.js';
+    widgetScript.charset = 'utf-8';
+    containerRef.current.appendChild(widgetScript);
+
+    return () => {
+      if (containerRef.current) {
+        containerRef.current.innerHTML = '';
+      }
+    };
+  }, [finalWid, litePmsId]);
 
   return (
-    <div className="w-full h-full min-h-[600px] flex flex-col bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-xl">
-      {/* 
-        Мы возвращаем оригинальный виджет LitePMS. 
-        Он гарантирует 100% точность в шахматке и поддержку всех условий отеля.
-        Кстати, цвет кнопок и шрифты виджета можно настроить в кабинете LitePMS!
-      */}
-      <iframe
-        src={widgetUrl}
-        width="100%"
-        height="100%"
-        style={{ minHeight: '800px', border: 'none' }}
-        title="LitePMS Booking Widget"
-        className="animate-in fade-in duration-700"
-      />
+    <div className="w-full min-h-[600px] bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-xl p-2">
+      <div ref={containerRef} className="w-full min-h-[600px]" />
     </div>
   );
 };
