@@ -7,8 +7,12 @@ interface GuestCardFormProps {
 }
 
 // НАСТРОЙКИ ТЕЛЕГРАМ
-const TG_TOKEN = '8684643120:AAEw1oqeqf7nQ7wmg_blz9kYD5Y4PAAaTKc'; 
+const TG_TOKEN = '8684643120:AAEw1oqeqf7nQ7wmg_blz9kYD5Y4PAAaTKc';
 const TG_CHAT_IDS = ['1088570591', '651633018'];
+
+// НАСТРОЙКИ GOOGLE SHEETS
+// После деплоя Apps Script вставьте ваш URL сюда:
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyhcesRHSNioKKRphZRLyCj3O9Q5pSLYe-AOR2_h4zda_N3PkKDGLDORltpUfnFG2jT/exec';
 
 export default function GuestCardForm({ onBack }: GuestCardFormProps) {
   const [loading, setLoading] = useState(false);
@@ -116,9 +120,43 @@ export default function GuestCardForm({ onBack }: GuestCardFormProps) {
       }
     });
 
+    // Собираем объект для Google Sheets
+    const sheetsData = {
+      ownerName:       formData.get('ownerName'),
+      ownerPhone:      formData.get('ownerPhone'),
+      petName:         formData.get('petName'),
+      petSpecies:      formData.get('petSpecies'),
+      petBreed:        formData.get('petBreed'),
+      petAge:          formData.get('petAge'),
+      heatCycle:       formData.get('heatCycle'),
+      dates:           formData.get('dates'),
+      duration:        formData.get('duration'),
+      lastVet:         formData.get('lastVet'),
+      vetReason:       formData.get('vetReason'),
+      healthIssues:    formData.get('healthIssues'),
+      walkFreq:        formData.get('walkFreq'),
+      likes:           formData.get('likes'),
+      dislikes:        formData.get('dislikes'),
+      toPeople:        formData.get('toPeople'),
+      toAnimals:       formData.get('toAnimals'),
+      character:       formData.get('character'),
+      foodBrand:       formData.get('foodBrand'),
+      diet:            formData.get('diet'),
+      feedingSchedule: formData.get('feedingSchedule'),
+      guardToys:       formData.get('guardToys'),
+      guardFood:       formData.get('guardFood'),
+      aggressive:      formData.get('aggressive'),
+      aggroReason:     formData.get('aggroReason'),
+      bitten:          formData.get('bitten'),
+      commands:        formData.get('commands'),
+      walksNum:        formData.get('walksNum'),
+      source:          formData.get('source'),
+      contractData:    formData.get('contractData'),
+    };
+
     try {
       // Отправляем всем админам из списка
-      const sendPromises = TG_CHAT_IDS.map(chatId => 
+      const sendPromises = TG_CHAT_IDS.map(chatId =>
         fetch(`https://api.telegram.org/bot${TG_TOKEN}/sendMessage`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -130,11 +168,22 @@ export default function GuestCardForm({ onBack }: GuestCardFormProps) {
         })
       );
 
+      // Отправляем в Google Sheets (параллельно с Telegram)
+      const sheetsPromise = GOOGLE_SCRIPT_URL !== 'https://script.google.com/macros/s/AKfycbyhcesRHSNioKKRphZRLyCj3O9Q5pSLYe-AOR2_h4zda_N3PkKDGLDORltpUfnFG2jT/exec'
+        ? fetch('https://script.google.com/macros/s/AKfycbyhcesRHSNioKKRphZRLyCj3O9Q5pSLYe-AOR2_h4zda_N3PkKDGLDORltpUfnFG2jT/exec', {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'text/plain' },
+            body: JSON.stringify(sheetsData)
+          })
+        : Promise.resolve();
+
       const results = await Promise.all(sendPromises);
+      await sheetsPromise;
       const anyFailed = results.some(res => !res.ok);
-      
+
       if (anyFailed) throw new Error('Ошибка отправки одному из получателей');
-      
+
       setSubmitted(true);
       window.scrollTo(0, 0);
     } catch (err) {
