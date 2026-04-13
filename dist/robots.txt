@@ -1,0 +1,22 @@
+User-agent: *
+Allow: /
+
+# Allow AI Search Bots (GEO Optimization 2026)
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+# Yandex-specific rules
+User-agent: Yandex
+Allow: /
+Clean-param: utm_source&utm_medium&utm_campaign
+
+Sitemap: https://xn--90agca4bqgis.xn--p1ai/sitemap.xml
