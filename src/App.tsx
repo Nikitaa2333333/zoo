@@ -20,7 +20,9 @@ import dogStandardImg from './assets/rooms/dog_standard.webp';
 import dogComfortImg from './assets/rooms/dog_comfort.webp';
 import dogLuxuryImg from './assets/rooms/dog_luxury.webp';
 import heroSpaImg from './assets/hero_spa.webp';
+import heroSpaMobileImg from './assets/hero_spa-mobile.webp';
 import heroMainImg from './assets/hero_main.webp';
+import heroMainMobileImg from './assets/hero_main-mobile.webp';
 import logoMaxImg from './assets/logo_max.svg';
 import telegramLogoImg from './assets/telegram_logo.webp';
 import dogRulesImg from './assets/dog_rules.webp';
@@ -502,6 +504,8 @@ export default function App() {
 
                 <img
                   src={heroMainImg}
+                  srcSet={`${heroMainMobileImg} 800w, ${heroMainImg} 1600w`}
+                  sizes="(max-width: 768px) 800px, 1600px"
                   alt="Интерьер зоотеля Бест френд — комфортные номера для собак и кошек в Москве"
                   className="w-full h-auto block scale-[1.3] md:scale-100 origin-bottom"
                   fetchPriority="high"
