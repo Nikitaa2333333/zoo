@@ -243,8 +243,7 @@
       "extras": [
         "Активный выгул 20 мин +250 ₽/выгул"
       ],
-      "litePmsId": "12861",
-      "litePmsRoomId": "75394"
+      "litePmsId": "12861"
     }
   ],
   "faq": [
@@ -275,6 +274,14 @@
     {
       "q": "Есть ли камеры видеонаблюдения в гостинице?",
       "a": "Да. В отеле  ведётся внутреннее видеонаблюдение для обеспечения максимальной безопасности всех животных. Мы бесплатно предоставляем вам доступ к онлайн-камерам в режиме 24/7. Вы можете в любой момент убедиться, что с вашим любимцем всё в порядке."
+    },
+    {
+      "q": "Привет?",
+      "a": "Привет?"
+    },
+    {
+      "q": "Новый вопрос?",
+      "a": "Текст ответа..."
     }
   ],
   "reviews": [
@@ -283,7 +290,7 @@
       "pet": "Кот Марс",
       "type": "cat",
       "stayDate": "Январь 2026",
-      "text": "Оставляла кота в номере «Комфорт» на 2 недели. Очень переживала, как он перенесет разлуку, но благодаря видеонаблюдению видела, что Марс чувствует себя как дома. Вечерние фотоотчеты в Telegram — это просто находка! Вернулся спокойным, чистым и даже не сразу захотел выходить из переноски дома.",
+      "text": "Оставлял кота в номере «Комфорт» на 2 недели. Очень переживала, как он перенесет разлуку, но благодаря видеонаблюдению видела, что Марс чувствует себя как дома. Вечерние фотоотчеты в Telegram — это просто находка! Вернулся спокойным, чистым и даже не сразу захотел выходить из переноски дома.",
       "stars": 5
     },
     {
@@ -345,73 +352,73 @@
   ],
   "gallery": [
     {
-      "url": "/images/gallery1.webp",
+      "url": "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?q=80&w=800&auto=format&fit=crop",
       "title": "Уютный котик",
       "span": "col-span-2",
       "rotate": -1
     },
     {
-      "url": "/images/rooms/cat_comfort.webp",
-      "title": "Номер Комфорт для кошек",
+      "url": "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?q=80&w=800&auto=format&fit=crop",
+      "title": "Активные игры",
       "span": "col-span-1",
       "rotate": 1
     },
     {
-      "url": "/images/rooms/cat_standard.webp",
-      "title": "Стандарт для кошек",
+      "url": "https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?q=80&w=800&auto=format&fit=crop",
+      "title": "Тихий час",
       "span": "col-span-1",
       "rotate": -1
     },
     {
-      "url": "/images/gallery2.webp",
-      "title": "Наши гости",
+      "url": "https://images.unsplash.com/photo-1533738363-b7f9aef128ce?q=80&w=800&auto=format&fit=crop",
+      "title": "Стильный гость",
       "span": "col-span-2",
       "rotate": 1
     },
     {
-      "url": "/images/gallery3.webp",
-      "title": "Комфортный отдых",
+      "url": "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?q=80&w=800&auto=format&fit=crop",
+      "title": "Комфортный сон",
       "span": "col-span-2",
       "rotate": -1
     },
     {
-      "url": "/images/rooms/dog_luxury.webp",
-      "title": "Люкс для собак",
+      "url": "https://images.unsplash.com/photo-1592754862816-1a6e7e7ad29d?q=80&w=800&auto=format&fit=crop",
+      "title": "Прогулка",
       "span": "col-span-1",
       "rotate": 1
     },
     {
-      "url": "/images/rooms/dog_comfort.webp",
-      "title": "Комфорт для собак",
+      "url": "https://images.unsplash.com/photo-1543852786-1cf6624b9987?q=80&w=800&auto=format&fit=crop",
+      "title": "Любопытство",
       "span": "col-span-1",
       "rotate": -1
     },
     {
-      "url": "/images/gallery4.webp",
+      "url": "https://images.unsplash.com/photo-1554692990-280459345688?q=80&w=800&auto=format&fit=crop",
       "title": "Верный друг",
       "span": "col-span-2",
       "rotate": 1
     },
     {
-      "url": "/images/rooms/cat_improved.webp",
-      "title": "Улучшенный для кошек",
+      "url": "https://images.unsplash.com/photo-1574158622682-e40e69881006?q=80&w=800&auto=format&fit=crop",
+      "title": "Минимализм",
       "span": "col-span-1",
       "rotate": -1
     },
     {
-      "url": "/images/rooms/dog_standard.webp",
-      "title": "Стандарт для собак",
+      "url": "https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?q=80&w=800&auto=format&fit=crop",
+      "title": "Отдых",
       "span": "col-span-2",
       "rotate": 1
     },
     {
-      "url": "/images/cat_studio.webp",
+      "url": "https://images.unsplash.com/photo-1450778869180-41d0601e046e?q=80&w=800&auto=format&fit=crop",
       "title": "Забота",
       "span": "col-span-1",
       "rotate": -1
     },
     {
-      "url": "/images/large_dog_studio.webp",
+      "url": "https://images.unsplash.com/photo-1548191265-cc70d3d45ba1?q=80&w=800&auto=format&fit=crop",
       "title": "Друзья",
       "span": "col-span-3",
       "rotate": 1
@@ -502,7 +509,7 @@
     ]
   },
   "hero": {
-    "title": "Бест френд —\nзоогостиница\nдля кошек и собак",
+    "title": "Бест френд —\nзоотель в Москве\nдля кошек и собак",
     "subtitle": "Бережный уход, видеонаблюдение 24/7 и ежедневные фотоотчёты. Создаем идеальные условия, чтобы ваш любимец чувствовал себя как дома.",
     "badge": {
       "title": "Берем собак\nвсех пород\nи размеров",
