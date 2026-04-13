@@ -502,17 +502,18 @@ export default function App() {
                 {/* Image Background Support */}
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-[80%] bg-white/5 blur-[130px] rounded-full -z-10" />
 
-                <img
-                  src={heroMainImg}
-                  srcSet={`${heroMainMobileImg} 800w, ${heroMainImg} 1600w`}
-                  sizes="(max-width: 768px) 800px, 1600px"
-                  alt="Интерьер зоотеля Бест френд — комфортные номера для собак и кошек в Москве"
-                  className="w-full h-auto block scale-[1.3] md:scale-100 origin-bottom"
-                  fetchPriority="high"
-                  decoding="sync"
-                  width="1600"
-                  height="893"
-                />
+                <picture>
+                  <source media="(max-width: 768px)" srcSet={heroMainMobileImg} width="800" height="534" />
+                  <img
+                    src={heroMainImg}
+                    alt="Интерьер зоотеля Бест френд — комфортные номера для собак и кошек в Москве"
+                    className="w-full h-auto block scale-[1.3] md:scale-100 origin-bottom"
+                    fetchPriority="high"
+                    decoding="sync"
+                    width="1600"
+                    height="893"
+                  />
+                </picture>
               </motion.div>
             </section>
 
@@ -573,7 +574,7 @@ export default function App() {
                         <div className="space-y-6 mb-10 flex-1">
                           <div className="bg-stone-50/50 p-6 rounded-[2rem] border border-stone-100">
                              <p className="text-xs font-black text-[#141414] mb-4 tracking-wider uppercase">Включено:</p>
-                             <div className="columns-2 gap-x-4 space-y-1.5">
+                             <div className="columns-1 sm:columns-2 gap-x-4 space-y-1.5">
                                {room.inclusions.map((item: string, i: number) => (
                                  <div key={i} className="flex items-start gap-2.5 break-inside-avoid">
                                     <Check size={14} className="text-[#99ed36] mt-0.5 shrink-0" />
@@ -734,7 +735,7 @@ export default function App() {
                         <h3 className="text-3xl md:text-5xl font-black tracking-tighter text-[#141414]">Что взять с собой</h3>
                       </div>
                       
-                      <div className="grid grid-cols-2 gap-2 md:gap-3">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 md:gap-3">
                         {rulesSections.checklist.map((item, i) => (
                           <div key={i} className="flex flex-col items-center text-center p-4 rounded-2xl bg-[#99ed36]/10 border border-[#99ed36]/20 shadow-sm hover:shadow-md transition-all group cursor-default h-full">
                             <span className="font-bold text-stone-700 text-[13px] md:text-sm leading-tight">{item}</span>
@@ -753,7 +754,7 @@ export default function App() {
                         <h3 className="text-3xl md:text-5xl font-black tracking-tighter text-[#141414]">Мы не принимаем</h3>
                       </div>
                       
-                      <div className="grid grid-cols-2 gap-2 md:gap-3">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 md:gap-3">
                         {rulesSections.stopList.map((item, i) => (
                           <div key={i} className="flex flex-col items-center text-center p-4 rounded-2xl bg-red-50/50 border border-red-100/60 shadow-sm hover:shadow-md transition-all group cursor-default h-full">
                             <span className="font-bold text-stone-700 text-[13px] md:text-sm leading-tight">{item}</span>
