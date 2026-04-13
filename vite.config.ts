@@ -33,29 +33,6 @@ export default defineConfig(({mode}) => {
           changeOrigin: true,
           rewrite: (path) => path.replace(/^\/litepms-api/, ''),
         },
-        '/yookassa-api': {
-          target: 'https://api.yookassa.ru/v3',
-          changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/yookassa-api/, ''),
-          configure: (proxy, _options) => {
-            proxy.on('proxyReq', (proxyReq, _req, _res) => {
-              const shopId = env.VITE_YOOKASSA_SHOP_ID;
-              const secretKey = env.VITE_YOOKASSA_SECRET_KEY;
-              
-              if (shopId && secretKey) {
-                const auth = Buffer.from(`${shopId}:${secretKey}`).toString('base64');
-                proxyReq.setHeader('Authorization', `Basic ${auth}`);
-                console.log(`✅ [YooKassa Proxy] Отправка запроса (ShopId: ${shopId})`);
-              } else {
-                console.error('❌ [YooKassa Proxy] Ключи не найдены в .env! Проверь VITE_YOOKASSA_SHOP_ID и VITE_YOOKASSA_SECRET_KEY');
-              }
-            });
-            
-            proxy.on('error', (err, _req, _res) => {
-              console.error('[Proxy Error] YooKassa:', err);
-            });
-          },
-        },
       },
       // HMR is disabled in AI Studio via DISABLE_HMR env var.
       // Do not modifyâfile watching is disabled to prevent flickering during agent edits.

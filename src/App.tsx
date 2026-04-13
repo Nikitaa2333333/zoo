@@ -506,6 +506,8 @@ export default function App() {
                   className="w-full h-auto block scale-[1.3] md:scale-100 origin-bottom"
                   fetchPriority="high"
                   decoding="sync"
+                  width="1600"
+                  height="893"
                 />
               </motion.div>
             </section>
@@ -711,6 +713,8 @@ export default function App() {
                         src={dogRulesImg} 
                         className="w-full max-w-[500px] lg:max-w-none h-auto object-contain transform scale-110 md:scale-125 lg:scale-150 origin-center lg:origin-top-right"
                         alt="Собака"
+                        width="1280"
+                        height="714"
                       />
                       {/* Abstract decorative shape behind dog */}
                       <div className="absolute -z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[140%] h-[140%] bg-[#99ed36]/5 rounded-full blur-[100px] lg:blur-[150px]"></div>
