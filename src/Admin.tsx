@@ -3,9 +3,8 @@ import {
   Save, Image, Layout, MessageSquare, Phone, Plus, Trash2, 
   ChevronRight, LogOut, Loader2, Star, CheckCircle2, X, Upload,
   Settings, User, MapPin, Mail, Instagram, Send, Info, AlertCircle, Check, Play, Shield, List, HelpCircle,
-  Camera, Thermometer, Heart, ShieldCheck, Sparkles, LucideImage, ExternalLink, Clock
+  Camera, Thermometer, Heart, ShieldCheck, Sparkles, ExternalLink, Clock
 } from 'lucide-react';
-import * as Icons from 'lucide-react';
 import initialContent from './data/content.json';
 
 const GITHUB_REPO = "Nikitaa2333333/zoo";
