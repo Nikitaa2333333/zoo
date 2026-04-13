@@ -43,8 +43,9 @@
       <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap">
     </noscript>
 
-    <!-- Предзагрузка самой тяжелой картинки для улучшения показателя LCP -->
-    <link rel="preload" as="image" href="/src/assets/hero_main.webp" fetchpriority="high">
+    <!-- Предзагрузка самой тяжелой картинки с учетом адаптивности для улучшения показателя LCP -->
+    <link rel="preload" as="image" href="/src/assets/hero_main-mobile.webp" media="(max-width: 768px)" fetchpriority="high">
+    <link rel="preload" as="image" href="/src/assets/hero_main.webp" media="(min-width: 769px)" fetchpriority="high">
     <link rel="preconnect" href="https://mc.yandex.ru">
 
     <!-- Yandex.Metrika counter (Lazy Load - Отложенная загрузка) -->
