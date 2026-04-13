@@ -17,6 +17,7 @@ import catStandardImg from './assets/rooms/cat_standard.webp';
 import catImprovedImg from './assets/rooms/cat_improved.webp';
 import catComfortImg from './assets/rooms/cat_comfort.webp';
 import dogStandardImg from './assets/rooms/dog_standard.webp';
+import dogImprovedImg from './assets/rooms/dog_improved.webp';
 import dogComfortImg from './assets/rooms/dog_comfort.webp';
 import dogLuxuryImg from './assets/rooms/dog_luxury.webp';
 import heroSpaImg from './assets/hero_spa.webp';
