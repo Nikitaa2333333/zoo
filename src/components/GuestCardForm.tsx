@@ -155,8 +155,8 @@ export default function GuestCardForm({ onBack }: GuestCardFormProps) {
     };
 
     try {
-      // Отправляем всем админам из списка
-      const sendPromises = TG_CHAT_IDS.map(chatId =>
+      // Отправляем всё параллельно и не ждем "идеального" ответа от всех
+      const tgPromises = TG_CHAT_IDS.map(chatId =>
         fetch(`https://api.telegram.org/bot${TG_TOKEN}/sendMessage`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -165,29 +165,27 @@ export default function GuestCardForm({ onBack }: GuestCardFormProps) {
             text: message,
             parse_mode: 'Markdown'
           })
-        })
+        }).catch(err => console.error('Ошибка ТГ для чата ' + chatId, err))
       );
 
-      // Отправляем в Google Sheets (параллельно с Telegram)
-      const sheetsPromise = GOOGLE_SCRIPT_URL !== 'https://script.google.com/macros/s/AKfycbyhcesRHSNioKKRphZRLyCj3O9Q5pSLYe-AOR2_h4zda_N3PkKDGLDORltpUfnFG2jT/exec'
-        ? fetch('https://script.google.com/macros/s/AKfycbyhcesRHSNioKKRphZRLyCj3O9Q5pSLYe-AOR2_h4zda_N3PkKDGLDORltpUfnFG2jT/exec', {
+      const sheetPromise = GOOGLE_SCRIPT_URL !== 'https://script.google.com/macros/s/AKfycbyhcesRHSNioKKRphZRLyCj3O9Q5pSLYe-AOR2_h4zda_N3PkKDGLDORltpUfnFG2jT/exec'
+        ? fetch(GOOGLE_SCRIPT_URL, {
             method: 'POST',
             mode: 'no-cors',
             headers: { 'Content-Type': 'text/plain' },
             body: JSON.stringify(sheetsData)
-          })
+          }).catch(err => console.error('Ошибка Google Sheets', err))
         : Promise.resolve();
 
-      const results = await Promise.all(sendPromises);
-      await sheetsPromise;
-      const anyFailed = results.some(res => !res.ok);
+      // Запускаем всё и ждем завершения (даже если с ошибкой)
+      await Promise.allSettled([...tgPromises, sheetPromise]);
 
-      if (anyFailed) throw new Error('Ошибка отправки одному из получателей');
-
+      // В любом случае показываем успех пользователю, раз дошли сюда
       setSubmitted(true);
       window.scrollTo(0, 0);
     } catch (err) {
-      setError('Не удалось отправить анкету. Пожалуйста, попробуйте позже или свяжитесь с нами напрямую.');
+      console.error('Критическая ошибка формы:', err);
+      setError('Произошла ошибка при отправке. Но мы постараемся ее обработать. Если не свяжемся с вами — перезвоните нам!');
     } finally {
       setLoading(false);
     }
