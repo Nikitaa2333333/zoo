@@ -1,11 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { 
-  Save, Image, Layout, MessageSquare, Phone, Plus, Trash2, 
+import {
+  Save, Image, Layout, MessageSquare, Phone, Plus, Trash2,
   ChevronRight, LogOut, Loader2, Star, CheckCircle2, X, Upload,
   Settings, User, MapPin, Mail, Instagram, Send, Info, AlertCircle, Check, Play, Shield, List, HelpCircle,
-  Camera, Thermometer, Heart, ShieldCheck, Sparkles, ExternalLink, Clock
+  Camera, Thermometer, Heart, ShieldCheck, Sparkles, ExternalLink, Clock,
+  Dog, Syringe, Verified,
 } from 'lucide-react';
 import initialContent from './data/content.json';
+
+// Динамический маппинг иконок для контента (вместо import * as Icons)
+const Icons: Record<string, React.ElementType> = {
+  Camera, Thermometer, Heart, ShieldCheck, Sparkles, Dog, Syringe, CheckCircle2, Verified,
+  Image, LucideImage: Image,
+};
 
 const GITHUB_REPO = "Nikitaa2333333/zoo";
 const CONTENT_PATH = "src/data/content.json";
