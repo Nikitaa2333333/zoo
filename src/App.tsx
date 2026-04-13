@@ -5,7 +5,7 @@ import {
   MessageCircle, ShieldCheck, ArrowLeft, Cat, Dog,
   Camera, Coffee, Thermometer, UserCheck, CheckCircle2,
   Instagram, Send, FileText, Tag, Image as LucideImage, Info, Mail,
-  Maximize2, Layers, Check, Sparkles, Car, 
+  Maximize2, Layers, Check, Sparkles, Car, X,
   AlertTriangle, XCircle, Syringe, Verified, Loader2, CreditCard
 } from 'lucide-react';
 import BookingWidget from './components/BookingWidget';
@@ -115,6 +115,8 @@ export default function App() {
   const [checkInDate, setCheckInDate] = useState('');
   const [checkOutDate, setCheckOutDate] = useState('');
   const [livePrices, setLivePrices] = useState<Record<string, number>>({});
+  const [activeTab, setActiveTab] = useState('cats');
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [visibleReviews, setVisibleReviews] = useState(6);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -552,8 +554,15 @@ export default function App() {
                       viewport={{ once: true }}
                       className="bg-white rounded-[2.5rem] border border-stone-100 shadow-sm hover:shadow-2xl transition-all relative group overflow-hidden flex flex-col h-full"
                     >
-                      <div className="h-64 overflow-hidden relative">
-                        <img src={room.image} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt={room.title} loading="lazy" />
+                      <div 
+                        className="h-64 overflow-hidden cursor-pointer"
+                        onClick={() => setSelectedImage(room.image)}
+                      >
+                        <img
+                          src={room.image}
+                          alt={room.title}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                        />
                         <div className={`absolute top-4 right-4 w-10 h-10 ${selectedCategory === 'dogs' ? 'bg-[#ff7e27]' : 'bg-[#99ed36]'} rounded-xl flex items-center justify-center text-black`}>
                           {selectedCategory === 'dogs' ? <Dog size={22} /> : <Cat size={22} />}
                         </div>
@@ -1118,7 +1127,40 @@ export default function App() {
           </div>
         </div>
       </footer>
+
+      {/* Image Modal */}
+      <AnimatePresence>
+        {selectedImage && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setSelectedImage(null)}
+            className="fixed inset-0 z-[100] bg-black/90 flex items-center justify-center p-4 md:p-10 cursor-zoom-out"
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              className="relative max-w-7xl w-full h-full flex items-center justify-center"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <img
+                src={selectedImage}
+                alt="Enlarged"
+                className="max-w-full max-h-full object-contain rounded-2xl shadow-2xl"
+              />
+              <button
+                onClick={() => setSelectedImage(null)}
+                className="absolute top-4 right-4 bg-white/10 hover:bg-white/20 text-white p-4 rounded-full transition-colors"
+                aria-label="Close modal"
+              >
+                <X size={24} />
+              </button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
-

@@ -43,7 +43,7 @@
   "catRooms": [
     {
       "title": "Стандарт",
-      "image": "/images/uploads/img_1776097897890.webp",
+      "image": "images/rooms/cat_standard.webp",
       "price": "850 ₽/сут",
       "pricePerNight": 850,
       "area": "0.8 м²",
@@ -129,7 +129,7 @@
   "dogRooms": [
     {
       "title": "Стандарт",
-      "image": "/images/rooms/dog_standard.webp",
+      "image": "images/rooms/dog_standard.webp",
       "price": "1350 ₽/сут",
       "pricePerNight": 1350,
       "area": "0.8 м²",
@@ -151,7 +151,7 @@
     },
     {
       "title": "Улучшенный",
-      "image": "/images/rooms/dog_improved.webp",
+      "image": "images/rooms/dog_improved.webp",
       "price": "1690 ₽/сут",
       "pricePerNight": 1690,
       "area": "0.8 м²",
@@ -175,7 +175,7 @@
     },
     {
       "title": "Комфорт (2 этаж)",
-      "image": "/images/rooms/dog_comfort.webp",
+      "image": "images/rooms/dog_comfort.webp",
       "price": "1890 ₽/сут",
       "pricePerNight": 1890,
       "area": "1.12 м²",
@@ -199,7 +199,7 @@
     },
     {
       "title": "Комфорт+ (1 этаж)",
-      "image": "/images/rooms/dog_comfort.webp",
+      "image": "images/rooms/dog_comfort.webp",
       "price": "2190 ₽/сут",
       "pricePerNight": 2190,
       "area": "1.12 м²",
@@ -223,7 +223,7 @@
     },
     {
       "title": "Люкс",
-      "image": "/images/rooms/dog_luxury.webp",
+      "image": "images/rooms/dog_luxury.webp",
       "price": "2490 ₽/сут",
       "pricePerNight": 2490,
       "area": "1.7 м²",
