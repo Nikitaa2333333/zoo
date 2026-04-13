@@ -345,73 +345,73 @@
   ],
   "gallery": [
     {
-      "url": "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?q=80&w=800&auto=format&fit=crop",
+      "url": "/images/gallery1.webp",
       "title": "Уютный котик",
       "span": "col-span-2",
       "rotate": -1
     },
     {
-      "url": "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?q=80&w=800&auto=format&fit=crop",
-      "title": "Активные игры",
+      "url": "/images/rooms/cat_comfort.webp",
+      "title": "Номер Комфорт для кошек",
       "span": "col-span-1",
       "rotate": 1
     },
     {
-      "url": "https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?q=80&w=800&auto=format&fit=crop",
-      "title": "Тихий час",
+      "url": "/images/rooms/cat_standard.webp",
+      "title": "Стандарт для кошек",
       "span": "col-span-1",
       "rotate": -1
     },
     {
-      "url": "https://images.unsplash.com/photo-1533738363-b7f9aef128ce?q=80&w=800&auto=format&fit=crop",
-      "title": "Стильный гость",
+      "url": "/images/gallery2.webp",
+      "title": "Наши гости",
       "span": "col-span-2",
       "rotate": 1
     },
     {
-      "url": "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?q=80&w=800&auto=format&fit=crop",
-      "title": "Комфортный сон",
+      "url": "/images/gallery3.webp",
+      "title": "Комфортный отдых",
       "span": "col-span-2",
       "rotate": -1
     },
     {
-      "url": "https://images.unsplash.com/photo-1592754862816-1a6e7e7ad29d?q=80&w=800&auto=format&fit=crop",
-      "title": "Прогулка",
+      "url": "/images/rooms/dog_luxury.webp",
+      "title": "Люкс для собак",
       "span": "col-span-1",
       "rotate": 1
     },
     {
-      "url": "https://images.unsplash.com/photo-1543852786-1cf6624b9987?q=80&w=800&auto=format&fit=crop",
-      "title": "Любопытство",
+      "url": "/images/rooms/dog_comfort.webp",
+      "title": "Комфорт для собак",
       "span": "col-span-1",
       "rotate": -1
     },
     {
-      "url": "https://images.unsplash.com/photo-1554692990-280459345688?q=80&w=800&auto=format&fit=crop",
+      "url": "/images/gallery4.webp",
       "title": "Верный друг",
       "span": "col-span-2",
       "rotate": 1
     },
     {
-      "url": "https://images.unsplash.com/photo-1574158622682-e40e69881006?q=80&w=800&auto=format&fit=crop",
-      "title": "Минимализм",
+      "url": "/images/rooms/cat_improved.webp",
+      "title": "Улучшенный для кошек",
       "span": "col-span-1",
       "rotate": -1
     },
     {
-      "url": "https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?q=80&w=800&auto=format&fit=crop",
-      "title": "Отдых",
+      "url": "/images/rooms/dog_standard.webp",
+      "title": "Стандарт для собак",
       "span": "col-span-2",
       "rotate": 1
     },
     {
-      "url": "https://images.unsplash.com/photo-1450778869180-41d0601e046e?q=80&w=800&auto=format&fit=crop",
+      "url": "/images/cat_studio.webp",
       "title": "Забота",
       "span": "col-span-1",
       "rotate": -1
     },
     {
-      "url": "https://images.unsplash.com/photo-1548191265-cc70d3d45ba1?q=80&w=800&auto=format&fit=crop",
+      "url": "/images/large_dog_studio.webp",
       "title": "Друзья",
       "span": "col-span-3",
       "rotate": 1
