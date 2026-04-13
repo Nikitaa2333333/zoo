@@ -27,7 +27,7 @@ import logoMaxImg from './assets/logo_max.svg';
 import telegramLogoImg from './assets/telegram_logo.webp';
 import dogRulesImg from './assets/dog_rules.webp';
 import contentRaw from './data/content.json';
-import AdminPanel from './Admin';
+const AdminPanel = React.lazy(() => import('./Admin'));
 
 const getInitialContent = () => {
   if (typeof window !== 'undefined') {
@@ -215,7 +215,7 @@ export default function App() {
   };
 
   const isAdmin = typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('admin') === 'true';
-  if (isAdmin) return <AdminPanel />;
+  if (isAdmin) return <React.Suspense fallback={null}><AdminPanel /></React.Suspense>;
 
   return (
     <div className="min-h-screen bg-white text-[#141414] font-sans selection:bg-[#99ed36] selection:text-[#141414]">
@@ -552,7 +552,7 @@ export default function App() {
                       className="bg-white rounded-[2.5rem] border border-stone-100 shadow-sm hover:shadow-2xl transition-all relative group overflow-hidden flex flex-col h-full"
                     >
                       <div className="h-64 overflow-hidden relative">
-                        <img src={room.image} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt={room.title} />
+                        <img src={room.image} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt={room.title} loading="lazy" />
                         <div className={`absolute top-4 right-4 w-10 h-10 ${selectedCategory === 'dogs' ? 'bg-[#ff7e27]' : 'bg-[#99ed36]'} rounded-xl flex items-center justify-center text-black`}>
                           {selectedCategory === 'dogs' ? <Dog size={22} /> : <Cat size={22} />}
                         </div>
@@ -844,12 +844,13 @@ export default function App() {
                         'col-span-1'
                       }`}
                     >
-                      <motion.img 
-                        src={img.url} 
+                      <motion.img
+                        src={img.url}
                         whileHover={{ scale: 1.05 }}
                         transition={{ duration: 0.4 }}
-                        className="w-full h-64 md:h-[450px] object-cover scale-[1.1]" 
-                        alt={img.title} 
+                        className="w-full h-64 md:h-[450px] object-cover scale-[1.1]"
+                        alt={img.title}
+                        loading="lazy"
                       />
                     </motion.div>
                   ))}

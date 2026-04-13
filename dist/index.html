@@ -32,16 +32,9 @@
 
     <link rel="icon" href="https://xn--90agca4bqgis.xn--p1ai/favicon.svg" type="image/svg+xml">
 
-    <!-- Preconnect + Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    
-    <!-- Асинхронная отложенная загрузка шрифта, чтобы не блокировал отрисовку -->
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" media="print" onload="this.media='all'">
-    <noscript>
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap">
-    </noscript>
+    <!-- Self-hosted Manrope (убран внешний запрос к Google Fonts) -->
+    <link rel="preload" as="font" href="/fonts/manrope-cyrillic.woff2" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="/fonts/manrope.css">
 
     <!-- Предзагрузка самой тяжелой картинки с учетом адаптивности для улучшения показателя LCP -->
     <link rel="preload" as="image" href="/assets/hero_main-mobile-DhGbhr2k.webp" media="(max-width: 768px)" fetchpriority="high">
@@ -216,10 +209,10 @@
       ]
     }
     </script>
-    <script type="module" crossorigin src="/assets/index-9Eg0d2B4.js"></script>
-    <link rel="modulepreload" crossorigin href="/assets/vendor-react-C2d6kFfn.js">
+    <script type="module" crossorigin src="/assets/index-CzO0Qsas.js"></script>
+    <link rel="modulepreload" crossorigin href="/assets/vendor-react-j2mp3VYR.js">
     <link rel="modulepreload" crossorigin href="/assets/vendor-motion-BBx0ubxa.js">
-    <link rel="stylesheet" crossorigin href="/assets/index-DucTd8Xf.css">
+    <link rel="stylesheet" crossorigin href="/assets/index-De8ygldA.css">
   </head>
   <body>
     <!-- Yandex.Metrika counter (noscript) -->
