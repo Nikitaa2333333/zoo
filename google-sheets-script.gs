@@ -6,7 +6,9 @@
 function doPost(e) {
   try {
     const data = JSON.parse(e.postData.contents);
-    const sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+    // Принудительно открываем таблицу по ID
+    const ss = SpreadsheetApp.openById('1OFkyQuUV6wa7yPXuR7OlZHn_NKpl8pjtQPP7DdYRs');
+    const sheet = ss.getSheets()[0];
 
     // Создаём заголовки если лист пустой
     if (sheet.getLastRow() === 0) {
@@ -143,26 +145,16 @@ function initSheet() {
       'Бывает агрессивен', 'Причины агрессии', 'Кусал человека', 'Знание команд',
       'Кол-во прогулок в день', 'Откуда узнали', 'Данные для договора'
     ];
-    sheet.appendRow(headers);
-    
-    // Форматирование
-    const headerRange = sheet.getRange(1, 1, 1, headers.length);
-    headerRange.setBackground('#141414').setFontColor('#ffffff').setFontWeight('bold').setFontSize(11);
-    sheet.setFrozenRows(1);
-    sheet.setColumnWidth(1, 160);
-    sheet.setColumnWidth(2, 160);
-    sheet.setColumnWidth(3, 160);
-    sheet.setColumnWidths(4, 28, 180);
-    
+    createHeaders(sheet);
     Logger.log('Таблица успешно инициализирована!');
   } else {
     Logger.log('Таблица уже содержит данные.');
   }
 }
 
-// Тест — запустить вручную чтобы проверить что скрипт работает
+// Тест — проверить подключение
 function testScript() {
-  const sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
-  Logger.log('Скрипт подключён. Строк в таблице: ' + sheet.getLastRow());
+  const ss = SpreadsheetApp.openById('1OFkyQuUV6wa7yPXuR7OlZHn_NKpl8pjtQPP7DdYRs');
+  const sheet = ss.getSheets()[0];
+  Logger.log('Скрипт подключён к таблице: ' + ss.getName() + '. Строк: ' + sheet.getLastRow());
 }
-

@@ -230,7 +230,7 @@ export default function App() {
             <img
               src={logoImg}
               className="w-10 h-10 md:w-12 md:h-12 object-contain group-hover:scale-110 transition-transform duration-500"
-              alt="Логотип Бест френд — лучший зоотель в Москве"
+              alt="Логотип Бест френд — лучшая зоогостиница в Москве"
             />
             <div className="flex flex-col">
               <span className="text-xl md:text-2xl font-black tracking-tighter leading-none">Бест френд</span>
@@ -1122,7 +1122,7 @@ export default function App() {
                 <span>ОГРНИП325774600614104</span>
                 <span>ИНН482413133456</span>
               </div>
-              <p className="text-stone-700 font-medium whitespace-nowrap">© 2026 Бест френд — зоотель. Все права защищены.</p>
+              <p className="text-stone-700 font-medium whitespace-nowrap">© 2026 Бест френд — зоогостиница. Все права защищены.</p>
             </div>
           </div>
         </div>
