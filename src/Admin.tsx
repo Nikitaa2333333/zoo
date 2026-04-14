@@ -105,7 +105,7 @@ export default function AdminPanel() {
 
             if (uploadRes.ok) {
               setImgLoading(false);
-              resolve(`/images/uploads/${fileName}`);
+              resolve(`https://raw.githubusercontent.com/${GITHUB_REPO}/main/${filePath}`);
             } else {
               setImgLoading(false);
               const err = await uploadRes.json();
