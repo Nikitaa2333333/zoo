@@ -18,6 +18,9 @@ const BookingWidget: React.FC<BookingWidgetProps> = ({ wid, litePmsId, litePmsRo
     // Очищаем предыдущий виджет перед вставкой нового
     containerRef.current.innerHTML = '';
 
+    // Сбрасываем хэш LitePMS, чтобы виджет не читал состояние предыдущего номера
+    history.replaceState(null, '', window.location.pathname + window.location.search);
+
     // Контейнер для виджета (требуется LitePMS)
     const div = document.createElement('div');
     div.id = 'litepmsiframe';
