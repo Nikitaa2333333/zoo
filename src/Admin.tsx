@@ -28,6 +28,8 @@ export default function AdminPanel() {
   const [loading, setLoading] = useState(false);
   const [imgLoading, setImgLoading] = useState(false);
   const [status, setStatus] = useState({ type: '', msg: '' });
+  const [draggedIdx, setDraggedIdx] = useState<number | null>(null);
+  const [dragOverIdx, setDragOverIdx] = useState<number | null>(null);
 
   const saveToGitHub = async () => {
     if (!token) {
@@ -528,8 +530,27 @@ export default function AdminPanel() {
           {activeTab === 'gallery' && (
             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8">
                {content.gallery.map((img: any, i: number) => (
-                  <div key={i} className="aspect-[4/5] rounded-[3rem] overflow-hidden group relative border-4 border-white shadow-2xl">
-                     <img src={img.url} className="w-full h-full object-cover" />
+                  <div
+                     key={i}
+                     draggable
+                     onDragStart={() => setDraggedIdx(i)}
+                     onDragOver={(e) => { e.preventDefault(); setDragOverIdx(i); }}
+                     onDrop={() => {
+                        if (draggedIdx === null || draggedIdx === i) return;
+                        const newGallery = [...content.gallery];
+                        const [moved] = newGallery.splice(draggedIdx, 1);
+                        newGallery.splice(i, 0, moved);
+                        setContent({...content, gallery: newGallery});
+                        setDraggedIdx(null);
+                        setDragOverIdx(null);
+                     }}
+                     onDragEnd={() => { setDraggedIdx(null); setDragOverIdx(null); }}
+                     className={`aspect-[4/5] rounded-[3rem] overflow-hidden group relative border-4 shadow-2xl cursor-grab active:cursor-grabbing transition-all
+                        ${draggedIdx === i ? 'opacity-40 scale-95' : ''}
+                        ${dragOverIdx === i && draggedIdx !== i ? 'border-[#99ed36] scale-105' : 'border-white'}
+                     `}
+                  >
+                     <img src={img.url} className="w-full h-full object-cover pointer-events-none" />
                      <div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-all flex flex-col items-center justify-center gap-4">
                         <button onClick={() => setContent({...content, gallery: content.gallery.filter((_:any,idx:number) => idx !== i)})} className="p-6 bg-red-500 text-white rounded-3xl hover:scale-110 transition-all shadow-2xl">
                            <Trash2 size={28} />
