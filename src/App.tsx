@@ -6,11 +6,10 @@ import {
   Camera, Coffee, Thermometer, UserCheck, CheckCircle2,
   Instagram, Send, FileText, Tag, Image as LucideImage, Info, Mail,
   Maximize2, Layers, Check, Sparkles, Car, X,
-  AlertTriangle, XCircle, Syringe, Verified, Loader2, CreditCard
+  AlertTriangle, XCircle, Syringe, Verified
 } from 'lucide-react';
 import BookingWidget from './components/BookingWidget';
 import { litePmsApi } from './services/litePmsApi';
-import { yookassaApi } from './services/yookassaApi';
 
 import logoImg from './assets/logo.webp';
 import catStandardImg from './assets/rooms/cat_standard.webp';
@@ -119,7 +118,6 @@ export default function App() {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [visibleReviews, setVisibleReviews] = useState(6);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [loading, setLoading] = useState(false);
   const { scrollY } = useScroll();
   const scale = useTransform(scrollY, [0, 600], [1, 1.3]);
 
@@ -162,35 +160,6 @@ export default function App() {
     setCurrentPage('booking');
     window.scrollTo(0, 0);
   };
-
-  const handlePayment = async () => {
-    if (!selectedRoom) return;
-
-    const email = window.prompt('Введите ваш Email для получения чека (обязательно согласно 54-ФЗ):');
-    if (!email || !email.includes('@')) {
-      alert('Для совершения платежа необходимо указать корректный Email.');
-      return;
-    }
-
-    try {
-      setLoading(true);
-      const res = await yookassaApi.createPayment({
-        amount: 1000, // Предоплата
-        description: `Предоплата за номер ${selectedRoom.title}`,
-        orderId: `bff-${Date.now()}`,
-        customerEmail: email
-      });
-
-      if (res.confirmation?.confirmation_url) {
-        window.location.href = res.confirmation.confirmation_url;
-      }
-    } catch (err: any) {
-      alert('Ошибка при оплате: ' + err.message);
-    } finally {
-      setLoading(false);
-    }
-  };
-
 
   const scrollToId = (id: string) => {
     if (currentPage !== 'main') {
@@ -361,15 +330,6 @@ export default function App() {
                           </div>
                         </div>
 
-                        <button 
-                          onClick={handlePayment}
-                          disabled={loading}
-                          className="w-full mt-4 py-8 bg-[#141414] text-[#99ed36] rounded-[2rem] font-black text-2xl flex items-center justify-center gap-4 hover:scale-[1.03] transition-all shadow-[0_20px_50px_rgba(0,0,0,0.2)] disabled:opacity-50"
-                        >
-                          {loading ? <Loader2 className="animate-spin" /> : <CreditCard size={32} />}
-                          Оплатить 1000 ₽
-                        </button>
-
                         <div className="pt-6 border-t border-black/10 mb-6">
                           <p className="text-xs font-black text-[#141414] mb-3 tracking-wider uppercase">Дополнительные услуги:</p>
                           <p className="text-[13px] md:text-sm font-bold text-black/60 leading-relaxed">
@@ -382,12 +342,6 @@ export default function App() {
                             <Info size={18} className="shrink-0 mt-0.5 opacity-60" />
                             <p className="text-[13px] md:text-sm font-bold leading-relaxed text-[#141414]/80">
                               Минимальный срок — 1 сутки. При наличии мест возможно дневное пребывание (до 5 часов) за 50% стоимости.
-                            </p>
-                          </div>
-                          <div className="bg-white/30 backdrop-blur-sm p-4 rounded-2xl flex items-start gap-3 border border-white/20">
-                            <AlertTriangle size={18} className="shrink-0 mt-0.5 opacity-60" />
-                            <p className="text-[13px] md:text-sm font-bold leading-relaxed text-[#141414]/80">
-                              Предоплата — 1000 ₽. При отмене бронирования менее чем за 2 суток предоплата не возвращается.
                             </p>
                           </div>
                         </div>
