@@ -408,6 +408,12 @@
       "title": "Gallery",
       "span": "col-span-1",
       "rotate": 0
+    },
+    {
+      "url": "https://raw.githubusercontent.com/Nikitaa2333333/zoo/main/public/images/uploads/img_1776174147250.webp",
+      "title": "Gallery",
+      "span": "col-span-1",
+      "rotate": 0
     }
   ],
   "about": {
