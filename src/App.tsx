@@ -812,7 +812,7 @@ export default function App() {
                         src={img.url}
                         whileHover={{ scale: 1.05 }}
                         transition={{ duration: 0.4 }}
-                        className="w-full h-64 md:h-[450px] object-cover scale-[1.1]"
+                        className={`w-full object-cover ${img.span === 'col-span-3' ? 'h-auto aspect-[4/3] md:aspect-[16/7]' : 'h-64 md:h-[450px] scale-[1.1]'}`}
                         alt={img.title}
                         loading="lazy"
                       />

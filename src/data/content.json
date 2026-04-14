@@ -344,6 +344,18 @@
   ],
   "gallery": [
     {
+      "url": "/images/gallery/g11.webp",
+      "title": "Зоогостиница Бест Френд — вход",
+      "span": "col-span-3",
+      "rotate": 0
+    },
+    {
+      "url": "/images/gallery/g12.webp",
+      "title": "Фасад зоогостиницы Бест Френд",
+      "span": "col-span-3",
+      "rotate": 0
+    },
+    {
       "url": "/images/gallery/g1.webp",
       "title": "Уютные номера для собак",
       "span": "col-span-2",
