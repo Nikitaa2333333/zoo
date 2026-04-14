@@ -12,7 +12,7 @@ const TG_CHAT_IDS = ['1088570591', '651633018'];
 
 // НАСТРОЙКИ GOOGLE SHEETS
 // После деплоя Apps Script вставьте ваш URL сюда:
-const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyhcesRHSNioKKRphZRLyCj3O9Q5pSLYe-AOR2_h4zda_N3PkKDGLDORltpUfnFG2jT/exec';
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxyGOYZcf_yl9Ixk--8yZYaidMNj1zHv-hSYaRJP8a499XhHkejX3DirlVEHWPh4B7t5Q/exec';
 
 export default function GuestCardForm({ onBack }: GuestCardFormProps) {
   const [loading, setLoading] = useState(false);
@@ -168,7 +168,7 @@ export default function GuestCardForm({ onBack }: GuestCardFormProps) {
         }).catch(err => console.error('Ошибка ТГ для чата ' + chatId, err))
       );
 
-      const sheetPromise = GOOGLE_SCRIPT_URL !== 'https://script.google.com/macros/s/AKfycbyhcesRHSNioKKRphZRLyCj3O9Q5pSLYe-AOR2_h4zda_N3PkKDGLDORltpUfnFG2jT/exec'
+      const sheetPromise = GOOGLE_SCRIPT_URL
         ? fetch(GOOGLE_SCRIPT_URL, {
             method: 'POST',
             mode: 'no-cors',

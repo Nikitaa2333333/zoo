@@ -723,9 +723,9 @@ export default function App() {
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 md:gap-20 items-start">
                   {/* Static Large Dog Image - NOW ON TOP ON MOBILE, RIGHT ON DESKTOP */}
                   <div className="lg:col-span-6 relative order-1 lg:order-2 pt-0 lg:pt-16">
-                    <div className="relative flex justify-center lg:justify-end">
-                      <img 
-                        src={dogRulesImg} 
+                    <div className="relative flex justify-center lg:justify-end overflow-hidden">
+                      <img
+                        src={dogRulesImg}
                         className="w-full max-w-[500px] lg:max-w-none h-auto object-contain transform scale-110 md:scale-125 lg:scale-150 origin-center lg:origin-top-right"
                         alt="Собака"
                         width="1280"
