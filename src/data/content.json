@@ -344,6 +344,24 @@
   ],
   "gallery": [
     {
+      "url": "/images/gallery/g5.webp",
+      "title": "Зона отдыха котиков",
+      "span": "col-span-1",
+      "rotate": 1
+    },
+    {
+      "url": "/images/uploads/img_1776173899080.webp",
+      "title": "Gallery",
+      "span": "col-span-1",
+      "rotate": 0
+    },
+    {
+      "url": "/images/gallery/g7.webp",
+      "title": "Кошачий вольер с полками",
+      "span": "col-span-1",
+      "rotate": -1
+    },
+    {
       "url": "/images/gallery/g11.webp",
       "title": "Зоогостиница Бест Френд — вход",
       "span": "col-span-3",
@@ -374,18 +392,6 @@
       "rotate": 0
     },
     {
-      "url": "/images/gallery/g5.webp",
-      "title": "Зона отдыха котиков",
-      "span": "col-span-1",
-      "rotate": 1
-    },
-    {
-      "url": "/images/gallery/g7.webp",
-      "title": "Кошачий вольер с полками",
-      "span": "col-span-1",
-      "rotate": -1
-    },
-    {
       "url": "/images/gallery/g8.webp",
       "title": "Комфортные боксы",
       "span": "col-span-2",
@@ -402,12 +408,6 @@
       "title": "Светлые комнаты для питомцев",
       "span": "col-span-1",
       "rotate": 1
-    },
-    {
-      "url": "/images/uploads/img_1776173899080.webp",
-      "title": "Gallery",
-      "span": "col-span-1",
-      "rotate": 0
     },
     {
       "url": "https://raw.githubusercontent.com/Nikitaa2333333/zoo/main/public/images/uploads/img_1776174147250.webp",
