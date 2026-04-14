@@ -402,6 +402,12 @@
       "title": "Светлые комнаты для питомцев",
       "span": "col-span-1",
       "rotate": 1
+    },
+    {
+      "url": "/images/uploads/img_1776173899080.webp",
+      "title": "Gallery",
+      "span": "col-span-1",
+      "rotate": 0
     }
   ],
   "about": {
