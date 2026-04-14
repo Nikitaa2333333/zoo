@@ -681,7 +681,7 @@ export default function App() {
                       <img
                         src={dogRulesImg}
                         className="w-full max-w-[500px] lg:max-w-none h-auto object-contain transform scale-110 md:scale-125 lg:scale-150 origin-center lg:origin-top-right"
-                        alt="Собака"
+                        alt="Собака в зоогостинице Бест Френд — правила заселения и проживания"
                         width="1280"
                         height="714"
                       />
@@ -1101,7 +1101,7 @@ export default function App() {
             >
               <img
                 src={selectedImage}
-                alt="Enlarged"
+                alt="Фото номера зоогостиницы Бест Френд в Москве"
                 className="max-w-full max-h-full object-contain rounded-2xl shadow-2xl"
               />
               <button
