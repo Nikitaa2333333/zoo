@@ -114,121 +114,156 @@ const BookingSearchSection = () => {
   const [petType, setPetType] = useState<'dog' | 'cat' | null>(null);
   const [checkIn, setCheckIn] = useState('');
   const [checkOut, setCheckOut] = useState('');
-  const [widgetDates, setWidgetDates] = useState<{ checkIn: string; checkOut: string } | null>(null);
+  const [widgetDates, setWidgetDates] = useState<{ checkIn: string; checkOut: string; wid: string } | null>(null);
+  const checkInRef = React.useRef<HTMLInputElement>(null);
+  const checkOutRef = React.useRef<HTMLInputElement>(null);
+
+  const openPicker = (ref: React.RefObject<HTMLInputElement>) => {
+    try { ref.current?.showPicker(); } catch { ref.current?.click(); }
+  };
 
   const nights = checkIn && checkOut
     ? Math.max(0, Math.round((new Date(checkOut).getTime() - new Date(checkIn).getTime()) / 86400000))
     : 0;
 
   const handleSearch = () => {
-    if (!checkIn || !checkOut || !petType) return;
-    setWidgetDates({ checkIn, checkOut });
+    if (!checkIn || !checkOut || !petType || nights <= 0) return;
+    setWidgetDates({ checkIn, checkOut, wid: petType === 'cat' ? '2056' : '2055' });
     setTimeout(() => {
       document.getElementById('litepms-widget-anchor')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }, 150);
   };
 
-  const isReady = checkIn && checkOut && petType && nights > 0;
+  const isReady = !!(checkIn && checkOut && petType && nights > 0);
+
+  const formatLabel = (dateStr: string) => {
+    if (!dateStr) return '';
+    const [y, m, d] = dateStr.split('-');
+    const months = ['янв', 'фев', 'мар', 'апр', 'май', 'июн', 'июл', 'авг', 'сен', 'окт', 'ноя', 'дек'];
+    return `${Number(d)} ${months[Number(m) - 1]} ${y}`;
+  };
 
   return (
-    <section id="booking" className="bg-white py-6 md:py-10">
-      <div className="max-w-4xl mx-auto px-4 md:px-6">
-        <div className="bg-[#141414] rounded-[2.5rem] md:rounded-[3rem] p-6 md:p-10 shadow-2xl">
-          <h2 className="text-2xl md:text-4xl font-black text-white tracking-tighter mb-6 md:mb-8">
-            проверить свободные даты
-          </h2>
+    <section id="booking" className="bg-white py-8 md:py-14">
+      <div className="max-w-3xl mx-auto px-4 md:px-6 flex flex-col items-center">
 
-          {/* Pet type selector */}
-          <div className="flex gap-3 mb-6">
-            <button
-              onClick={() => setPetType(petType === 'dog' ? null : 'dog')}
-              className={`flex items-center gap-2.5 px-5 py-3 rounded-2xl font-black text-sm transition-all ${
-                petType === 'dog'
-                  ? 'bg-[#99ed36] text-[#141414]'
-                  : 'bg-white/10 text-white hover:bg-white/20'
-              }`}
-            >
-              <Dog size={18} />
-              собака
-            </button>
-            <button
-              onClick={() => setPetType(petType === 'cat' ? null : 'cat')}
-              className={`flex items-center gap-2.5 px-5 py-3 rounded-2xl font-black text-sm transition-all ${
-                petType === 'cat'
-                  ? 'bg-[#99ed36] text-[#141414]'
-                  : 'bg-white/10 text-white hover:bg-white/20'
-              }`}
-            >
-              <Cat size={18} />
-              кошка
-            </button>
+        {/* Heading */}
+        <h2 className="text-3xl md:text-5xl font-black tracking-tighter text-[#141414] text-center mb-8 md:mb-10">
+          Проверить даты
+        </h2>
+
+        {/* Search bar */}
+        <div className="w-full bg-white border border-stone-200 rounded-[2rem] shadow-xl shadow-stone-100 flex flex-col md:flex-row items-stretch overflow-hidden">
+
+          {/* Check-in */}
+          <div
+            onClick={() => openPicker(checkInRef)}
+            className="flex-1 flex flex-col px-6 py-5 cursor-pointer border-b md:border-b-0 md:border-r border-stone-100 hover:bg-stone-50 transition-colors select-none"
+          >
+            <span className="text-[11px] font-black text-stone-400 mb-1">заезд</span>
+            <span className={`font-black text-base md:text-lg ${checkIn ? 'text-[#141414]' : 'text-stone-300'}`}>
+              {checkIn ? formatLabel(checkIn) : 'выберите дату'}
+            </span>
+            <input
+              ref={checkInRef}
+              type="date"
+              value={checkIn}
+              min={today}
+              onChange={e => {
+                setCheckIn(e.target.value);
+                if (checkOut && e.target.value >= checkOut) setCheckOut('');
+                setWidgetDates(null);
+              }}
+              className="sr-only"
+            />
           </div>
 
-          {/* Date pickers */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
-            <label className="flex flex-col gap-1.5">
-              <span className="text-xs font-black uppercase tracking-widest text-stone-400">заезд</span>
-              <input
-                type="date"
-                value={checkIn}
-                min={today}
-                onChange={e => {
-                  setCheckIn(e.target.value);
-                  if (checkOut && e.target.value >= checkOut) setCheckOut('');
-                  setWidgetDates(null);
-                }}
-                className="bg-white/10 text-white font-bold rounded-2xl px-5 py-3.5 outline-none border border-white/10 focus:border-[#99ed36] transition-colors cursor-pointer"
-              />
-            </label>
-            <label className="flex flex-col gap-1.5">
-              <span className="text-xs font-black uppercase tracking-widest text-stone-400">выезд</span>
-              <input
-                type="date"
-                value={checkOut}
-                min={checkIn || tomorrow}
-                onChange={e => { setCheckOut(e.target.value); setWidgetDates(null); }}
-                className="bg-white/10 text-white font-bold rounded-2xl px-5 py-3.5 outline-none border border-white/10 focus:border-[#99ed36] transition-colors cursor-pointer"
-              />
-            </label>
+          {/* Divider arrow on md+ */}
+          <div className="hidden md:flex items-center px-1 text-stone-300 self-center">
+            <ChevronRight size={16} />
           </div>
 
-          {/* Info row + button */}
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+          {/* Check-out */}
+          <div
+            onClick={() => openPicker(checkOutRef)}
+            className="flex-1 flex flex-col px-6 py-5 cursor-pointer border-b md:border-b-0 md:border-r border-stone-100 hover:bg-stone-50 transition-colors select-none"
+          >
+            <span className="text-[11px] font-black text-stone-400 mb-1">выезд</span>
+            <span className={`font-black text-base md:text-lg ${checkOut ? 'text-[#141414]' : 'text-stone-300'}`}>
+              {checkOut ? formatLabel(checkOut) : 'выберите дату'}
+            </span>
+            <input
+              ref={checkOutRef}
+              type="date"
+              value={checkOut}
+              min={checkIn || tomorrow}
+              onChange={e => { setCheckOut(e.target.value); setWidgetDates(null); }}
+              className="sr-only"
+            />
+          </div>
+
+          {/* Nights badge + search button */}
+          <div className="flex items-center gap-3 px-5 py-4">
             {nights > 0 && (
-              <div className="flex items-center gap-2 text-stone-400 font-bold text-sm px-2">
-                <span className="text-[#99ed36] font-black text-lg">{nights}</span>
-                {nights === 1 ? 'ночь' : nights < 5 ? 'ночи' : 'ночей'}
-              </div>
+              <span className="text-xs font-black text-stone-400 whitespace-nowrap">
+                {nights} {nights === 1 ? 'ночь' : nights < 5 ? 'ночи' : 'ночей'}
+              </span>
             )}
             <button
               onClick={handleSearch}
               disabled={!isReady}
-              className={`flex-1 sm:ml-auto flex items-center justify-center gap-2 px-8 py-4 rounded-2xl font-black text-base transition-all ${
+              title="найти номера"
+              className={`w-12 h-12 rounded-2xl flex items-center justify-center transition-all shrink-0 ${
                 isReady
-                  ? 'bg-[#99ed36] text-[#141414] hover:scale-[1.02] shadow-lg shadow-[#99ed36]/20'
-                  : 'bg-white/10 text-stone-500 cursor-not-allowed'
+                  ? 'bg-[#ff7e27] text-white hover:scale-105 shadow-lg shadow-[#ff7e27]/30'
+                  : 'bg-stone-100 text-stone-300 cursor-not-allowed'
               }`}
             >
-              показать доступные номера
-              <ChevronRight size={18} />
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+              </svg>
             </button>
           </div>
-
-          {!petType && (
-            <p className="mt-4 text-xs text-stone-500 font-bold">выберите тип питомца, чтобы продолжить</p>
-          )}
         </div>
+
+        {/* Pet type toggle */}
+        <div className="mt-4 bg-stone-100 p-1.5 rounded-full flex items-center gap-1">
+          <button
+            onClick={() => { setPetType(petType === 'cat' ? null : 'cat'); setWidgetDates(null); }}
+            className={`flex items-center px-5 py-2.5 rounded-full font-black text-sm transition-all ${
+              petType === 'cat'
+                ? 'bg-[#99ed36] shadow-md text-[#141414]'
+                : 'text-stone-400'
+            }`}
+          >
+            <Cat className="w-4 h-4 mr-2" /> кошки
+          </button>
+          <button
+            onClick={() => { setPetType(petType === 'dog' ? null : 'dog'); setWidgetDates(null); }}
+            className={`flex items-center px-5 py-2.5 rounded-full font-black text-sm transition-all ${
+              petType === 'dog'
+                ? 'bg-[#ff7e27] shadow-md text-[#141414]'
+                : 'text-stone-400'
+            }`}
+          >
+            <Dog className="w-4 h-4 mr-2" /> собаки
+          </button>
+        </div>
+
+        {!petType && (checkIn || checkOut) && (
+          <p className="mt-3 text-xs text-stone-400 font-bold">выберите тип питомца</p>
+        )}
 
         {/* Widget */}
         {widgetDates && (
           <motion.div
             id="litepms-widget-anchor"
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4 }}
-            className="mt-6"
+            className="mt-8 w-full"
           >
-            <BookingWidget checkIn={widgetDates.checkIn} checkOut={widgetDates.checkOut} />
+            <BookingWidget checkIn={widgetDates.checkIn} checkOut={widgetDates.checkOut} wid={widgetDates.wid} />
           </motion.div>
         )}
       </div>
