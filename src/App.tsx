@@ -107,6 +107,135 @@ const FAQList = () => {
 
 import GuestCardForm from './components/GuestCardForm';
 
+const BookingSearchSection = () => {
+  const today = new Date().toISOString().split('T')[0];
+  const tomorrow = new Date(Date.now() + 86400000).toISOString().split('T')[0];
+
+  const [petType, setPetType] = useState<'dog' | 'cat' | null>(null);
+  const [checkIn, setCheckIn] = useState('');
+  const [checkOut, setCheckOut] = useState('');
+  const [widgetDates, setWidgetDates] = useState<{ checkIn: string; checkOut: string } | null>(null);
+
+  const nights = checkIn && checkOut
+    ? Math.max(0, Math.round((new Date(checkOut).getTime() - new Date(checkIn).getTime()) / 86400000))
+    : 0;
+
+  const handleSearch = () => {
+    if (!checkIn || !checkOut || !petType) return;
+    setWidgetDates({ checkIn, checkOut });
+    setTimeout(() => {
+      document.getElementById('litepms-widget-anchor')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 150);
+  };
+
+  const isReady = checkIn && checkOut && petType && nights > 0;
+
+  return (
+    <section id="booking" className="bg-white py-6 md:py-10">
+      <div className="max-w-4xl mx-auto px-4 md:px-6">
+        <div className="bg-[#141414] rounded-[2.5rem] md:rounded-[3rem] p-6 md:p-10 shadow-2xl">
+          <h2 className="text-2xl md:text-4xl font-black text-white tracking-tighter mb-6 md:mb-8">
+            проверить свободные даты
+          </h2>
+
+          {/* Pet type selector */}
+          <div className="flex gap-3 mb-6">
+            <button
+              onClick={() => setPetType(petType === 'dog' ? null : 'dog')}
+              className={`flex items-center gap-2.5 px-5 py-3 rounded-2xl font-black text-sm transition-all ${
+                petType === 'dog'
+                  ? 'bg-[#99ed36] text-[#141414]'
+                  : 'bg-white/10 text-white hover:bg-white/20'
+              }`}
+            >
+              <Dog size={18} />
+              собака
+            </button>
+            <button
+              onClick={() => setPetType(petType === 'cat' ? null : 'cat')}
+              className={`flex items-center gap-2.5 px-5 py-3 rounded-2xl font-black text-sm transition-all ${
+                petType === 'cat'
+                  ? 'bg-[#99ed36] text-[#141414]'
+                  : 'bg-white/10 text-white hover:bg-white/20'
+              }`}
+            >
+              <Cat size={18} />
+              кошка
+            </button>
+          </div>
+
+          {/* Date pickers */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
+            <label className="flex flex-col gap-1.5">
+              <span className="text-xs font-black uppercase tracking-widest text-stone-400">заезд</span>
+              <input
+                type="date"
+                value={checkIn}
+                min={today}
+                onChange={e => {
+                  setCheckIn(e.target.value);
+                  if (checkOut && e.target.value >= checkOut) setCheckOut('');
+                  setWidgetDates(null);
+                }}
+                className="bg-white/10 text-white font-bold rounded-2xl px-5 py-3.5 outline-none border border-white/10 focus:border-[#99ed36] transition-colors cursor-pointer"
+              />
+            </label>
+            <label className="flex flex-col gap-1.5">
+              <span className="text-xs font-black uppercase tracking-widest text-stone-400">выезд</span>
+              <input
+                type="date"
+                value={checkOut}
+                min={checkIn || tomorrow}
+                onChange={e => { setCheckOut(e.target.value); setWidgetDates(null); }}
+                className="bg-white/10 text-white font-bold rounded-2xl px-5 py-3.5 outline-none border border-white/10 focus:border-[#99ed36] transition-colors cursor-pointer"
+              />
+            </label>
+          </div>
+
+          {/* Info row + button */}
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+            {nights > 0 && (
+              <div className="flex items-center gap-2 text-stone-400 font-bold text-sm px-2">
+                <span className="text-[#99ed36] font-black text-lg">{nights}</span>
+                {nights === 1 ? 'ночь' : nights < 5 ? 'ночи' : 'ночей'}
+              </div>
+            )}
+            <button
+              onClick={handleSearch}
+              disabled={!isReady}
+              className={`flex-1 sm:ml-auto flex items-center justify-center gap-2 px-8 py-4 rounded-2xl font-black text-base transition-all ${
+                isReady
+                  ? 'bg-[#99ed36] text-[#141414] hover:scale-[1.02] shadow-lg shadow-[#99ed36]/20'
+                  : 'bg-white/10 text-stone-500 cursor-not-allowed'
+              }`}
+            >
+              показать доступные номера
+              <ChevronRight size={18} />
+            </button>
+          </div>
+
+          {!petType && (
+            <p className="mt-4 text-xs text-stone-500 font-bold">выберите тип питомца, чтобы продолжить</p>
+          )}
+        </div>
+
+        {/* Widget */}
+        {widgetDates && (
+          <motion.div
+            id="litepms-widget-anchor"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4 }}
+            className="mt-6"
+          >
+            <BookingWidget checkIn={widgetDates.checkIn} checkOut={widgetDates.checkOut} />
+          </motion.div>
+        )}
+      </div>
+    </section>
+  );
+};
+
 export default function App() {
   const [currentPage, setCurrentPage] = useState<'main' | 'booking' | 'guest-card'>('main');
   const [selectedCategory, setSelectedCategory] = useState<'cats' | 'dogs' | null>(null);
@@ -214,7 +343,6 @@ export default function App() {
             <button onClick={() => scrollToId('promos')} className="hover:text-[#ff7e27] transition-all">Акции</button>
             <button onClick={() => scrollToId('gallery')} className="hover:text-[#ff7e27] transition-all">Фото</button>
             <button onClick={() => scrollToId('faq')} className="hover:text-[#ff7e27] transition-all">Вопросы</button>
-            <button onClick={() => scrollToId('reviews')} className="hover:text-[#ff7e27] transition-all">Отзывы</button>
             <button onClick={() => { setCurrentPage('guest-card'); window.scrollTo(0, 0); setIsMenuOpen(false); }} className="hover:text-[#ff7e27] transition-all whitespace-nowrap">Анкета гостя</button>
             <button onClick={() => scrollToId('contacts')} className="hover:text-[#99ed36] transition-all">Контакты</button>
           </nav>
@@ -257,7 +385,6 @@ export default function App() {
                   { name: 'Акции', id: 'promos' },
                   { name: 'Фото', id: 'gallery' },
                   { name: 'Вопросы', id: 'faq' },
-                  { name: 'Отзывы', id: 'reviews' },
                   { name: 'Анкета', id: 'guest-card' },
                   { name: 'Контакты', id: 'contacts' }
                 ].map((item, i) => (
@@ -473,6 +600,9 @@ export default function App() {
                 </picture>
               </motion.div>
             </section>
+
+            {/* BOOKING SEARCH */}
+            <BookingSearchSection />
 
             {/* ROOMS */}
             <section id="rooms" className="py-12 md:py-20 bg-white">
@@ -701,8 +831,8 @@ export default function App() {
                       
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 md:gap-3">
                         {rulesSections.checklist.map((item, i) => (
-                          <div key={i} className="flex flex-col items-center text-center p-4 rounded-2xl bg-[#99ed36]/10 border border-[#99ed36]/20 shadow-sm hover:shadow-md transition-all group cursor-default h-full">
-                            <span className="font-bold text-stone-700 text-[13px] md:text-sm leading-tight">{item}</span>
+                          <div key={i} className="flex flex-col items-start text-left p-4 rounded-2xl bg-[#99ed36]/25 border border-[#99ed36]/50 shadow-sm hover:shadow-md transition-all group cursor-default h-full">
+                            <span className="font-bold text-stone-700 text-sm md:text-base leading-tight">{item}</span>
                           </div>
                         ))}
                       </div>
@@ -720,8 +850,8 @@ export default function App() {
                       
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 md:gap-3">
                         {rulesSections.stopList.map((item, i) => (
-                          <div key={i} className="flex flex-col items-center text-center p-4 rounded-2xl bg-red-50/50 border border-red-100/60 shadow-sm hover:shadow-md transition-all group cursor-default h-full">
-                            <span className="font-bold text-stone-700 text-[13px] md:text-sm leading-tight">{item}</span>
+                          <div key={i} className="flex flex-col items-start text-left p-4 rounded-2xl bg-red-100 border border-red-300 shadow-sm hover:shadow-md transition-all group cursor-default h-full">
+                            <span className="font-bold text-stone-700 text-sm md:text-base leading-tight">{item}</span>
                           </div>
                         ))}
                       </div>
@@ -833,64 +963,6 @@ export default function App() {
                 <FAQList />
               </div>
             </section>
-            <section id="reviews" className="py-12 md:py-20 bg-white">
-              <div className="max-w-7xl mx-auto px-4 md:px-6">
-                <div className="text-center mb-12">
-                  <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-4">Отзывы гостей</h2>
-                  <p className="text-stone-400 font-bold">Реальные истории проживания в нашем отеле</p>
-                </div>
-                
-                 <div className="flex md:grid md:grid-cols-2 lg:grid-cols-3 overflow-x-auto md:overflow-x-visible no-scrollbar snap-x snap-mandatory gap-4 pb-12 px-5 md:px-0">
-                  {testimonialData.map((t: any, idx: number) => (
-                    <motion.div 
-                      key={idx} 
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: idx * 0.1 }}
-                      className="min-w-[280px] w-[82vw] md:w-auto md:min-w-0 snap-start flex-shrink-0 break-inside-avoid bg-stone-50 p-7 md:p-8 rounded-[2.5rem] border border-stone-100 shadow-sm hover:shadow-xl transition-all duration-500 group flex flex-col h-full"
-                    >
-                      <div className="flex justify-between items-start mb-6">
-                        <div className="flex gap-0.5">
-                          {[...Array(5)].map((_, i) => (
-                            <Star 
-                              key={i} 
-                              size={16} 
-                              fill={i < t.stars ? "#ff7e27" : "none"} 
-                              className={i < t.stars ? "text-[#ff7e27]" : "text-stone-200"} 
-                            />
-                          ))}
-                        </div>
-                        <span className="text-xs font-bold text-stone-400 uppercase tracking-wider">{t.stayDate}</span>
-                      </div>
-                      
-                      <p className="text-lg font-medium leading-relaxed mb-8 text-stone-700">
-                        "{t.text}"
-                      </p>
-                      
-                      <div className="flex items-center gap-4 pt-6 border-t border-stone-50">
-                        <div className={`w-12 h-12 rounded-2xl flex items-center justify-center transition-colors duration-500 ${
-                          t.type === 'cat' 
-                            ? 'bg-[#99ed36]/10 text-[#99ed36] group-hover:bg-[#99ed36] group-hover:text-white' 
-                            : 'bg-[#ff7e27]/10 text-[#ff7e27] group-hover:bg-[#ff7e27] group-hover:text-white'
-                        }`}>
-                          {t.type === 'cat' ? <Cat size={24} /> : <Dog size={24} />}
-                        </div>
-                        <div>
-                          <p className="font-black text-lg leading-none mb-1">{t.name}</p>
-                          <p className={`text-xs font-black uppercase tracking-tight ${
-                            t.type === 'cat' ? 'text-[#99ed36]' : 'text-[#ff7e27]'
-                          }`}>{t.pet}</p>
-                        </div>
-                      </div>
-                    </motion.div>
-                  ))}
-                </div>
-                
-
-              </div>
-            </section>
-
             {/* CONTACTS */}
             <section id="contacts" className="py-12 md:py-20 bg-white">
               <div className="max-w-7xl mx-auto px-4 md:px-6">
@@ -1026,7 +1098,6 @@ export default function App() {
               <h4 className="text-white font-black text-lg mb-8">Разделы</h4>
               <nav className="flex flex-col gap-4 font-bold text-stone-500">
                 <button onClick={() => scrollToId('faq')} className="hover:text-[#ff7e27] transition-all text-left">Вопросы</button>
-                <button onClick={() => scrollToId('reviews')} className="hover:text-[#ff7e27] transition-all text-left">Отзывы</button>
                 <button onClick={() => { setCurrentPage('guest-card'); window.scrollTo(0, 0); }} className="hover:text-[#ff7e27] transition-all text-left">Анкета гостя</button>
                 <button onClick={() => scrollToId('contacts')} className="hover:text-[#99ed36] transition-all text-left">Контакты</button>
               </nav>

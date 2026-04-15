@@ -168,7 +168,6 @@ export default function AdminPanel() {
             { id: 'rules', icon: Shield, label: 'Правила' },
             { id: 'promo', icon: MessageSquare, label: 'Акции' },
             { id: 'faq', icon: HelpCircle, label: 'FAQ' },
-            { id: 'reviews', icon: Star, label: 'Отзывы' },
             { id: 'gallery', icon: Image, label: 'Галерея' },
             { id: 'contacts', icon: Phone, label: 'Контакты' }
           ].map(item => (
@@ -575,60 +574,6 @@ export default function AdminPanel() {
                      }
                   }} />
                </label>
-            </div>
-          )}
-
-          {activeTab === 'reviews' && (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-               {content.reviews.map((rev: any, i: number) => (
-                  <div key={i} className="bg-white p-10 rounded-[3.5rem] border border-stone-100 shadow-sm relative group flex flex-col hover:shadow-xl transition-all">
-                     <div className="flex justify-between items-center mb-6">
-                        <div className="flex gap-1 text-[#ff7e27]">
-                           {[...Array(5)].map((_, si) => (
-                             <button key={si} onClick={() => {
-                               const newRev = [...content.reviews];
-                               newRev[i].stars = si + 1;
-                               setContent({...content, reviews: newRev});
-                             }}>
-                               <Star size={16} fill={si < rev.stars ? "currentColor" : "none"} className={si < rev.stars ? 'text-[#ff7e27]' : 'text-stone-200'} />
-                             </button>
-                           ))}
-                        </div>
-                        <button onClick={() => setContent({...content, reviews: content.reviews.filter((_:any,idx:number) => idx !== i)})} className="text-stone-200 hover:text-red-500 transition-colors p-2">
-                           <Trash2 size={18} />
-                        </button>
-                     </div>
-                     <textarea className="flex-1 bg-stone-50 rounded-2xl p-6 font-bold text-sm text-stone-600 outline-none h-48 resize-none mb-6 opacity-80" value={rev.text} onChange={(e) => {
-                        const newRev = [...content.reviews];
-                        newRev[i].text = e.target.value;
-                        setContent({...content, reviews: newRev});
-                     }} />
-                     <div className="space-y-3">
-                        <div className="flex items-center gap-3">
-                           <User size={14} className="text-stone-300" />
-                           <input className="font-black text-xl w-full outline-none" value={rev.name} onChange={(e) => {
-                              const newRev = [...content.reviews];
-                              newRev[i].name = e.target.value;
-                              setContent({...content, reviews: newRev});
-                           }} />
-                        </div>
-                        <div className="flex items-center gap-2">
-                           <CheckCircle2 size={12} className="text-[#99ed36]" />
-                           <input className="text-[10px] font-black uppercase text-[#99ed36] bg-[#99ed36]/5 px-4 py-2 rounded-full outline-none" value={rev.pet} onChange={(e) => {
-                              const newRev = [...content.reviews];
-                              newRev[i].pet = e.target.value;
-                              setContent({...content, reviews: newRev});
-                           }} />
-                        </div>
-                     </div>
-                  </div>
-               ))}
-               <button onClick={() => setContent({...content, reviews: [{ name: "Имя клиента", pet: "Кот/Собака", text: "Ваш отзыв...", stars: 5, stayDate: "Март 2026" }, ...content.reviews]})} className="bg-white border-4 border-dashed border-stone-100 rounded-[3.5rem] flex flex-col items-center justify-center gap-4 hover:border-[#99ed36] transition-all group">
-                  <div className="w-16 h-16 bg-stone-50 rounded-2xl flex items-center justify-center text-stone-300 group-hover:bg-[#99ed36] group-hover:text-white transition-all">
-                      <Plus size={32} />
-                  </div>
-                  <span className="text-[10px] font-black uppercase text-stone-300">Добавить отзыв</span>
-               </button>
             </div>
           )}
 
