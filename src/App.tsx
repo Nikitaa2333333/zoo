@@ -271,8 +271,13 @@ const BookingSearchSection = () => {
   );
 };
 
+const getInitialPage = (): 'main' | 'booking' | 'guest-card' => {
+  if (typeof window !== 'undefined' && window.location.hash === '#anketa') return 'guest-card';
+  return 'main';
+};
+
 export default function App() {
-  const [currentPage, setCurrentPage] = useState<'main' | 'booking' | 'guest-card'>('main');
+  const [currentPage, setCurrentPage] = useState<'main' | 'booking' | 'guest-card'>(getInitialPage);
   const [selectedCategory, setSelectedCategory] = useState<'cats' | 'dogs' | null>(null);
   const [selectedRoom, setSelectedRoom] = useState<any | null>(null);
   const [checkInDate, setCheckInDate] = useState('');
@@ -325,9 +330,21 @@ export default function App() {
     window.scrollTo(0, 0);
   };
 
+  const goToGuestCard = () => {
+    setCurrentPage('guest-card');
+    window.scrollTo(0, 0);
+    history.pushState(null, '', '#anketa');
+    setIsMenuOpen(false);
+  };
+
+  const goToMain = () => {
+    setCurrentPage('main');
+    history.pushState(null, '', window.location.pathname);
+  };
+
   const scrollToId = (id: string) => {
     if (currentPage !== 'main') {
-      setCurrentPage('main');
+      goToMain();
       setTimeout(() => {
         const element = document.getElementById(id);
         if (element) {
@@ -359,7 +376,7 @@ export default function App() {
       {/* HEADER */}
       <header className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-white/20">
         <div className="max-w-7xl mx-auto px-6 h-16 md:h-20 flex items-center justify-between">
-          <div className="flex items-center gap-2 md:gap-3 group cursor-pointer" onClick={() => { setCurrentPage('main'); window.scrollTo(0, 0); }}>
+          <div className="flex items-center gap-2 md:gap-3 group cursor-pointer" onClick={() => { goToMain(); window.scrollTo(0, 0); }}>
             <img
               src={logoImg}
               className="w-10 h-10 md:w-12 md:h-12 object-contain group-hover:scale-110 transition-transform duration-500"
@@ -378,7 +395,7 @@ export default function App() {
             <button onClick={() => scrollToId('promos')} className="hover:text-[#ff7e27] transition-all">Акции</button>
             <button onClick={() => scrollToId('gallery')} className="hover:text-[#ff7e27] transition-all">Фото</button>
             <button onClick={() => scrollToId('faq')} className="hover:text-[#ff7e27] transition-all">Вопросы</button>
-            <button onClick={() => { setCurrentPage('guest-card'); window.scrollTo(0, 0); setIsMenuOpen(false); }} className="hover:text-[#ff7e27] transition-all whitespace-nowrap">Анкета гостя</button>
+            <button onClick={() => goToGuestCard()} className="hover:text-[#ff7e27] transition-all whitespace-nowrap">Анкета гостя</button>
             <button onClick={() => scrollToId('contacts')} className="hover:text-[#99ed36] transition-all">Контакты</button>
           </nav>
 
@@ -428,7 +445,7 @@ export default function App() {
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.1 + i * 0.05 }}
-                    onClick={() => item.id === 'guest-card' ? (setCurrentPage('guest-card'), setIsMenuOpen(false)) : scrollToId(item.id)}
+                    onClick={() => item.id === 'guest-card' ? goToGuestCard() : scrollToId(item.id)}
                     className="text-left text-3xl md:text-4xl font-black hover:text-[#ff7e27] transition-colors"
                   >
                     {item.name}
@@ -449,7 +466,7 @@ export default function App() {
             exit={{ opacity: 0, y: -20 }}
             className="pt-20 md:pt-24"
           >
-            <GuestCardForm onBack={() => setCurrentPage('main')} />
+            <GuestCardForm onBack={() => goToMain()} />
           </motion.div>
         ) : currentPage === 'booking' && selectedRoom ? (
           <motion.div
@@ -459,7 +476,7 @@ export default function App() {
             exit={{ opacity: 0, x: -20 }}
             className="pt-20 md:pt-24 pb-12 md:pb-20 max-w-7xl mx-auto px-4 md:px-6"
           >
-            <button onClick={() => setCurrentPage('main')} className="flex items-center gap-2 mb-8 md:mb-10 font-bold text-stone-500 hover:text-[#ff7e27] transition-all group">
+            <button onClick={() => goToMain()} className="flex items-center gap-2 mb-8 md:mb-10 font-bold text-stone-500 hover:text-[#ff7e27] transition-all group">
               <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" /> Назад к выбору
             </button>
 
@@ -1108,7 +1125,7 @@ export default function App() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 md:gap-8 mb-20">
             {/* LOGO */}
             <div className="flex flex-col items-start text-left">
-              <div className="flex items-center gap-3 group cursor-pointer" onClick={() => { setCurrentPage('main'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>
+              <div className="flex items-center gap-3 group cursor-pointer" onClick={() => { goToMain(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>
                 <img src={logoImg} className="w-12 h-12 object-contain opacity-90" alt="Бест френд" />
                 <div className="flex flex-col">
                   <span className="text-xl font-black tracking-tighter leading-none text-white">Бест френд</span>
@@ -1133,7 +1150,7 @@ export default function App() {
               <h4 className="text-white font-black text-lg mb-8">Разделы</h4>
               <nav className="flex flex-col gap-4 font-bold text-stone-500">
                 <button onClick={() => scrollToId('faq')} className="hover:text-[#ff7e27] transition-all text-left">Вопросы</button>
-                <button onClick={() => { setCurrentPage('guest-card'); window.scrollTo(0, 0); }} className="hover:text-[#ff7e27] transition-all text-left">Анкета гостя</button>
+                <button onClick={() => goToGuestCard()} className="hover:text-[#ff7e27] transition-all text-left">Анкета гостя</button>
                 <button onClick={() => scrollToId('contacts')} className="hover:text-[#99ed36] transition-all text-left">Контакты</button>
               </nav>
             </div>
