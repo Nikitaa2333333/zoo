@@ -333,7 +333,7 @@ export default function App() {
   const goToGuestCard = () => {
     setCurrentPage('guest-card');
     window.scrollTo(0, 0);
-    history.pushState(null, '', '#anketa');
+    history.pushState(null, '', '/#anketa');
     setIsMenuOpen(false);
   };
 
