@@ -394,6 +394,7 @@ export default function App() {
             <button onClick={() => scrollToId('rules')} className="hover:text-[#ff7e27] transition-all whitespace-nowrap">Правила</button>
             <button onClick={() => scrollToId('promos')} className="hover:text-[#ff7e27] transition-all">Акции</button>
             <button onClick={() => scrollToId('gallery')} className="hover:text-[#ff7e27] transition-all">Фото</button>
+            <button onClick={() => scrollToId('reviews')} className="hover:text-[#ff7e27] transition-all">Отзывы</button>
             <button onClick={() => scrollToId('faq')} className="hover:text-[#ff7e27] transition-all">Вопросы</button>
             <button onClick={() => goToGuestCard()} className="hover:text-[#ff7e27] transition-all whitespace-nowrap">Анкета гостя</button>
             <button onClick={() => scrollToId('contacts')} className="hover:text-[#99ed36] transition-all">Контакты</button>
@@ -436,6 +437,7 @@ export default function App() {
                   { name: 'Правила', id: 'rules' },
                   { name: 'Акции', id: 'promos' },
                   { name: 'Фото', id: 'gallery' },
+                  { name: 'Отзывы', id: 'reviews' },
                   { name: 'Вопросы', id: 'faq' },
                   { name: 'Анкета', id: 'guest-card' },
                   { name: 'Контакты', id: 'contacts' }
@@ -1000,6 +1002,33 @@ export default function App() {
                       />
                     </motion.div>
                   ))}
+                </div>
+              </div>
+            </section>
+
+            {/* REVIEWS */}
+            <section id="reviews" className="py-12 md:py-20 bg-white">
+              <div className="max-w-7xl mx-auto px-4 md:px-6">
+                <div className="text-center mb-12">
+                  <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-4">Отзывы клиентов</h2>
+                  <p className="text-stone-400 font-bold text-lg">Что говорят хозяева о жизни их питомцев у нас</p>
+                </div>
+                <div className="flex justify-center">
+                  <div style={{ width: '100%', maxWidth: '560px', height: '800px', overflow: 'hidden', position: 'relative' }}>
+                    <iframe
+                      style={{ width: '100%', height: '100%', border: '1px solid #e6e6e6', borderRadius: '8px', boxSizing: 'border-box' }}
+                      src="https://yandex.ru/maps-reviews-widget/223170593664?comments"
+                      title="Отзывы о зоогостинице Бест Френд на Яндекс Картах"
+                    />
+                    <a
+                      href="https://yandex.com/maps/org/best_frend/223170593664/"
+                      target="_blank"
+                      rel="noreferrer"
+                      style={{ boxSizing: 'border-box', textDecoration: 'none', color: '#b3b3b3', fontSize: '10px', fontFamily: 'YS Text,sans-serif', position: 'absolute', bottom: '8px', width: '100%', textAlign: 'center', left: 0, overflow: 'hidden', textOverflow: 'ellipsis', display: 'block', maxHeight: '14px', whiteSpace: 'nowrap', padding: '0 16px' }}
+                    >
+                      Бест Френд на карте Москвы — Яндекс Карты
+                    </a>
+                  </div>
                 </div>
               </div>
             </section>
