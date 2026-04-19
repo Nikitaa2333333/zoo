@@ -1133,12 +1133,13 @@ export default function App() {
                   </div>
 
                   <div className="h-[400px] lg:h-auto min-h-[500px] relative">
-                    <iframe 
-                      src="https://yandex.ru/map-widget/v1/?ll=37.759210%2C55.694540&z=16&pt=37.759210,55.694540,pm2rdm" 
-                      width="100%" 
-                      height="100%" 
-                      frameBorder="0"
-                      title="Yandex Map"
+                    <iframe
+                      src="https://yandex.com/map-widget/v1/org/best_frend/223170593664/reviews/?ll=37.759210%2C55.694540&z=16"
+                      width="100%"
+                      height="100%"
+                      frameBorder="1"
+                      allowFullScreen
+                      title="Бест Френд на Яндекс Картах"
                       loading="lazy"
                     ></iframe>
                   </div>
