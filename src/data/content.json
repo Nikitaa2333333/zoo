@@ -32,9 +32,9 @@
   "contacts": {
     "phone": "7 (967) 057-81-30",
     "address": "Бизнес-парк «Волжский» \n г. Москва, Волжский бульвар, д.51 с.7, пом. 123-124",
-    "email": "hello@best-friend.ru",
+    "email": "best-friend.zoo@yandex.ru",
     "social": {
-      "telegram": "https://t.me/best_friend_hotel",
+      "telegram": "https://t.me/+79670578130",
       "whatsapp": "https://wa.me/79670578130",
       "max": "https://t.me/MAX_CONTACT"
     },
@@ -43,7 +43,7 @@
   "catRooms": [
     {
       "title": "Стандарт",
-      "image": "/images/uploads/img_1776097897890.webp",
+      "image": "images/rooms/cat_standard.webp",
       "price": "850 ₽/сут",
       "pricePerNight": 850,
       "area": "0.8 м²",
@@ -70,7 +70,7 @@
       "litePmsId": "12852"
     },
     {
-      "title": "Улучшенный",
+      "title": "Улучшенный (двухуровневый)",
       "image": "/images/rooms/cat_improved.webp",
       "price": "1050 ₽/сут",
       "pricePerNight": 1050,
@@ -98,7 +98,7 @@
       "litePmsId": "12853"
     },
     {
-      "title": "Комфорт",
+      "title": "Комфорт (двухуровневый)",
       "image": "/images/rooms/cat_comfort.webp",
       "price": "1250 ₽/сут",
       "pricePerNight": 1250,
@@ -129,7 +129,7 @@
   "dogRooms": [
     {
       "title": "Стандарт",
-      "image": "/images/rooms/dog_standard.webp",
+      "image": "images/rooms/dog_standard.webp",
       "price": "1350 ₽/сут",
       "pricePerNight": 1350,
       "area": "0.8 м²",
@@ -151,8 +151,8 @@
     },
     {
       "title": "Улучшенный",
-      "image": "/images/rooms/dog_comfort.webp",
-      "price": "1690 ₽/сут",
+      "image": "images/rooms/dog_improved.webp",
+      "price": "1700 ₽/сут",
       "pricePerNight": 1690,
       "area": "0.8 м²",
       "height": "1.4 м",
@@ -175,8 +175,8 @@
     },
     {
       "title": "Комфорт (2 этаж)",
-      "image": "/images/rooms/dog_comfort.webp",
-      "price": "1890 ₽/сут",
+      "image": "images/rooms/dog_comfort.webp",
+      "price": "1900 ₽/сут",
       "pricePerNight": 1890,
       "area": "1.12 м²",
       "height": "1.4 м",
@@ -199,8 +199,8 @@
     },
     {
       "title": "Комфорт+ (1 этаж)",
-      "image": "/images/rooms/dog_comfort.webp",
-      "price": "2190 ₽/сут",
+      "image": "images/rooms/dog_comfort.webp",
+      "price": "2100 ₽/сут",
       "pricePerNight": 2190,
       "area": "1.12 м²",
       "height": "1.4 м",
@@ -223,8 +223,8 @@
     },
     {
       "title": "Люкс",
-      "image": "/images/rooms/dog_luxury.webp",
-      "price": "2490 ₽/сут",
+      "image": "images/rooms/dog_luxury.webp",
+      "price": "2400 ₽/сут",
       "pricePerNight": 2490,
       "area": "1.7 м²",
       "height": "3 м",
@@ -344,81 +344,81 @@
   ],
   "gallery": [
     {
-      "url": "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?q=80&w=800&auto=format&fit=crop",
-      "title": "Уютный котик",
-      "span": "col-span-2",
-      "rotate": -1
-    },
-    {
-      "url": "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?q=80&w=800&auto=format&fit=crop",
-      "title": "Активные игры",
+      "url": "/images/gallery/g5.webp",
+      "title": "Зона отдыха котиков",
       "span": "col-span-1",
       "rotate": 1
     },
     {
-      "url": "https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?q=80&w=800&auto=format&fit=crop",
-      "title": "Тихий час",
+      "url": "/images/uploads/img_1776173899080.webp",
+      "title": "Gallery",
+      "span": "col-span-1",
+      "rotate": 0
+    },
+    {
+      "url": "/images/gallery/g7.webp",
+      "title": "Кошачий вольер с полками",
       "span": "col-span-1",
       "rotate": -1
     },
     {
-      "url": "https://images.unsplash.com/photo-1533738363-b7f9aef128ce?q=80&w=800&auto=format&fit=crop",
-      "title": "Стильный гость",
-      "span": "col-span-2",
-      "rotate": 1
-    },
-    {
-      "url": "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?q=80&w=800&auto=format&fit=crop",
-      "title": "Комфортный сон",
-      "span": "col-span-2",
-      "rotate": -1
-    },
-    {
-      "url": "https://images.unsplash.com/photo-1592754862816-1a6e7e7ad29d?q=80&w=800&auto=format&fit=crop",
-      "title": "Прогулка",
-      "span": "col-span-1",
-      "rotate": 1
-    },
-    {
-      "url": "https://images.unsplash.com/photo-1543852786-1cf6624b9987?q=80&w=800&auto=format&fit=crop",
-      "title": "Любопытство",
-      "span": "col-span-1",
-      "rotate": -1
-    },
-    {
-      "url": "https://images.unsplash.com/photo-1554692990-280459345688?q=80&w=800&auto=format&fit=crop",
-      "title": "Верный друг",
-      "span": "col-span-2",
-      "rotate": 1
-    },
-    {
-      "url": "https://images.unsplash.com/photo-1574158622682-e40e69881006?q=80&w=800&auto=format&fit=crop",
-      "title": "Минимализм",
-      "span": "col-span-1",
-      "rotate": -1
-    },
-    {
-      "url": "https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?q=80&w=800&auto=format&fit=crop",
-      "title": "Отдых",
-      "span": "col-span-2",
-      "rotate": 1
-    },
-    {
-      "url": "https://images.unsplash.com/photo-1450778869180-41d0601e046e?q=80&w=800&auto=format&fit=crop",
-      "title": "Забота",
-      "span": "col-span-1",
-      "rotate": -1
-    },
-    {
-      "url": "https://images.unsplash.com/photo-1548191265-cc70d3d45ba1?q=80&w=800&auto=format&fit=crop",
-      "title": "Друзья",
+      "url": "/images/gallery/g11.webp",
+      "title": "Зоогостиница Бест Френд — вход",
       "span": "col-span-3",
+      "rotate": 0
+    },
+    {
+      "url": "/images/gallery/g1.webp",
+      "title": "Уютные номера для собак",
+      "span": "col-span-2",
+      "rotate": -1
+    },
+    {
+      "url": "/images/gallery/g2.webp",
+      "title": "Игровая зона для кошек",
+      "span": "col-span-1",
       "rotate": 1
+    },
+    {
+      "url": "/images/gallery/g3.webp",
+      "title": "Просторный коридор отеля",
+      "span": "col-span-1",
+      "rotate": -1
+    },
+    {
+      "url": "/images/gallery/g4.webp",
+      "title": "Наши апартаменты",
+      "span": "col-span-2",
+      "rotate": 0
+    },
+    {
+      "url": "/images/gallery/g8.webp",
+      "title": "Комфортные боксы",
+      "span": "col-span-2",
+      "rotate": 1
+    },
+    {
+      "url": "/images/gallery/g9.webp",
+      "title": "Вид на номера",
+      "span": "col-span-1",
+      "rotate": -1
+    },
+    {
+      "url": "/images/gallery/g10.webp",
+      "title": "Светлые комнаты для питомцев",
+      "span": "col-span-1",
+      "rotate": 1
+    },
+    {
+      "url": "https://raw.githubusercontent.com/Nikitaa2333333/zoo/main/public/images/uploads/img_1776174147250.webp",
+      "title": "Gallery",
+      "span": "col-span-1",
+      "rotate": 0
     }
   ],
   "about": {
     "title": "Курорт, который они заслужили",
-    "subtitle": "Бест френд — это не просто современный зоотель в Москве, а уютная гостиница для кошек и собак с круглосуточным присмотром. Мы создали безопасное и технологичное пространство для передержки животных, где каждый гость окружен искренней любовью и заботой.",
+    "subtitle": "Бест френд — это не просто современная зоогостиница в Москве, а уютная гостиница для кошек и собак с круглосуточным присмотром. Мы создали безопасное и технологичное пространство для передержки животных, где каждый гость окружен искренней любовью и заботой.",
     "features": [
       {
         "icon": "Camera",
@@ -501,7 +501,7 @@
     ]
   },
   "hero": {
-    "title": "Бест френд —\nзоотель в Москве\nдля кошек и собак",
+    "title": "Бест френд —\nзоогостиница в Москве\nдля кошек и собак",
     "subtitle": "Бережный уход, видеонаблюдение 24/7 и ежедневные фотоотчёты. Создаем идеальные условия, чтобы ваш любимец чувствовал себя как дома.",
     "badge": {
       "title": "Берем собак\nвсех пород\nи размеров",
